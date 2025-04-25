@@ -1,3 +1,12 @@
+## Index
+- [Python Context Manager](#python-context-manager)
+- [Python List vs Array](#python-list-vs-array)
+- [Python Module vs Package](#python-module-vs-package)
+
+<br>
+<br>
+<br>
+
 ### Python Context Manager
 
 - Context Managers are python class that implement `__enter__` and `__exit__` methods.
@@ -131,3 +140,20 @@ print(float_array)  # array('f', [1.0, 2.0, 3.0])
 
 Prefer `List` when you want a flexible ordered collection of items.<br>
 Prefer `Array` when you want to store large data of same type.
+
+<br>
+<br>
+<br>
+
+### Python Module vs Package
+
+Module
+- A module is simply a `.py` file.
+- It can contain functions, classes, or variables.
+- You can import and use a module in other Python files.
+
+Package
+- A package is a directory containing multiple Python files (modules).
+- This directory must contain an `__init__.py` file. Even if it is empty.
+- This `__init__.py` file differentiates a directory from a package.
+- A package can contain sub-packages.
