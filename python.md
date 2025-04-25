@@ -85,3 +85,49 @@ with my_context_manager() as manager:
 <br>
 <br>
 <br>
+
+### Python List vs Array
+
+List
+- Ordered collection of items.
+- Dynamic sizing. Can add and remove items.
+- Can hold items of different datatypes.
+- Slower than arrays as they are general purpose containers.
+
+<br>
+
+```python
+my_list = [1, 2.0, "3", "four"]
+
+print(my_list)  # [1, 2.0, '3', 'four']
+```
+
+<br>
+
+Array
+- Ordered collection of items.
+- Dynamic sizing. Can add and remove items.
+- Can hold items of same datatype.
+- Faster than lists as they hold items of same datatype.
+- Efficient memory usage and performance.
+
+<br>
+
+```python
+from array import array
+
+int_array = array("i", [1, 2, 3, 4])
+float_array = array("f", [1.0, 2, 3.0, 4.0])
+
+int_array.append(5)
+int_array.remove(1)
+float_array.pop()
+
+print(int_array)  # array('i', [2, 3, 4, 5])
+print(float_array)  # array('f', [1.0, 2.0, 3.0])
+```
+
+<br>
+
+Prefer `List` when you want a flexible ordered collection of items.<br>
+Prefer `Array` when you want to store large data of same type.
