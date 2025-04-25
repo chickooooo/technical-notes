@@ -2,6 +2,7 @@
 - [Python Context Manager](#python-context-manager)
 - [Python List vs Array](#python-list-vs-array)
 - [Python Module vs Package](#python-module-vs-package)
+- [Python Memory Management Model](#python-memory-management-model)
 
 <br>
 <br>
@@ -157,3 +158,47 @@ Package
 - This directory must contain an `__init__.py` file. Even if it is empty.
 - This `__init__.py` file differentiates a directory from a package.
 - A package can contain sub-packages.
+
+<br>
+<br>
+<br>
+
+### Python Memory Management Model
+
+Python's memory management model contains 4 main sections:
+- Memory Allocation
+- Reference Counting
+- Garbage Collection
+- Memory Pools
+
+<br>
+
+**Memory Allocation**
+- In Python, memory is managed automatically.
+- Developer don't have to manually allocate and deallocate memory to objects.
+- Memory is allocated dynamically when an object is created.
+- When an object is created, it is stored in the heap and a reference to that object is stored in a stack.
+
+<br>
+
+**Reference Counting**
+- When a new reference to an object is made, it's reference count is increased by 1.
+- When an existing reference goes out of scope, it's reference count is decreased by 1.
+- When reference count of an object reaches 0, the object is removed from the memory.
+
+<br>
+
+**Garbage Collection**
+- Reference counting handles most cases, but it can't handle cyclic references.
+- Here, the garbage collector detects and breaks these cycles.
+- Once the cyclic references are broken, the reference counter works as expected and deallocates the memory when the counter reaches 0.
+- The garbage collector is triggered when certain thresholds are reached in terms of the number of objects and memory allocated.
+- It runs in the background without affecting the program.
+
+<br>
+
+**Memory Pool**
+- Python uses memory pool to allocate memory in chunks.
+- This avoids frequent memory allocation & deallocation requests to the OS.
+- For small objects, python uses it's own memory allocator `pymalloc` (python memory allocator) that works in memory blocks.
+- For large objects, the allocator requests memory from the OS.
