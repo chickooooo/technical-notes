@@ -3,6 +3,7 @@
 - [Python List vs Array](#python-list-vs-array)
 - [Python Module vs Package](#python-module-vs-package)
 - [Python Memory Management Model](#python-memory-management-model)
+- [Python Asyncio package](#python-asyncio-package)
 
 <br>
 <br>
@@ -202,3 +203,39 @@ Python's memory management model contains 4 main sections:
 - This avoids frequent memory allocation & deallocation requests to the OS.
 - For small objects, python uses it's own memory allocator `pymalloc` (python memory allocator) that works in memory blocks.
 - For large objects, the allocator requests memory from the OS.
+
+<br>
+<br>
+<br>
+
+### Python Asyncio package
+
+- Asyncio package is useful when dealing with asynchronous I/O bound operations.
+- It uses event loop to schedule and run tasks.
+- Event loop is also responsible for switching between tasks, when `await` keyword is encountered.
+- Asyncio has a single thread and a single process design.
+
+<br>
+
+**Key Components**
+
+- `async def`: Creates a coroutine.
+- `await`: Pauses the coroutine until the awaited task finishes.
+- Event loop: Manages and runs all the asynchronous tasks.
+- While a coroutine is paused, event loop will start executing another coroutine.
+
+<br>
+
+```python
+import asyncio
+
+async def say_hello():
+    print("Hello...")
+    await asyncio.sleep(1)
+    print("...world!")
+
+async def main():
+    await asyncio.gather(say_hello(), say_hello())
+
+asyncio.run(main())
+```
