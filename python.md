@@ -4,6 +4,7 @@
 - [Python Module vs Package](#python-module-vs-package)
 - [Python Memory Management Model](#python-memory-management-model)
 - [Python Asyncio package](#python-asyncio-package)
+- [Python Multithreading vs Multiprocessing vs Asyncio](#python-multithreading-vs-multiprocessing-vs-asyncio)
 
 <br>
 <br>
@@ -239,3 +240,37 @@ async def main():
 
 asyncio.run(main())
 ```
+
+<br>
+<br>
+<br>
+
+### Python Multithreading vs Multiprocessing vs Asyncio
+
+**Multithreading**
+- Multithreading spwans multiple threads in a same process.
+- Ideal for blocking I/O bound tasks.
+- Due to GIL, only 1 thread is executed by the python interpreter at a time.
+- While one thread is waiting for I/O bound operation, another thread is picked for execution.
+- OS is responsible for context switching.
+- Use threading when you want to perform `blocking I/O operations` concurrently.
+- Avoid using threads for CPU intensive tasks.
+
+<br>
+
+**Multiprocessing**
+- Multiprocessing spwans multiple processes, each with it's own python interpreter and memory.
+- Ideal for CPU bound tasks.
+- Each process has it's own GIL, hence true parallelism is possible.
+- Use when you want to do parallel computation across CPU cores.
+- Multiprocessing has higher overhead due to inter-process communication and memory usage.
+
+<br>
+
+**Asyncio**
+- Asyncio works with a single thread and a single process.
+- Ideal for non-blocking I/O bound tasks.
+- It uses event loop to manage and schedule asynchronous I/O tasks.
+- When one task encounters `await` statement, another task is picked for execution.
+- Developer is in control of context switching (using `await` keyword).
+- Use asyncio when you want to perform `non-blocking I/O operations` concurrently.
