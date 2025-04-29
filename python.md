@@ -5,6 +5,7 @@
 - [Python Memory Management Model](#python-memory-management-model)
 - [Python Asyncio package](#python-asyncio-package)
 - [Python Multithreading vs Multiprocessing vs Asyncio](#python-multithreading-vs-multiprocessing-vs-asyncio)
+- [Python *args vs **kwargs](#python-args-vs-kwargs)
 
 <br>
 <br>
@@ -274,3 +275,63 @@ asyncio.run(main())
 - When one task encounters `await` statement, another task is picked for execution.
 - Developer is in control of context switching (using `await` keyword).
 - Use asyncio when you want to perform `non-blocking I/O operations` concurrently.
+
+<br>
+<br>
+<br>
+
+### Python *args vs **kwargs
+
+- Both `*args` & `**kwargs` are used to pass arbitrary number of arguments to a function.
+- `*args` collect extra positional arguments as a tuple.
+- `**kwargs` collect extra keyword arguments as a dictionary.
+
+<br>
+
+```python
+# extra positional arguments
+
+def abc(*args):
+    print(type(args))
+    print(args)
+
+abc(1, 2, "ooo")
+
+# Output:
+# <class 'tuple'>
+# (1, 2, 'ooo')
+```
+
+<br>
+
+```python
+# extra keyword arguments
+
+def abc(**kwargs):
+    print(type(kwargs))
+    print(kwargs)
+
+abc(a=1, b="ooo")
+
+# Output:
+# <class 'dict'>
+# {'a': 1, 'b': 'ooo'}
+
+```
+
+<br>
+
+```python
+# extra positional + keyword arguments
+
+def abc(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+abc(1, 2, a="ooo")
+
+# Output:
+# (1, 2)
+# {'a': 'ooo'}
+
+```
