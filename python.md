@@ -6,6 +6,7 @@
 - [Python Asyncio package](#python-asyncio-package)
 - [Python Multithreading vs Multiprocessing vs Asyncio](#python-multithreading-vs-multiprocessing-vs-asyncio)
 - [Python *args vs **kwargs](#python-args-vs-kwargs)
+- [Python Unpacking operators](#python-unpacking-operators)
 
 <br>
 <br>
@@ -334,4 +335,43 @@ abc(1, 2, a="ooo")
 # (1, 2)
 # {'a': 'ooo'}
 
+```
+
+<br>
+<br>
+<br>
+
+### Python Unpacking operators
+
+- In python `*` and `**` are often refered to as unpacking operators.
+- `*` is used to unpack an iterable like a list or a tuple.
+- `**` is used to unpack a dictionary like object.
+- `*` and `**` are used for unpacking arguments in a function call.
+
+<br>
+
+```python
+def greet(name, age):
+    print(f"{name} is {age} years old.")
+
+args = ("Alice", 30)
+kwargs = {"name": "Bob", "age": 25}
+
+greet(*args)  # Output: Alice is 30 years old.
+greet(**kwargs)  # Output: Bob is 25 years old.
+```
+
+<br>
+
+```python
+# unpacking dictionary like object
+
+from collections import OrderedDict
+
+def greet(name, age):
+    print(f"{name} is {age} years old.")
+
+kwargs = OrderedDict({"name": "Bob", "age": 25})
+
+greet(**kwargs)  # Output: Bob is 25 years old.
 ```
