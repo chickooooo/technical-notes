@@ -7,6 +7,7 @@
 - [Python Multithreading vs Multiprocessing vs Asyncio](#python-multithreading-vs-multiprocessing-vs-asyncio)
 - [Python *args vs **kwargs](#python-args-vs-kwargs)
 - [Python Unpacking operators](#python-unpacking-operators)
+- [Python Namespace and Scope](#python-namespace-and-scope)
 
 <br>
 <br>
@@ -374,4 +375,62 @@ def greet(name, age):
 kwargs = OrderedDict({"name": "Bob", "age": 25})
 
 greet(**kwargs)  # Output: Bob is 25 years old.
+```
+
+<br>
+<br>
+<br>
+
+### Python Namespace and Scope
+
+- A namespace is like a dictionary that holds mapping between a variable identifier and its value.
+- There are 4 categories of namespace:
+    - **Built-in namespace**: contains built-in variables & functions (`print()`, `None`, etc.)
+    - **Global namespace**: contains module level variables & functions.
+    - **Local namespace**: contains variables defined inside a function.
+    - **Enclosing namespace**: refers to namespace of outer function (in case of nested functions).
+
+<br>
+
+```python
+x = "global"
+
+def outer():
+    x = "enclosing"
+    def inner():
+        x = "local"
+    inner()
+```
+
+<br>
+
+- Scope defines visibility and lifespan of a variable.
+- It also states where we can access a variable in the code.
+- Again, there are 4 categories of scope:
+    - **Built-in scope**: Python’s built-in names.
+    - **Global scope**: Module level scope.
+    - **Enclosing scope**: Outer function scope.
+    - **Local scope**: Function level scope. 
+
+- We can see the identifiers defined in global and local namespace using: `globals()` and `locals()` functions.
+
+<br>
+
+```python
+my_var_1 = 100
+print("Globals:", globals())
+
+def abc():
+    my_var_2 = 200
+    print("Globals:", globals())
+    print("Locals:", locals())
+
+abc()
+
+# Output:
+
+# Globals: {..., 'my_var_1': 100}
+
+# Globals: {..., 'my_var_1': 100, 'abc': <function abc at 0x7efa454231a0>}
+# Locals: {'my_var_2': 200}
 ```
