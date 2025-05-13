@@ -1,4 +1,5 @@
 ## Index
+- [Python Decorators](#python-decorators)
 - [Python Context Manager](#python-context-manager)
 - [Python List vs Array](#python-list-vs-array)
 - [Python Module vs Package](#python-module-vs-package)
@@ -10,6 +11,92 @@
 - [Python Namespace and Scope](#python-namespace-and-scope)
 - [Python Scope Resolution](#python-scope-resolution)
 - [Python \_\_init\_\_ vs \_\_new\_\_](#python-\_\_init\_\_-vs-\_\_new\_\_)
+
+<br>
+<br>
+<br>
+
+### Python Decorators
+
+- Decorators are just functions that return functions.
+- They are used to add additional functionality to existing functions.
+- For example, `@authenticated` decorator can be used to check if the user is authenticated before passing the request to the view.
+- To implement this, create `authenticated()` method with authentication logic and add `@authenticated` above your API view function.
+A decorator can also take arguments. The syntax looks like this: `@authenticated(admin_only=True)`.
+
+
+<br>
+
+```python
+"""
+Simple decorator
+"""
+
+def authenticated(func):
+    # add auth logic
+    print("auth")
+    # return view function
+    return func
+
+
+@authenticated
+def my_view():
+    # add view logic here
+    print("view")
+
+my_view()
+# auth
+# view
+
+
+"""
+Function arguments
+"""
+
+def authenticated(func):
+    # add auth logic
+    print("auth")
+    # return view function
+    return func
+
+@authenticated
+def my_view(num):
+    # add view logic here
+    print("view", num)
+
+my_view(1)
+# auth
+# view 1
+
+
+"""
+Decorator arguments
+"""
+
+def authenticated(**kwargs):
+    # access parameters
+    print(kwargs)
+    # add auth logic
+    print("auth")
+
+    def decorator(func):
+        # return view function
+        return func
+
+    # return decorator
+    return decorator
+
+@authenticated(admin_only=True)
+def my_view(num):
+    # add view logic here
+    print("view", num)
+
+my_view(1)
+# Output
+# {'admin_only': True}
+# auth
+# view 1
+```
 
 <br>
 <br>
