@@ -1,0 +1,25 @@
+- What is normalization? Why is it important in DBMS?
+- Explain various normal forms.
+- What is denormalization? How does it differ from normalization?
+- Type of keys (primary, candidate, foreign, composite, etc.)
+- Type of relationships (one-to-one, one-to-many, many-to-many, etc.)
+- Type of constraints (unique, not null, etc.)
+- Type of joins (inner, left, right, outer, full, cross, self, etc.)
+- What are database views?
+- Difference between materialise & non materailise views
+- Difference between delete, truncate & drop 
+- What is indexing, how does it works?
+- How indexes are implemented internally?
+- What is a transaction? What are the properties of a transaction?
+- What are ACID properties?
+- What are triggers?
+- What is a stored procedure?
+- What is a stored function?
+- Difference between UNION & UNION ALL
+- Difference between COMMIT and ROLLBACK operations
+- What is referential integrity in DBMS?
+
+- SQL vs NoSQL
+- sharding vs partioning 
+
+- How does DBMS handle concurrency control?
