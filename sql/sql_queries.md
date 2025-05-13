@@ -285,7 +285,7 @@ WHERE
 <br>
 <br>
 
-20 - Show patient_id, first_name, last_name from patients whos diagnosis is 'Dementia'. Primary diagnosis is stored in the admissions table.
+20 - Show patient_id, first_name, last_name from patients whose diagnosis is 'Dementia'. Primary diagnosis is stored in the admissions table.
 
 ```sql
 SELECT
@@ -309,4 +309,92 @@ WHERE patient_id IN (
     FROM admissions
     WHERE diagnosis = 'Dementia'
 );
+```
+
+<br>
+<br>
+
+21 - Display every patient's first_name. Order the list by the length of each name and then by alphabetically.
+
+```sql
+SELECT first_name
+FROM patients
+ORDER BY
+	LEN(first_name),
+    first_name;
+```
+
+<br>
+<br>
+
+22 - Show the total amount of male patients and the total amount of female patients in the patients table. Display the two results in the same row.
+
+```sql
+SELECT (
+	SELECT COUNT(*)
+  	FROM patients
+  	WHERE gender='M'
+) AS male_count,
+(
+  	SELECT COUNT(*)
+  	FROM patients
+  	WHERE gender='F'
+) AS female_count;
+```
+
+```sql
+SELECT 
+  SUM(Gender='M') as male_count, 
+  SUM(Gender='F') AS female_count
+FROM patients;
+```
+
+<br>
+<br>
+
+23 - Show first and last name, allergies from patients which have allergies to either 'Penicillin' or 'Morphine'. Show results ordered ascending by allergies then by first_name then by last_name.
+
+```sql
+SELECT
+	first_name,
+    last_name,
+    allergies
+FROM patients
+WHERE allergies IN ('Penicillin', 'Morphine')
+ORDER BY
+	allergies ASC,
+    first_name,
+    last_name;
+```
+
+<br>
+<br>
+
+24 - Show patient_id, diagnosis from admissions. Find patients admitted multiple times for the same diagnosis.
+
+```sql
+SELECT
+	patient_id,
+    diagnosis
+FROM admissions
+GROUP BY
+	patient_id,
+    diagnosis
+HAVING COUNT(*) > 1;
+```
+
+<br>
+<br>
+
+25 - Show the city and the total number of patients in the city. Order from most to least patients and then by city name ascending.
+
+```sql
+SELECT
+	city,
+    COUNT(*) AS num_patients
+FROM patients
+GROUP BY city
+ORDER BY
+	2 DESC,
+    city ASC;
 ```
