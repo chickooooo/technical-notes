@@ -9,6 +9,7 @@
 - [Python Unpacking operators](#python-unpacking-operators)
 - [Python Namespace and Scope](#python-namespace-and-scope)
 - [Python Scope Resolution](#python-scope-resolution)
+- [Python \_\_init\_\_ vs \_\_new\_\_](#python-\_\_init\_\_-vs-\_\_new\_\_)
 
 <br>
 <br>
@@ -447,6 +448,8 @@ abc()
 - Python first tries to find the variable in the **L**ocal namespace then **E**nclosing namespace then **G**lobal namespace and at last **B**uilt-in namespace.
 - If the variable in not found after searching in all 4 namespaces, it raises `NameError`.
 
+<br>
+
 ```python
 x = "global"
 
@@ -462,4 +465,42 @@ def outer():
 
 outer()
 print(x)  # Prints "global"
+```
+
+<br>
+<br>
+<br>
+
+### Python \_\_init\_\_ vs \_\_new\_\_
+
+- Both of these dunder methods are used in object creation.
+
+`__new__`
+- It creates a new object of the class.
+- It is called before `__init__` method.
+- Returns the newly created object.
+- It is a class method.
+
+<br>
+
+`__init__`
+- It initializes the newly created object.
+- It is called after `__new__` method.
+- Returns `None`.
+- It is an instance method.
+
+<br>
+
+```python
+class MyClass:
+    def __new__(cls, *args, **kwargs):
+        print("Calling __new__")
+        instance = super().__new__(cls)
+        return instance
+
+    def __init__(self, value):
+        print("Calling __init__")
+        self.value = value
+
+obj = MyClass(10)
 ```
