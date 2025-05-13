@@ -8,6 +8,7 @@
 - [Python *args vs **kwargs](#python-args-vs-kwargs)
 - [Python Unpacking operators](#python-unpacking-operators)
 - [Python Namespace and Scope](#python-namespace-and-scope)
+- [Python Scope Resolution](#python-scope-resolution)
 
 <br>
 <br>
@@ -433,4 +434,32 @@ abc()
 
 # Globals: {..., 'my_var_1': 100, 'abc': <function abc at 0x7efa454231a0>}
 # Locals: {'my_var_2': 200}
+```
+
+<br>
+<br>
+<br>
+
+### Python Scope Resolution
+
+- It refers to the process of finding a particular variable in the program.
+- Scope resolution is based on the LEGB rule.
+- Python first tries to find the variable in the **L**ocal namespace then **E**nclosing namespace then **G**lobal namespace and at last **B**uilt-in namespace.
+- If the variable in not found after searching in all 4 namespaces, it raises `NameError`.
+
+```python
+x = "global"
+
+def outer():
+    x = "enclosing"
+
+    def inner():
+        x = "local"
+        print(x)  # Prints "local"
+    
+    inner()
+    print(x)  # Prints "enclosing"
+
+outer()
+print(x)  # Prints "global"
 ```
