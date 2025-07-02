@@ -11,6 +11,15 @@
 - [Python Namespace and Scope](#python-namespace-and-scope)
 - [Python Scope Resolution](#python-scope-resolution)
 - [Python \_\_init\_\_ vs \_\_new\_\_](#python-\_\_init\_\_-vs-\_\_new\_\_)
+- [Python Lambda Function](#python-lambda-function)
+- [Python Deep Copy vs Shallow copy](#python-deep-copy-vs-shallow-copy)
+- [Python Generators](#python-generators)
+- [Python Exception Handling](#python-exception-handling)
+- [Python GIL](#python-gil)
+- [Python == vs is](#python--vs-is)
+- [Python \_\_str\_\_ vs \_\_repr\_\_](#python-\_\_str\_\_-vs-\_\_repr\_\_)
+- [Python with Statement](#python-with-statement)
+- [Python Interning](#python-interning)
 
 <br>
 <br>
@@ -591,3 +600,298 @@ class MyClass:
 
 obj = MyClass(10)
 ```
+
+<br>
+<br>
+<br>
+
+### Python Lambda Function
+
+- A lambda function in python is an anonymous, inline function.
+- It is mostly used with buit-in functions like filter(), map(), etc.
+
+<br>
+
+```python
+a = [1, 2, 3, 4, 5]
+
+even = list(filter(lambda x: x % 2 == 0, a))
+print(even)  # Output: [2, 4]
+```
+
+<br>
+<br>
+<br>
+
+### Python Deep Copy vs Shallow copy
+
+- `deepcopy()` recursively copies the outer iterable and the nested iterables as well.
+- Shallow copy or simply `copy()` copies only the outer iterable.
+
+<br>
+
+```python
+from copy import deepcopy, copy
+
+a = [[1, 2], 3, 4]
+
+a_scopy = copy(a)
+a[0].append(5)
+print(a_scopy)  # Output: [[1, 2, 5], 3, 4]
+
+a = [[1, 2], 3, 4]
+
+a_dcopy = deepcopy(a)
+a[0].append(5)
+print(a_dcopy)  # Output: [[1, 2], 3, 4]
+```
+
+<br>
+<br>
+<br>
+
+### Python Generators
+
+- Generators in python are lazily evaluated objects.
+- The next loop is ran only when it is required.
+- Like normal iterables, generators do not evaluate all the results once and store them in memory
+
+<br>
+
+```python
+def count_to_five():
+    i = 1
+    while i <= 5:
+        yield i
+        i += 1
+
+for i in count_to_five():
+    print(i, end=" ")  # Output: 1 2 3 4 5 
+```
+
+<br>
+<br>
+<br>
+
+### Python Exception Handling
+
+- Exceptions are handled using try - except block.
+- We can except specific exceptions like `ValueError`, `ZeroDivisionError`, etc.
+- We can also except generic exceptions using `except Exception as e`.
+- The code inside else is executed, only if no exception occured.
+- The code inside finally is always executed, whether an exception occured or not.
+
+<br>
+
+```python
+def exception_handling(num):
+    try:
+        print("try")
+        10 / num
+        print("end")
+    except ZeroDivisionError:
+        print("error")
+    else:
+        print("else")
+    finally:
+        print("finally")
+
+exception_handling(1)
+# try
+# end
+# else
+# finally
+
+exception_handling(0)
+# try
+# error
+# finally
+```
+
+<br>
+
+- The code inside `finally` block will always be executed. Even if we have `return` statement in `try` and `except` blocks.
+- If there is a `return` statement in `finally`, this value will be returned else the value from `try` and `except` blocks will be returned.
+
+<br>
+
+```python
+def exception_handling(num):
+    try:
+        print("try")
+        10 / num
+        print("end")
+        return 1
+    except ZeroDivisionError:
+        print("error")
+        return 2
+    else:
+        print("else")
+    finally:
+        print("finally")
+
+res = exception_handling(1)
+print(res)
+# try
+# end
+# finally
+# 1
+
+res = exception_handling(0)
+print(res)
+# try
+# error
+# finally
+# 2
+```
+
+<br>
+<br>
+<br>
+
+### Python GIL
+
+- GIL stands from Global Interpreter Lock.
+- Each python process has a GIL lock associated with it.
+- GIL allows only 1 thread execution at a time by the python interpreter.
+- It prevents multithreading and the issues associated with it (like race conditions, data corruption, etc.).
+- Due to limitation of having only single thread, true multithreading is not possible. Thus the performance of the applications can be reduced.
+- But if we are dealing with I/O bound operations, we can leverage threading module & context switching.
+
+<br>
+<br>
+<br>
+
+### Python == vs is
+
+- `is` check if the 2 object are same. i.e. they point to same memory location.
+- `==` check if the 2 objects have same value. i.e. the content of memory location.
+
+<br>
+
+```python
+a = [1, 2]
+b = [1, 2]
+print(a == b)  # True
+print(a is b)  # False
+
+a = None
+b = None
+print(a == b)  # True
+print(a is b)  # True
+
+a = 1
+b = 1
+print(a is b)  # True
+# Integer Interning
+```
+
+<br>
+<br>
+<br>
+
+### Python \_\_str\_\_ vs \_\_repr\_\_
+
+- `__str__` is aimed for end user.
+- It provides end user readable string.
+- Use `str()` or `print()` to see this string.
+
+<br>
+
+- `__repr__` is aimed for developer.
+- It provides developer readable string. This string can be used for object creation.
+- use `repr()` or type the object name in REPL to see this string.
+
+<br>
+
+- Both of these provides string representation of objects.
+- If `__str__` is not implement, `__repr__` is used. If that is also not implemented, default python memory string is used.
+
+<br>
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"{self.name}, {self.age} years old"
+
+    def __repr__(self):
+        return f"Person('{self.name}', {self.age})"
+
+p = Person("Alice", 30)
+
+print(str(p))  # Alice, 30 years old
+print(repr(p))  # Person('Alice', 30)
+```
+
+<br>
+<br>
+<br>
+
+### Python with Statement
+
+- The `with` statement is used to simplify resource management.
+- It makes sure resources are aquired & released properly.
+- Example: opening & closing a file, connecting to database, etc.
+- If any exception occurs within the with block, it is handled gracefully making sure the resource is closed properly.
+
+<br>
+
+```python
+with open(“my_file.txt”, “r”) as file:
+	content = file.read()
+```
+
+<br>
+<br>
+<br>
+
+### Python Interning
+
+- Interning is an optimization technique where identical immutable objects (like integers and strings) are reused to save memory and speed up comparisons.
+- Python automatically interns small integers in the range -5 to 256.
+- Larger integers may not be interned.
+
+<br>
+
+```python
+a = 100
+b = 100
+a is b  # True
+
+a = 1000
+b = 1000
+a is b  # False (usually)
+```
+
+<br>
+
+- String literals that are short or valid identifiers ('hello', 'foo123') are interned.
+- String literals with space in them may not be interned.
+
+<br>
+
+```python
+a = "hello"
+b = "hello"
+a is b  # True
+
+a = "hello world"
+b = "hello world"
+a is b  # Might be False
+
+```
+
+<br>
+
+- Interning only applies to immutable types (e.g., int, str, bool, None, float (some cases)).
+- It’s an optimization, not a guarantee.
+
+<br>
+<br>
+<br>
+
+### 
