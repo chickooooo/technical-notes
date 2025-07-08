@@ -5,6 +5,9 @@
 - [Method overriding vs Method overloading](#method-overriding-vs-method-overloading)
 - [Class method vs Static method](#class-method-vs-static-method)
 - [Abstract class vs Interface](#abstract-class-vs-interface)
+- [Class vs Object](#class-vs-object)
+- [Constructor & Destructor](#constructor--destructor)
+- [super() method](#super-method)
 
 <br>
 <br>
@@ -172,3 +175,101 @@ class ChildClass(BaseClass):
 child = ChildClass()
 child.print_hello()  # Output: hello
 ```
+
+<br>
+<br>
+<br>
+
+### Class vs Object
+
+Class
+- It is a blueprint or template for creating objects.
+- It defines the properties (attributes) & behaviours (methods) of the object.
+- It does not hold data itself. It is just a structure.
+
+Object
+- An object is a concrete implementation of the class.
+- It holds actual data and can use the class methods.
+
+```python
+class Dog:  # Class
+    def __init__(self, name):
+        self.name = name
+
+dog1 = Dog("Buddy")  # Object
+``` 
+
+<br>
+<br>
+<br>
+
+### Constructor & Destructor
+
+Constructor
+- It is called automatically when an object is created.
+- It is used to initialise the object.
+
+```python
+class MyClass:
+    def __init__(self, name):
+        self.name = name
+```
+
+<br>
+
+Destructor
+- It is called automatically when an object is about to be destroyed.
+- It is used for cleanup operations like closing a file or releasing resources.
+
+```python
+class MyClass:
+    def __del__(self):
+        print("Destructor called, object deleted")
+```
+
+<br>
+<br>
+<br>
+
+### super() method
+
+- It is used to call methods from the parent class.
+- Commonly used in inheritance to access parent class's methods / constructor.
+- It is also used when we are overriding methods from parent class.
+- Promotes code reuse.
+
+```python
+class Parent:
+    def __init__(self):
+        print("Parent init")
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()  # Calls Parent's __init__()
+        print("Child init")
+```
+
+```python
+class Parent:
+    def show(self):
+        print("Parent show")
+
+class Child(Parent):
+    def show(self):
+        super().show()  # Calls Parent's show()
+        print("Child show")
+
+```
+
+<br>
+<br>
+<br>
+
+### More
+
+- What is MRO
+- Types of inheritance: single, multiple, multilevel, hierarchical, hybrid inheritance in Python 
+- What is the diamond problem in multiple inheritance and how does Python solve it (MRO)?
+- Common dunder methods
+- What are metaclasses in Python and when would you use them? 
+- What is duck typing in Python? 
