@@ -8,6 +8,9 @@
 - [Class vs Object](#class-vs-object)
 - [Constructor & Destructor](#constructor--destructor)
 - [super() method](#super-method)
+- [Method Resolution Order](#method-resolution-order)
+- [Types of inheritance](#types-of-inheritance)
+- [Diamond Problem](#diamond-problem)
 
 <br>
 <br>
@@ -265,11 +268,170 @@ class Child(Parent):
 <br>
 <br>
 
+### Method Resolution Order
+
+- MRO refers to the order in which python searches for a method in parent classes.
+- It is used in **Multiple** inheritance.
+- It follows **C3 linearization** algorithm:
+    - Go from left to right.
+    - All the child classes must appear before parent classes.
+
+```python
+class A:
+    def show(self):
+        print("A")
+
+class B(A):
+    def show(self):
+        print("B")
+
+class C(A):
+    def show(self):
+        print("C")
+
+class D(B, C):
+    pass
+
+d = D()
+
+print(D.mro())  
+# [D, B, C, A, object]
+```
+
+<br>
+<br>
+<br>
+
+### Types of Inheritance
+
+Single Inheritance
+- One child class inherits from one parent class.
+
+```python
+class A:
+    pass
+
+class B(A):
+    pass
+```
+
+<br>
+
+Multiple Inheritance
+- One child class inherits from multiple parent classes.
+
+```python
+class A:
+    pass
+
+class B:
+    pass
+
+class C(A, B):
+    pass
+```
+
+<br>
+
+Multilevel Inheritance
+- A class inherits from a **child** class, forming a chain.
+
+```python
+class A:
+    pass
+
+class B(A):
+    pass
+
+class C(B):
+    pass
+```
+
+<br>
+
+Hierarchical Inheritance
+- Multiple child classes inherit from a single parent class.
+
+```python
+class A:
+    pass
+
+class B(A):
+    pass
+
+class C(A):
+    pass
+```
+
+<br>
+
+Hybrid Inheritance
+- A combination of two or more types of inheritance.
+
+```python
+class A:
+    pass
+
+class B(A):
+    pass
+
+class C(A):
+    pass
+
+class D(B, C):  # Multiple + Hierarchical
+    pass
+```
+
+<br>
+<br>
+<br>
+
+### Diamond Problem
+
+Definition
+- It occurs when we combine **Hierarchical** & **Multiple** inheritance.
+- It occurs when 2 classes inherit from a common class and the last class inherits from those 2 classes.
+- It is called the diamond problem, because the inheritance tree takes shape of a diamond.
+
+Ambiguity
+- D inherits from both B and C, and both override `A.show()`.
+- Which `.show()` should be called?
+
+```python
+class A:
+    def show(self):
+        print("A")
+
+class B(A):
+    def show(self):
+        print("B")
+
+class C(A):
+    def show(self):
+        print("C")
+
+class D(B, C):
+    pass
+
+d = D()
+d.show()
+```
+
+Solution
+- Method Resolution Order (MRO).
+- As explained above, it states the order in which methods are searched for in parent classes.
+
+```python
+print(D.mro())
+# [D, B, C, A, object]
+```
+
+<br>
+<br>
+<br>
+
 ### More
 
-- What is MRO
-- Types of inheritance: single, multiple, multilevel, hierarchical, hybrid inheritance in Python 
-- What is the diamond problem in multiple inheritance and how does Python solve it (MRO)?
 - Common dunder methods
 - What are metaclasses in Python and when would you use them? 
 - What is duck typing in Python? 
