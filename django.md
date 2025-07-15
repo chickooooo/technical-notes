@@ -19,6 +19,8 @@
 - [Request-Response Lifecycle](#request-response-lifecycle)
 - [Signals](#signals)
 - [Middleware Short-Circuiting](#middleware-short-circuiting)
+- [Permissions & Groups](#permissions--groups)
+- [Caching](#caching)
 
 <br>
 <br>
@@ -401,11 +403,119 @@ Request Flow
 <br>
 <br>
 
+### Permissions & Groups
+
+Permissions
+- For every model, django automatically creates 4 permissions
+    - view_<MODELNAME>
+    - add_<MODELNAME>
+    - change_<MODELNAME>
+    - delete_<MODELNAME>
+- These permissions grant the ability to view, add, modify & delete instance of that model.
+- We can also create custom permissions like below:
+
+```python
+class MyModel(models.Model):
+    ...
+    class Meta:
+        permissions = [
+            ("can_publish", "Can publish content"),
+        ]
+```
+
+<br>
+
+Groups
+- A group is a way to assign permissions to multiple users at once.
+- Multiple permissions can be assigned to a group and multiple users can be part of that group.
+
+```python
+from django.contrib.auth.models import Group, Permission
+
+# Create group
+editors = Group.objects.create(name='Editors')
+
+# Add permission to group
+perm = Permission.objects.get(codename='change_article')
+editors.permissions.add(perm)
+
+# Assign user to group
+user.groups.add(editors)
+```
+
+<br>
+
+- When checking permissions, django checks:
+    - Permissions directly assigned to the user.
+    - Permissions assigned via users group.
+
+```python
+user.has_perm('app_label.codename')       # Boolean
+user.get_user_permissions()               # Direct permissions
+user.get_group_permissions()              # Permissions via groups
+user.get_all_permissions()                # Combined
+```
+
+<br>
+
+- **Note:** superuser bypasses permission check.
+- Just like we check permissions for model operations, we can also check permissions for view access.
+
+<br>
+<br>
+<br>
+
+### Caching
+
+Caching views
+
+```python
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 15)  # Cache for 15 minutes
+def my_view(request):
+    ...
+```
+
+<br>
+
+Manual Caching
+
+```python
+from django.core.cache import cache
+
+# Set value
+cache.set('my_key', 'value', timeout=300)
+
+# Get value
+value = cache.get('my_key')
+
+# Delete cache
+cache.delete('my_key')
+```
+
+<br>
+
+Common Cache Backends
+- LocMemCache: in-memory per-process (default; good for dev)
+- Memcached: production-ready, fast
+- RedisCache: highly performant, popular for large apps
+- FileBasedCache: stores cache in files
+- DatabaseCache: stores cache in DB (slower)
+
+<br>
+
+- Make sure to invalidate cache using `cache.delete('my_key')` methods.
+- Django also supports cache versioning: `cache.set('my_key', 'value', version=2)`.
+- A common practise is to invalidate cache in `post_save` or `post_delete` signals.
+
+<br>
+<br>
+<br>
+
 ### Core
 
-- Permissions and groups
 - Rate limiting
-- Django Caching
 - Django Testing
 - Django + Celery Integration
 - Django types of views & viewsets
@@ -415,7 +525,6 @@ Request Flow
 
 ### ORM
 
-- select_related
 - prefetch_related
 - Complex queries (Q, F, Subquery, OuterRef, annotate, aggregate)
 - Transactions (atomic)

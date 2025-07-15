@@ -183,6 +183,19 @@ products = MyProduct.objects.filter(id__gt=3)
 products.update(price=22)
 ```
 
+- `.update()` does not call `.save()` on each instance.
+- That means, signals like `pre_save` or `post_save` won't trigger.
+
+<br>
+
+**Delete multiple objects**
+
+```python
+deleted = MyProduct.objects.filter(id__gt=3).delete()
+```
+
+- `pre_delete` and `post_delete` signal will get triggered in this case.
+
 <br>
 
 **Q objects: OR query**
