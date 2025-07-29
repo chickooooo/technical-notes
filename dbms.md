@@ -4,6 +4,8 @@
 - [ACID vs BASE properties](#acid-vs-base-properties)
 - [SQL Datatypes](#sql-datatypes)
 - [SQL Keys](#sql-keys)
+- [SQL Relationships](#sql-relationships)
+- [SQL Constraints](#sql-constraints)
 
 <br>
 <br>
@@ -168,13 +170,90 @@
 <br>
 <br>
 
+### SQL Relationships
 
-- Type of relationships (one-to-one, one-to-many, many-to-many, etc.)
-- Type of constraints (unique, not null, etc.)
+**One-to-One**
+
+- One record in Table A is related to one and only one record in Table B.
+- Used for splitting large tables for modularity.
+- Example: Each user has one unique passport.
+
+<br>
+
+**One-to-Many**
+
+- One record in Table A can relate to many records in Table B.
+- Example: One customer can place many orders.
+
+<br>
+
+**Many-to-Many**
+
+- Multiple records in Table A can relate to multiple records in Table B.
+- An intermediate table is required to map this relationship.
+- Example: Students can enroll in many classes, and each class has many students.
+
+<br>
+<br>
+<br>
+
+### SQL Constraints
+
+**NOT NULL**
+
+- Ensures a column cannot have NULL values.
+- Example: `name VARCHAR(50) NOT NULL;`
+
+<br>
+
+**UNIQUE**
+
+- Ensures all values in a column (or group of columns) are distinct.
+- Allows one NULL (in most RDBMS).
+- Example: `email VARCHAR(100) UNIQUE;`
+
+<br>
+
+**PRIMARY KEY**
+
+- A combination of NOT NULL + UNIQUE.
+- Only one primary key per table.
+- Example: `id INT PRIMARY KEY;`
+
+<br>
+
+**FOREIGN KEY**
+
+- Enforces **referential integrity** between tables.
+- Links a column to the primary key of another table.
+- Example: `customer_id INT REFERENCES customers(id);`
+
+<br>
+
+**CHECK**
+
+- Ensures values in a column meet a specific condition.
+- Example: `age INT CHECK (age >= 18);`
+
+<br>
+
+**DEFAULT**
+
+- Sets a default value if no value is provided during insertion.
+- Example: `status VARCHAR(20) DEFAULT 'active';`
+
+<br>
+<br>
+<br>
+
+### 
+
 
 - What is data normalization? Why is it important in DBMS?
 - Explain various normal forms.
 - What is denormalization? How does it differ from normalization?
+
+
 - Type of joins (inner, left, right, outer, full, cross, self, etc.)
 - What are database views?
 - Difference between materialise & non materailise views
