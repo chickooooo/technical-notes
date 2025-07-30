@@ -9,6 +9,7 @@
 - [Data Normalization](#data-normalization)
 - [Various Normal Forms](#various-normal-forms)
 - [Data denormalization](#data-denormalization)
+- [Referential Integrity](#referential-integrity)
 
 <br>
 <br>
@@ -382,6 +383,19 @@ Violates 3NF
 <br>
 <br>
 
+### Referential Integrity
+
+- Referential integrity means that a foreign key in one table must either:
+    - Match a primary key in another table
+    - OR be null
+- It ensures that relationships between records are valid and there are no orphan records.
+- Orphan record means a reference pointing to a non-existing row.
+- Referential integrity is enforced through `FOREIGN KEY` constraint.
+
+<br>
+<br>
+<br>
+
 ### 
 
 - Type of joins (inner, left, right, outer, full, cross, self, etc.)
@@ -397,7 +411,6 @@ Violates 3NF
 - What is a stored function?
 - Difference between UNION & UNION ALL
 - Difference between COMMIT and ROLLBACK operations
-- What is referential integrity in DBMS?
 - What is database Sharding?
 - What is database Partioning?
 - Sharding vs Partioning 
