@@ -10,6 +10,9 @@
 - [Various Normal Forms](#various-normal-forms)
 - [Data denormalization](#data-denormalization)
 - [Referential Integrity](#referential-integrity)
+- [Delete vs Drop vs Truncate](#delete-vs-drop-vs-truncate)
+- [SQL Transaction](#sql-transaction)
+- [SQL JOINs](#sql-joins)
 
 <br>
 <br>
@@ -396,19 +399,122 @@ Violates 3NF
 <br>
 <br>
 
+### Delete vs Drop vs Truncate
+
+- Delete query is used delete specific rows from a table.
+- Drop query is used to delete the entire table (data + schema).
+- Truncate query is used to delete all the rows from a table. Only records are deleted. Table schema is preserved.
+
+### SQL Transaction
+
+- A transaction is a sequence of one or more SQL operations (like INSERT, UPDATE, etc.)
+- It is either fully-complete or fully-failed (rollback). There is no partial completion.
+- Each transaction is governed by [ACID Properties](#acid-properties).
+
+<br>
+<br>
+<br>
+
+### SQL JOINs
+
+**INNER join**
+
+- Returns only matching rows from both tables.
+- If no join is specified, INNER join is used by default.
+
+```sql
+SELECT *
+FROM A
+INNER JOIN B
+    ON A.id = B.a_id;
+```
+
+<br>
+
+**LEFT join**
+
+- Also called LEFT OUTER join.
+- Returns all rows from the left table, and matching rows from the right table.
+- Non-matching right table values are NULL.
+
+```sql
+SELECT *
+FROM A
+LEFT JOIN B
+    ON A.id = B.a_id;
+```
+
+<br>
+
+**RIGHT join**
+
+- Also called RIGHT OUTER join.
+- Returns all rows from the right table, and matching rows from the left.
+- Non-matching left table values are NULL.
+
+```sql
+SELECT *
+FROM A
+RIGHT JOIN B
+    ON A.id = B.a_id;
+```
+
+<br>
+
+**FULL join**
+
+- Also called FULL OUTER join.
+- Returns all rows when there is a match in one of the tables.
+- Non-matching rows from either side get NULLs.
+
+```sql
+SELECT *
+FROM A
+FULL OUTER JOIN B
+    ON A.id = B.a_id;
+```
+
+<br>
+
+**CROSS join**
+
+- Returns Cartesian product: every row of A paired with every row of B.
+- No ON clause is used.
+- If A has 3 rows and B has 4, result = 3 × 4 = 12 rows.
+
+```sql
+SELECT *
+FROM A
+CROSS JOIN B;
+```
+
+**SELF join**
+
+- A table is joined with itself.
+- Useful for hierarchical or parent-child relationships.
+
+```sql
+SELECT
+    A.name,
+    B.name AS manager
+FROM employees A
+JOIN employees B ON A.manager_id = B.id;
+```
+
+<br>
+<br>
+<br>
+
 ### 
 
-- Type of joins (inner, left, right, outer, full, cross, self, etc.)
-- What are database views?
-- Difference between materialise & non materailise views
-- Difference between delete, truncate & drop 
 - What is indexing, how does it works?
 - How indexes are implemented internally?
 - Type of indexes (primary, composite, etc.)
-- What is a transaction? What are the properties of a transaction?
 - What are triggers?
 - What is a stored procedure?
 - What is a stored function?
+- What are database views?
+- Difference between materialise & non materailise views
 - Difference between UNION & UNION ALL
 - Difference between COMMIT and ROLLBACK operations
 - What is database Sharding?
