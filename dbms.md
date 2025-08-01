@@ -13,6 +13,9 @@
 - [Delete vs Drop vs Truncate](#delete-vs-drop-vs-truncate)
 - [SQL Transaction](#sql-transaction)
 - [SQL JOINs](#sql-joins)
+- [Indexing](#indexing)
+- [Clustered vs Non-clustered Index](#clustered-vs-non-clustered-index)
+- [Database Views](#database-views)
 
 <br>
 <br>
@@ -505,22 +508,119 @@ JOIN employees B ON A.manager_id = B.id;
 <br>
 <br>
 
+### Indexing
+
+- Indexing is a technique used to quickly locate and access specific rows of a table without scanning every row.
+- It helps the DBMS find data faster.
+- It reduces data retrieval time and improves query performance.
+
+**How indexing works?**
+
+- Indexes are created on one or more columns.
+- Most DBMS use B-Tree or B+ Tree structures to implement indexes.
+- The DBMS maintains a separate mapping between the indexed key and the row location (pointer).
+- When a query is run with a condition (e.g., WHERE name = 'John'), the DBMS:
+    - Searches the index (like searching in a BST)
+    - Gets the row pointers of matching entries.
+    - Fetches only those rows from the table.
+
+**Advantages**
+- Faster data retrieval.
+- Enhances performance for `SELECT`, `WHERE`, `JOIN`, `ORDER BY`.
+
+**Disadvantages**
+- Extra space overhead for storing indexes.
+- Slower `INSERT`, `UPDATE`, `DELETE` due to index maintenance.
+
+<br>
+<br>
+<br>
+
+### Clustered vs Non-clustered Index
+
+| Feature                 | **Clustered Index**                                                | **Non-clustered Index**                                     |
+| ----------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------- |
+| **Definition**          | Sorts and stores the **actual data rows** in index order           | Stores only **pointers to data rows**                       |
+| **Number per Table**    | **Only one** (since table rows can’t be sorted in multiple ways)   | **Multiple** allowed                                        |
+| **Access Speed**        | **Faster** for range queries and retrieval                         | Slightly **slower**, due to extra pointer lookup            |
+| **Storage**             | Index **is** the data                                              | Index stored **separately** from the table                  |
+| **Use Case**            | Best for **primary key**, frequent **range scans**, or **sorting** | Best for **search on non-key columns** or **multiple keys** |
+| **Example (SQL)**       | `PRIMARY KEY` often creates clustered index                        | `CREATE INDEX` creates non-clustered by default             |
+
+<br>
+
+```sql
+-- Clustered Index (by default with PRIMARY KEY)
+CREATE TABLE users (
+    id INT PRIMARY KEY,       -- Clustered index
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+-- Non-clustered Index on 'email'
+CREATE INDEX idx_email ON users(email);
+
+```
+
+<br>
+<br>
+<br>
+
+### Database Views
+
+- A view is a virtual table based on the result of an SQL query.
+- It does not store data physically.
+- Can be used like a table in queries.
+
+<br>
+
+**Materialized vs Non-Materialized Views**
+
+| Feature               | **Materialized View**          | **Non-Materialized View** (Regular View)                |
+| --------------------- | ------------------------------ | ------------------------------------------------------- |
+| **Storage**           | Yes – physically stored        | No – virtual (query run on access)                      |
+| **Performance**       | Faster (precomputed data)      | Slower (query runs each time)                           |
+| **Freshness of Data** | May be outdated; needs refresh | Always current (real-time query)                        |
+| **Refresh Mechanism** | Manual or scheduled            | Not needed                                              |
+| **Use Case**          | Expensive queries, reporting   | Dynamic, lightweight data access                        |
+
+<br>
+
+**Non-Materialized View**
+
+```sql
+CREATE VIEW active_users AS
+SELECT id, name FROM users WHERE status = 'active';
+```
+
+<br>
+
+**Materialized View**
+
+```sql
+CREATE MATERIALIZED VIEW active_users AS
+SELECT id, name FROM users WHERE status = 'active';
+
+-- Refresh to update data
+REFRESH MATERIALIZED VIEW active_users;
+```
+
+<br>
+<br>
+<br>
+
 ### 
 
-- What is indexing, how does it works?
-- How indexes are implemented internally?
-- Type of indexes (primary, composite, etc.)
 - What are triggers?
 - What is a stored procedure?
 - What is a stored function?
-- What are database views?
-- Difference between materialise & non materailise views
 - Difference between UNION & UNION ALL
 - Difference between COMMIT and ROLLBACK operations
 - What is database Sharding?
 - What is database Partioning?
 - Sharding vs Partioning 
 - PostgreSQL vs MySQL vs SQLite
+- How indexes are implemented internally (B-tree, B+ tree, etc.)?
 
 - SQL vs NoSQL
 - What are document databases?
