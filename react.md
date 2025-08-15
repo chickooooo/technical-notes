@@ -8,6 +8,7 @@
 - [useState Hook](#usestate-hook)
 - [useReducer Hook](#usereducer-hook)
 - [useState vs useReducer Hook](#usestate-vs-usereducer-hook)
+- [Context API](#context-api)
 
 <br>
 <br>
@@ -233,6 +234,81 @@ When to use:
 <br>
 <br>
 
+### Context API
+
+- Used to share state down the tree without prop drilling.
+- Ideal for **themes**, **user auth**, **language settings**, etc.
+- Contains 3 main parts:
+  - `React.createContext()`: Creates a context object.
+  - `<Context.Provider>`: Supplies the context value.
+  - `React.useContext(Context)`: Accesses context value in a component.
+
+<br>
+
+**Create Context**
+
+```js
+const ThemeContext = React.createContext();
+```
+
+---
+
+**Create Provider**
+
+```js
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = React.useState("light");
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+```
+
+---
+
+**Consumer Context**
+
+```js
+const ThemedButton = () => {
+  const { theme, setTheme } = React.useContext(ThemeContext);
+
+  return (
+    <button
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+    >
+      Current Theme: {theme}
+    </button>
+  );
+};
+```
+
+---
+
+**Wrap with Provider**
+
+```js
+const App = () => (
+  <ThemeProvider>
+    <ThemedButton />
+  </ThemeProvider>
+);
+```
+
+<br>
+
+**Key Points**
+
+- Context should be avoided for high-frequency updates (can cause re-renders).
+- Combine with `useReducer` for complex state logic (Redux).
+- Prefer context for global but stable data.
+
+<br>
+<br>
+<br>
+
 ### 
 
 - What is React?
@@ -265,7 +341,6 @@ When to use:
 
 - What is lifting state up in React?
 
-- context API (deepdive)
 - redux
 - react redux toolkit
 - What are middleware in Redux?
