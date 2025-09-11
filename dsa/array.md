@@ -32,6 +32,22 @@ Use Cases:
 <br>
 <br>
 
+**Flatten nested array**
+- Recursive approach:
+    - While iterating, if a number is found, add it to the output.
+    - If a list is found, call the flatten function again.
+- Iterative approach (Stack):
+    - Simulate stack.
+    - For each list encountered, save the current index & new list in stack. `[(A, 1), (B, 2)]`
+    - Start again from index 0.
+- Iterative approach (Reverse):
+    - Reverse the list and store it in a stack.
+    - While iterating backwards, if a number is found, add it to the output.
+    - If a list is found, reverse it and extend to the stack.
+
+<br>
+<br>
+
 **Sort an array of 0's 1's and 2's**
 - Problem involves rearranging items inplace.
 - Use 2 pointers to swap items and place them at appropriate place.
