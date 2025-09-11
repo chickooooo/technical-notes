@@ -25,6 +25,31 @@ Use Cases:
 
 <br>
 <br>
+
+**Kadane's Algorithm**
+
+Overview
+- This algorithm is used to find the **maximum sum of a contiguous subarray** within a one-dimensional array of numbers.
+- For example, in `[-2, 1, -3, 4, -1, 2, 1, -5, 4]`, the maximum sum is `6`, from subarray `[4, -1, 2, 1]`.
+
+Key Properties:
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+- Requires only a single pass through the array.
+
+Core Idea:
+- At each index, the algorithm decides whether to **extend the current subarray** or **start a new subarray** at the current element.
+- It maintains two variables:
+  - `current_sum`: the maximum sum ending at the current index.
+  - `max_sum`: the maximum sum found so far.
+
+Use Cases:
+- Financial analysis (e.g., finding the most profitable period).
+- Performance metrics over time (e.g., longest streaks).
+- Applied in dynamic programming problems involving subarrays or subsegments.
+
+<br>
+<br>
 <br>
 
 ### Problems:
@@ -67,3 +92,13 @@ Use Cases:
 - Can be done in O(n) time and O(n) space using hashmap.
 - Use **Boyer-Moore Majority Voting Algorithm** for O(n) time and O(1) space.
 - The core idea is, if we clash majority elements vs non-majority elements, there will always be atleast 1 majority element left.
+
+<br>
+<br>
+
+**Find subarray with maximum sum**
+- Kadane's algorithm.
+- If the current prefix sum is negative, don't include it.
+- If it is positive, you can include those elements.
+---
+- Divide and conquer
