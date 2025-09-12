@@ -2,6 +2,30 @@
 
 <br>
 <br>
+
+**Binary search on answers**
+
+How to identify:
+- The problem asks for the **minimum or maximum** value of something.
+- There exists a range of possible answers with a clear lower and upper bound.
+- The problem is about searching for a value that satisfies a constraint.
+
+Steps:
+1. Define the lower and upper limit of the search space.
+2. Perform binary search on this search space and verify the constraints.
+3. Store valid values in a variable and return the optimal value at last.
+
+Key Properties:
+- Time Complexity: O(nlogn)
+- Space Complexity: O(1)
+- Does **not** require the array to be sorted.
+
+Use Cases:
+- Problems involving **allocation, scheduling, or distribution** under constraints.
+- Finding minimum time, maximum distance, minimum speed, etc.
+
+<br>
+<br>
 <br>
 
 ### Problems:
@@ -39,3 +63,13 @@
 - Optimisaton:
     - If `nums[left] == nums[middle]`, then all elements between left & middle pointer (both inclusive) are same. Hence we can eliminate that search space.
     - If `nums[middle] == nums[right]`, then all elements between middle & right pointer (both inclusive) are same. Hence we can eliminate that search space.
+
+<br>
+<br>
+
+**Capacity To Ship Packages Within D Days**
+- standard template of **Binary search on answers**.
+- Define the lower & upper limit. Perform binary search on this limit.
+- At each step, iterate the array to find required days.
+- Move the pointers depending on required & given days.
+

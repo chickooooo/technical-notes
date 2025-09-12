@@ -6,7 +6,7 @@
 
 **Boyer-Moore Majority Voting Algorithm**
 
-Overview
+Overview:
 - This algorithm is used to find the majority element in an array.
 - The majority element in an array of size `n` is the element that appears more than `n/2` times.
 - For example, in `[3, 3, 4, 2, 3, 3, 3]`, the majority element is `3`.
@@ -28,7 +28,7 @@ Use Cases:
 
 **Kadane's Algorithm**
 
-Overview
+Overview:
 - This algorithm is used to find the **maximum sum of a contiguous subarray** within a one-dimensional array of numbers.
 - For example, in `[-2, 1, -3, 4, -1, 2, 1, -5, 4]`, the maximum sum is `6`, from subarray `[4, -1, 2, 1]`.
 
