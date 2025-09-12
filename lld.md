@@ -15,6 +15,7 @@
 - [S - Proxy](#s---proxy)
 - [B - Observer](#b---observer)
 - [B - Strategy](#b---strategy)
+- [B - Command](#b---command)
 
 <br>
 <br>
@@ -1009,6 +1010,98 @@ if __name__ == "__main__":
     cart.set_payment_strategy(PayPalPayment("user@example.com"))
     cart.checkout()
 ```
+
+<br>
+<br>
+<br>
+
+### B - Command
+
+**Overview**
+- It allows to encapsulate actions as objects.
+- It decoupling client (one who invokes the operation) from the receiver (one who performs the operation).
+- Often used in **undo/redo** and **transactional** systems.
+- Follows **Open/Close principle**: new commands can be added without modification.
+
+**Components**
+- Command: Interface that declares `execute()`.
+- Concrete Command: Implements the Command.
+- Receiver: Knows how to perform the operation.
+- Invoker: Asks the command to carry out a request.
+- Client: Creates commands and sets their receivers.
+
+<br>
+
+```py
+# Command Interface
+class Command:
+    def execute(self):
+        pass
+
+    def undo(self):
+        pass
+
+# Receiver
+class Light:
+    def turn_on(self):
+        print("Light is ON")
+
+    def turn_off(self):
+        print("Light is OFF")
+
+# Concrete Commands
+class LightOnCommand(Command):
+    def __init__(self, light):
+        self.light = light
+
+    def execute(self):
+        self.light.turn_on()
+
+    def undo(self):
+        self.light.turn_off()
+
+class LightOffCommand(Command):
+    def __init__(self, light):
+        self.light = light
+
+    def execute(self):
+        self.light.turn_off()
+
+    def undo(self):
+        self.light.turn_on()
+
+# Invoker
+class RemoteControl:
+    def __init__(self):
+        self.command_history = []
+
+    def submit(self, command):
+        command.execute()
+        self.command_history.append(command)
+
+    def undo_last(self):
+        if self.command_history:
+            last_command = self.command_history.pop()
+            last_command.undo()
+
+# Client Code
+if __name__ == "__main__":
+    light = Light()
+    light_on = LightOnCommand(light)
+    light_off = LightOffCommand(light)
+
+    remote = RemoteControl()
+
+    remote.submit(light_on)   # Light is ON
+    remote.submit(light_off)  # Light is OFF
+    remote.undo_last()        # Light is ON
+```
+
+<br>
+
+**When to use**
+- When you want to encapsulate operations as objects.
+- Perfect for features like: queuing, logging, undo/redo.
 
 <br>
 <br>
