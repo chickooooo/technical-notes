@@ -14,6 +14,7 @@
 - [S - Composite](#s---composite)
 - [S - Proxy](#s---proxy)
 - [B - Observer](#b---observer)
+- [B - Strategy](#b---strategy)
 
 <br>
 <br>
@@ -928,6 +929,86 @@ if __name__ == "__main__":
 - `Observer` is the observer interface and `EmailSubscriber` is the concrete implementation.
 - `Subject` is the subject interface and `YouTubeChannel` is the concrete implementation.
 - `alice` and `bob` are notified when a new video is uploaded.
+
+<br>
+<br>
+<br>
+
+### B - Strategy
+
+**Overview**
+- It defines a family of algorithms and makes them interchangable at runtime.
+- Use when you want to performs a task in different ways (strategies).
+- Think of **Google Maps**, user can choose different routes based on different **Strategies**.
+    - Shortest distance
+    - Fastest time
+    - Avoid tolls
+- Promotes **Open/Closed** Principle (you can add new strategies without changing existing code).
+
+**Components**
+- Strategy: interface for the algorithm.
+- Concrete Strategies: different implementations of the Strategy.
+- Context: makes use of a Strategy.
+
+<br>
+
+```py
+from abc import ABC, abstractmethod
+
+# Strategy Interface
+class PaymentStrategy(ABC):
+    @abstractmethod
+    def pay(self, amount: float):
+        pass
+
+# Concrete Strategies
+class CreditCardPayment(PaymentStrategy):
+    def __init__(self, card_number):
+        self.card_number = card_number
+
+    def pay(self, amount: float):
+        print(f"Paid ${amount:.2f} using Credit Card ending with {self.card_number[-4:]}.")
+
+class PayPalPayment(PaymentStrategy):
+    def __init__(self, email):
+        self.email = email
+
+    def pay(self, amount: float):
+        print(f"Paid ${amount:.2f} using PayPal account {self.email}.")
+
+# Context
+class ShoppingCart:
+    def __init__(self):
+        self.items = []
+        self.payment_strategy: PaymentStrategy = None
+
+    def add_item(self, item, price):
+        self.items.append((item, price))
+
+    def set_payment_strategy(self, strategy: PaymentStrategy):
+        self.payment_strategy = strategy
+
+    def checkout(self):
+        if not self.payment_strategy:
+            raise Exception("Payment strategy not set!")
+
+        total = sum(price for _, price in self.items)
+        self.payment_strategy.pay(total)
+
+# === Usage ===
+if __name__ == "__main__":
+    cart = ShoppingCart()
+    cart.add_item("Book", 12.99)
+    cart.add_item("Pen", 1.99)
+
+    # Use Credit Card
+    cart.set_payment_strategy(CreditCardPayment("1234-5678-9876-5432"))
+    cart.checkout()
+
+    # Switch to PayPal
+    cart.set_payment_strategy(PayPalPayment("user@example.com"))
+    cart.checkout()
+```
 
 <br>
 <br>
