@@ -17,6 +17,7 @@
 - [B - Strategy](#b---strategy)
 - [B - Command](#b---command)
 - [B - Template Method](#b---template-method)
+- [B - State](#b---state)
 
 <br>
 <br>
@@ -1181,6 +1182,76 @@ json_processor.process()
 
 **When to use**
 - When you have a generic algorithm where parts of it can vary, but the overall structure should remain the same.
+
+<br>
+<br>
+<br>
+
+### B - State
+
+**Overview**
+- It allows an object to change its behaviour when it's internal state changes.
+- It appears as if object has changed its class.
+
+**Components**
+- Component: interface for all concrete states.
+- Concrete Component: implements Component for various states.
+- Context: holds reference to state object and delegates task to it.
+
+<br>
+
+```py
+from abc import ABC, abstractmethod
+
+# Component
+class CaseState(ABC):
+    @abstractmethod
+    def write(self, text: str) -> str:
+        raise NotImplementedError
+
+# Concrete Component 1
+class NormalCaseState(CaseState):
+    def write(self, text: str) -> str:
+        return text
+
+# Concrete Component 2
+class UpperCaseState(CaseState):
+    def write(self, text: str) -> str:
+        return text.upper()
+
+# Concrete Component 3
+class LowerCaseState(CaseState):
+    def write(self, text: str) -> str:
+        return text.lower()
+
+# Context
+class TextEditor:
+    def __init__(self):
+        self._case_state: CaseState = NormalCaseState()
+
+    def set_state(self, case_state: CaseState):
+        self._case_state = case_state
+
+    def add_text(self, text: str):
+        return self._case_state.write(text)
+
+# ----- Client code
+
+editor = TextEditor()
+print(editor.add_text("Hello World!"))  # Hello World!
+
+editor.set_state(UpperCaseState())
+print(editor.add_text("Hello World!"))  # HELLO WORLD!
+
+editor.set_state(LowerCaseState())
+print(editor.add_text("Hello World!"))  # hello world!
+```
+
+<br>
+
+**When to use**
+- When an object must change its behaviour on its internal state change.
+- When you want to avoid large `if-else` or `switch` statements.
 
 <br>
 <br>
