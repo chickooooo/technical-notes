@@ -73,3 +73,10 @@ Use Cases:
 - At each step, iterate the array to find required days.
 - Move the pointers depending on required & given days.
 
+<br>
+<br>
+
+**Search in matrix with sorted rows**
+- problem: first element of each row is greater than last element of previous row.
+- Perform binary search on rows. Check if the target lies within the first and last element of the middle row.
+- If it does, perform standard binary search on that row.
