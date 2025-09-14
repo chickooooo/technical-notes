@@ -80,3 +80,13 @@ Use Cases:
 - problem: first element of each row is greater than last element of previous row.
 - Perform binary search on rows. Check if the target lies within the first and last element of the middle row.
 - If it does, perform standard binary search on that row.
+
+<br>
+<br>
+
+**Search in matrix with sorted rows and columns**
+- problem: no duplicates. both rows and columns are sorted in ascending order.
+- Start from the top right corner. If the target matches, return `True`.
+- If the target is greater, we know it can't be on that row, so `i += 1`.
+- If the target is smaller, we know it can't be on that column, so `j -= 1`.
+- TC: `O(m+n)`
