@@ -216,6 +216,58 @@ Sockets:
     - Complex implementation.
 
 
+Critical section problem:
+- In concurrent programming, when multiple processes or threads access shared resources (e.g. variable, file, memory, etc.) there is a risk of race condition.
+- To handle this, we define a critical section
+
+Critical section:
+- It is a part of the code where a shared resource is accessed.
+- Only one process/thread should execute in this critical section at a time to avoid data inconsistency.
+
+Process synchronization:
+- It refers to techniques & mechanisms used to coordinate the execution of processes/threads, so they can work together harmoniously.
+- It prevents issues like race conditions, data inconsistency and deadlocks.
+- Each process synchronization mechanism must fulfill these 3 requirements:
+    - Mutual Exclusion:
+        - Only one process/thread should be able to access shared resource or enter critical section at a time.
+        - This prevents data inconsistency.
+    - Progress:
+        - It should allow to make progress by making sure at least 1 process/thread can enter the critical section.
+        - It avoids situation where all processes/threads are blocked leading to deadlock.
+    - Bounded Waiting:
+        - It should make sure that a process/thread waiting to enter the critical section will eventually be allowed to do so.
+        - It prevents process/thread from waiting indefinitely.
+
+Process synchronisation:
+
+- Lock / Mutex (mutual exclusion):
+    - It is a binary lock.
+    - It allows a process/thread to lock the shared resource while in use.
+    - While a shared resource is locked, other processes/threads cannot access it.
+    - Others trying to acquire the lock must wait (block).
+
+- Semaphore:
+    - It can allow more than 1 process/thread to access a shared resource.
+    - It has 2 types:
+        - Binary semaphore: Like mutex, only 0 or 1.
+        - Counting semaphore: Allows upto N threads to access the shared resource.
+    - Useful when managing limited sources (e.g. 3 database connections).
+
+- Read-write lock:
+    - It allows multiple readers to access the shared resource simultaneously.
+    - But only 1 writer can write to the resource at a time.
+    - More performant that mutex (which allows only 1 reader/write at a time).
+
+Deadlock:
+- A deadlock is a situation where a set of processes are blocked because each process is waiting for a resource held by another, forming a cycle of dependencies.
+- "Process A is waiting for Process B, Process B is waiting for Process C, ... and eventually one is waiting for Process A again. None can proceed."
+
+Necessary conditions for a deadlock (Coffman's conditions):
+- Mutual exclusion: Resources must be non-shareable (only once process can use it at a time).
+- Hold and wait: A process holding a resource is waiting for another.
+- No preemption: Resources cannot be forcefully taken away. They must be released voluntarily.
+- Circular wait: The waiting processes form a circular chain. 
+
 
 
 - what are signals in OS (e.g. SIGKILL, SIGTERM, etc.)
