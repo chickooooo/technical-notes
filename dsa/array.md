@@ -102,3 +102,17 @@ Use Cases:
 - If it is positive, you can include those elements.
 ---
 - Divide and conquer
+
+<br>
+<br>
+
+**Set matrix row and column zero**
+- Problem:
+    - Given an integer matrix containing positive, negative and zero integers. For each cell containing `0`, set its entire row and column `0`.
+    - Using extra space is trivial, do it in constant space.
+---
+- We will use the first row and first column to identify whether that entire row or column will be 0.
+- First check & store if the first row and column contains a zero.
+- Next, for each `0` cell, set it's corresponding first row and column position to `0`.
+- Then iterate the matrix again. Each cell that has it's first row and column as `0`, set that cell to `0`.
+- At last, if first row contained `0` originally, set that row to zero. Same for first column.
