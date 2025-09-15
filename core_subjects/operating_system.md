@@ -268,6 +268,43 @@ Necessary conditions for a deadlock (Coffman's conditions):
 - No preemption: Resources cannot be forcefully taken away. They must be released voluntarily.
 - Circular wait: The waiting processes form a circular chain. 
 
+Deadlock handling techniques:
+
+- Deadlock prevention:
+    - Aims to eliminate the necessary conditions for a deadlock.
+    - By ensuring that one or more of these conditions are not satisfied, deadlocks can be prevented from happening in the first place.
+
+- Deadlock avoidance:
+    - Deadlock avoidance techniques use resource allocation algorithms to avoid situations that may lead to deadlock.
+    - These techniques involve resource allocation graph, **Bankers algorithm**, etc.
+    - The idea is to have a system that can predict whether granting a resource request will lead to a potential deadlock.
+    - If a request might cause a deadlock, it is delayed until granting it will not cause any issues.
+
+- Deadlock detection:
+    - It involves periodically checking the resource allocation state to determine if a deadlock has occured.
+    - It uses algorithms such as resource allocation graph, **Bankers algorithm**, etc.
+    - When a deadlock is detected, deadlock recovery techniques are used.
+
+- Deadlock recovery:
+    - Deadlock recovery techniques are used to recover from a deadlock once it has been detected.
+    - It involves:
+        - Terminating one or more processes to break the circular chain.
+        - Release the resources held by these processes.
+        - Rolling back the system to a safe state.
+
+- Deadlock ignorance:
+    - This involves ignoring the deadlock entirely.
+    - This technique assumes that deadlocks will occur rarely.
+    - This saves the system resources that would have been used for deadlock handling techniques. Making system more performant.
+
+
+Banker's Algorithm:
+- It is a deadlock avoidance algorithm.
+- It checks whether allocating a resource to a processs will lead the system to be in a safe state or not.
+    - If the does, it will allocate the resource.
+    - Otherwise, it will reject the current request and try again later.
+- It’s called the **Banker's** algorithm because it's similar to how a banker makes decisions about loaning money: only loans that are guaranteed to be repaid eventually are approved.
+ 
 
 
 - what are signals in OS (e.g. SIGKILL, SIGTERM, etc.)
