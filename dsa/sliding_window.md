@@ -10,6 +10,7 @@
 - Handle `k = 0` edge case.
 - Use `queue` data structure for `O(1)` shrinking.
 
+<br>
 
 **Longest substring after k replacements**
 - Variable sliding window problem.
@@ -21,3 +22,12 @@
 - Space compelxity: O(26)
 ---
 - Approach 2
+
+<br>
+
+**Longest substring without repeating characters**
+- Problem: Given a string `s`, find the length of the longest substring without duplicate characters.
+- Simple variable sliding window problem.
+- The window increases while `jth` element is not in `hashset`.
+- The window decreases while `jth` element is in `hashset`.
+- While decreasing, the `ith` element is removed from the hashset.
