@@ -15,6 +15,9 @@ What is an operating system?
 - Windows, iOS, Android, etc.
 - RTOS (real time operating system) is used for systems that need realtime response. Example: embedded systems, IoT devices, missiles, satellites, etc.
 
+<br>
+<br>
+<br>
 
 ### Process Management
 
@@ -305,7 +308,125 @@ Banker's Algorithm:
     - Otherwise, it will reject the current request and try again later.
 - It’s called the **Banker's** algorithm because it's similar to how a banker makes decisions about loaning money: only loans that are guaranteed to be repaid eventually are approved.
  
+<br>
+<br>
+<br>
 
+### Memory Management
+
+What is memory management in OS?
+- Memory management is the functionality of the OS to manage primary memory (RAM).
+- The included tasks are:
+    - Memory allocation and deallocation.
+    - Tracking which parts of memory is in use.
+    - Ensuring isolation between processes.
+    - Optimising performance using techniques like **paging**, **segmentation** and **caching**.
+- There are 2 broad categories used for memory management:
+    - Fixed partitioning
+    - Dynamic partitioning
+
+
+Fixed Partitioning:
+- Here the memory is divided into fixed sized partitions or blocks (e.g. 100 bytes).
+- Each partition can hold exactly one process.
+- Suppose a process requires 1 KB of memory, 10 partitions are assigned to it.
+- Advantages:
+    - Relatively simple to implement.
+    - Provides fast memory allocation.
+- Disadvantages:
+    - Prone to inefficient memory utilization due to **Internal Fragmentation**.
+
+---
+
+Fixed Partitioning
+```
++-----------+-----------+-----------+-----------+-----------+
+| Partition | Partition | Partition | Partition | Partition |
+|   100 B   |   100 B   |   100 B   |   100 B   |   100 B   |
++-----------+-----------+-----------+-----------+-----------+
+
+```
+
+---
+
+Internal Fragmentation
+```
+Memory Partition (100 bytes):  [======================..........]
+                                ↑                     ↑
+                               70B                 30B wasted
+                          (Used by process)    (Internal Fragmentation)
+```
+
+<br>
+
+Dynamic Partitioning:
+- Also known as variable partitioning.
+- Here memory is not pre-divided into partitions.
+- Allows memory to be allocated and deallocated dynamically based on the requirements of the process.
+- Advantages:
+    - No internal fragmentation.
+    - It provides better memory utilization as compared to fixed partitioning.
+- Disadvantages:
+    - More complex management than fixed partitioning.
+    - Suffers from **External Fragmentation**.
+
+---
+
+Dynamic Partitioning:
+```
++---------+-------------------+-------------+-----------------+
+|   P1    |        P2         |     P3      |   Free (150B)   |
+|  (70B)  |      (180B)       |   (100B)    |                 |
++---------+-------------------+-------------+-----------------+
+```
+
+---
+
+External Fragmentation
+```
++---------+-------------------+-------------+-----------------+
+|   P1    |   Free (180B)     |     P3      |   Free (150B)   |
++---------+-------------------+-------------+-----------------+
+```
+- A new process P4 needs 200B, but even though there’s 330B free total, P4 cannot be allocated because there’s no single 200B block available.
+
+<br>
+
+Memory allocation algorithms in dynamic partitioning
+
+First Fit:
+- The first-fit algorithm allocates the first available memory block that is large enough to accomodate the process.
+- This algorithm is simple and provides fast allocation.
+- It may result in larger leftover fragments.
+
+Best Fit:
+- The best-fit algorithm searches for the smallest available memory block that is large enough to accomodate the process.
+- It aims to minimise the leftover fragments.
+- It leads to overall better memory allocation, but takes more time than First Fit.
+
+Worst Fit:
+- The worst-fit algorithm allocates the largest available memory block to the process.
+- It assumes that it will leave a large enough hole to be reused later.
+- It aims to reduce memory fragmentation caused by small processes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 - what are signals in OS (e.g. SIGKILL, SIGTERM, etc.)
 - what is core
