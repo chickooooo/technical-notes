@@ -409,10 +409,94 @@ Worst Fit:
 - It assumes that it will leave a large enough hole to be reused later.
 - It aims to reduce memory fragmentation caused by small processes.
 
+<br>
+
+Paging
+- It is a memory management technique used to manage how processes are stored in the memory.
+- It divides process's **logical memory** into fixed sized blocks called **pages**.
+- The physical memory (RAM) is also divided into fixed sized blocks called **frames**. The size of frames is same as that of pages.
+- These pages are stores in **non-contiguous** manner in the fragments.
+- It uses **page table** to map pages to frames. Each process has its own page table.
+- Advantages:
+    - Avoids external fragmentation
+    - Enables virtual memory
+- Disadvantages:
+    - Overhead of managing page table.
+    - Page look-ups can be slow.
+
+```
+Process
++--------+--------+--------+--------+
+| Page 0 | Page 1 | Page 2 | Page 3 |
++--------+--------+--------+--------+
 
 
+Page Table (Per Process)
++--------+---------+
+| Page # | Frame # |
++--------+---------+
+|   0    |    5    |
+|   1    |    2    |
+|   2    |    8    |
+|   3    |    1    |
++--------+---------+
 
+Physical Memory (RAM)
++---------+-------------+
+| Frame # | Content     |
++---------+-------------+
+|   0     | (free)      |
+|   1     | Page 3      |
+|   2     | Page 1      |
+|   3     | (free)      |
+|   4     | (free)      |
+|   5     | Page 0      |
+|   6     | (free)      |
+|   7     | (free)      |
+|   8     | Page 2      |
++---------+-------------+
+```
 
+<br>
+
+Virtual Memory
+- It is a memory management technique that allows OS to used a part of disk storage as an extention of RAM.
+
+Key Concepts
+- Disk usage: Parts of memory that are not currently in use are temporarily moved to disk.
+- Demand paging: Only the required pages of a program are loaded into RAM, the rest stay on disk until needed.
+- Page Fault: When a program accesses a page not in RAM, a page fault occurs, and the OS loads the page from disk into memory.
+
+Advantages:
+- Allows execution of larger programs than physical RAM.
+- Provides process isolation and security.
+
+Disadvantages:
+- Page faults can be expensive (disk I/O is slow).
+- Poorly managed virtual memory can lead to thrashing (system spends more time swapping than executing).
+
+<br>
+
+Page Replacement Algorithms
+- When virtual memory is used and RAM is full, and a new page needs to be loaded (due to a page fault), the OS must decide which page to remove from RAM to make space.
+- Page replacement algorithms decide which page to evict to minimize page faults and optimise performance.
+
+First in first out (FIFO):
+- Evicts the oldest loaded page (first one that entered memory).
+- Simple to implement but the performance is not optimised.
+
+Least recently used (LRU):
+- Evicts the page that hasn’t been used for the longest time.
+- Based on the assumption that pages used recently will likely be used again soon (temporal locality).
+
+Least frequently used (LFU):
+- Evicts the page used least often (based on a counter).
+- Assumes that less frequently used pages are less likely to be used again.
+
+Optimal:
+- Evicts the page that won't be used for the longest time in the future.
+- Not practical (requires future knowledge).
+- Used for benchmarking other algorithms.
 
 
 
