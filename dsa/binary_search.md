@@ -69,9 +69,18 @@ Use Cases:
 
 **Capacity To Ship Packages Within D Days**
 - standard template of **Binary search on answers**.
-- Define the lower & upper limit. Perform binary search on this limit.
+- Define the lower `max(nums)` & upper limit `sum(nums)` . Perform binary search on this limit.
 - At each step, iterate the array to find required days.
 - Move the pointers depending on required & given days.
+
+<br>
+<br>
+
+**Koko Eating Bananas**
+- standard template of **Binary search on answers**.
+- Define the lower `1` & upper limit `max(nums)`. Perform binary search on this limit.
+- At each step, iterate the array to find required hours.
+- Move the pointers depending on required & given hours.
 
 <br>
 <br>
