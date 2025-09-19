@@ -1,9 +1,10 @@
-### Important Concepts:
+## Important Concepts:
 
 <br>
 <br>
+<br>
 
-**Prefix Sum + Hash Map (Subarray Sum Pattern)**
+### Prefix Sum + Hash Map (Subarray Sum Pattern)
 
 Overview:
 - This pattern is used to count the number of subarrays with a given sum `k`.
@@ -34,13 +35,16 @@ Use Cases:
 <br>
 <br>
 <br>
-
-### Problems:
-
 <br>
 <br>
 
-**Max consecutive ones after k flips**
+## Problems:
+
+<br>
+<br>
+<br>
+
+### Max consecutive ones after k flips
 - Simple variable sliding window problem.
 - The window increases while `1` or `k > 0`.
 - The window shrinks till we get a flip to move on.
@@ -48,8 +52,10 @@ Use Cases:
 - Use `queue` data structure for `O(1)` shrinking.
 
 <br>
+<br>
+<br>
 
-**Longest substring after k replacements**
+### Longest substring after k replacements
 - Variable sliding window problem.
 - Create a frequency array to track frequencies.
 - If the current element is `majority` element, increase the window.
@@ -61,8 +67,10 @@ Use Cases:
 - Approach 2
 
 <br>
+<br>
+<br>
 
-**Longest substring without repeating characters**
+### Longest substring without repeating characters
 - Problem: Given a string `s`, find the length of the longest substring without duplicate characters.
 - Simple variable sliding window problem.
 - The window increases while `jth` element is not in `hashset`.
@@ -70,17 +78,48 @@ Use Cases:
 - While decreasing, the `ith` element is removed from the hashset.
 
 <br>
+<br>
+<br>
 
-**Binary subarrays matching the sum**
+### Binary subarrays matching the sum
+
 - Problem: Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
+
+---
+
+- **Algorithm**: Prefix sum + hash map
 - Prefix sum sliding window problem.
 - Maintain a hashmap of `{prefix_sum: count}`.
 - At each step, count the number of subarrays with sum equal to `prefix - k`.
 - Update hashmap for current `prefix_sum`.
 
+<br>
+<br>
+<br>
 
+### Subarrays containing k odd numbers
+- Problem: Given an array of integers nums and an integer k. Return the number of continuous subarrays that contains k odd numbers.
 
+---
+- **Algorithm**: Simplify the given problem to a simpler problem.
+- Create a new list containing all odd indexes.
+- Perform fixed sized (k) sliding window on this list.
+- At each step,
+    - left = no. of even numbers to the left (after last odd number)
+    - right = no. of even numbers to the right (before next odd number)
+    - Add all combinations `1 + left + right + left*right` to the total
 
+```
+2 2 2 1 2 2 1 2 1 2 2 1 2   |   k=3
+      ___________
+         window
+-----             ---
+ left            right
+```
+
+---
+
+Approach 2
 
 <br>
 <br>
