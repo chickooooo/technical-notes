@@ -1,10 +1,11 @@
 
-### Important Concepts
+## Important Concepts
 
 <br>
 <br>
+<br>
 
-**Boyer-Moore Majority Voting Algorithm**
+### Boyer-Moore Majority Voting Algorithm
 
 Overview:
 - This algorithm is used to find the majority element in an array.
@@ -25,8 +26,9 @@ Use Cases:
 
 <br>
 <br>
+<br>
 
-**Kadane's Algorithm**
+### Kadane's Algorithm
 
 Overview:
 - This algorithm is used to find the **maximum sum of a contiguous subarray** within a one-dimensional array of numbers.
@@ -51,13 +53,15 @@ Use Cases:
 <br>
 <br>
 <br>
+<br>
+<br>
 
-### Problems:
+## Problems:
 
 <br>
 <br>
 
-**Flatten nested array**
+### Flatten nested array
 - Recursive approach:
     - While iterating, if a number is found, add it to the output.
     - If a list is found, call the flatten function again.
@@ -72,31 +76,35 @@ Use Cases:
 
 <br>
 <br>
+<br>
 
-**Sort an array of 0's 1's and 2's**
+### Sort an array of 0's 1's and 2's
 - Problem involves rearranging items inplace.
 - Use 2 pointers to swap items and place them at appropriate place.
 
 <br>
 <br>
+<br>
 
-**Stock Buy and Sell once**
+### Stock Buy and Sell once
 - Do normal iteration:
     - If current value is lower, buy at this value.
     - If current value is higher, try to sell at this value.
 
 <br>
 <br>
+<br>
 
-**Majority Element (freq > n/2)**
+### Majority Element (freq > n/2)
 - Can be done in O(n) time and O(n) space using hashmap.
 - Use **Boyer-Moore Majority Voting Algorithm** for O(n) time and O(1) space.
 - The core idea is, if we clash majority elements vs non-majority elements, there will always be atleast 1 majority element left.
 
 <br>
 <br>
+<br>
 
-**Find subarray with maximum sum**
+### Find subarray with maximum sum
 - Kadane's algorithm.
 - If the current prefix sum is negative, don't include it.
 - If it is positive, you can include those elements.
@@ -105,8 +113,9 @@ Use Cases:
 
 <br>
 <br>
+<br>
 
-**Set matrix row and column zero**
+### Set matrix row and column zero
 - Problem:
     - Given an integer matrix containing positive, negative and zero integers. For each cell containing `0`, set its entire row and column `0`.
     - Using extra space is trivial, do it in constant space.
@@ -116,3 +125,21 @@ Use Cases:
 - Next, for each `0` cell, set it's corresponding first row and column position to `0`.
 - Then iterate the matrix again. Each cell that has it's first row and column as `0`, set that cell to `0`.
 - At last, if first row contained `0` originally, set that row to zero. Same for first column.
+
+<br>
+<br>
+<br>
+
+### Rearrange items in alternate positive-negative order
+
+- Problem: Given an array nums of even length, arrange the items such that:
+    - Every consecutive pair of integers have opposite signs
+    - For all integers with the same sign, the order in which they were present in nums is preserved.
+    - The rearranged array begins with a positive integer.
+
+---
+
+- **Algorithm**: Two pointers
+- Create a new array of same size. Set `pos = 0` and `neg = 1`.
+- Iterate through the given array. If element is positive, copy it to the new array at `pos` index and increment `pos` by 2.
+- If element is negative, copy it to the new array at `neg` index and increment `neg` by 2.
