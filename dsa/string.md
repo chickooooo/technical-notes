@@ -39,7 +39,7 @@
 
 ### Roman number to integer
 
-Problem: Convert roman number string to its representative integer. The string only contains `I(1), V(5), X(10), L(50), C(100), D(500), M(1000))`.
+- Problem: Convert roman number string to its representative integer. The string only contains `I(1), V(5), X(10), L(50), C(100), D(500), M(1000))`.
     ```
     input = "MCMXCIV"
     output = 1994
