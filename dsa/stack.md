@@ -29,6 +29,12 @@
 
 <br>
 
+**Postfix to infix conversion**
+- Use stack to store operands.
+- When an operator arrives, replace last operand with `({left}{operator}{right})`.
+
+<br>
+
 **Prefix to postfix conversion**
 - Iterate from the back.
 - Use stack to store operands.
