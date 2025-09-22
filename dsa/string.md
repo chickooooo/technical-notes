@@ -29,7 +29,7 @@
 
 ---
 
-- Algorithm: Reverse of reverse is the original.
+- **Algorithm**: Reverse of reverse is the original.
 - Reverse the whole string while handling the spaces.
 - Reverse individual words.
 
@@ -47,6 +47,21 @@
 
 ---
 
-- Algorithm: Simple string traversal.
+- **Algorithm**: Simple string traversal.
 - At each step, add current value to total.
 - If current roman value is greater than previous: `total += -2 * previous`.
+
+<br>
+<br>
+<br>
+
+### Sum of frequency difference of all substrings
+
+- Problem: Given a string s, return the sum of "difference in frequencies between the most frequent and least frequent characters" of all of its substrings.
+
+---
+
+- **Algorithm**: 2 `for` loops and frequency array.
+- Iterate the string using 2 for loops in `O(n^2)` time complexity.
+- At each step, use frequency array to calculate the difference between max & min frequency.
+- Total time complexity: `O(n*n*26)`
