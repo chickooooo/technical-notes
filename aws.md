@@ -4,7 +4,9 @@
 - [Security Groups](#security-groups)
 - [AWS Lambda](#aws-lambda)
 - [AWS S3](#aws-s3-simple-storage-service)
-- [AWS RDS](#aws-rds-relational-database-service)
+- [Amazon RDS](#amazon-rds-relational-database-service)
+- [Amazon Aurora](#amazon-aurora)
+- [Amazon RDS vs Amazon Aurora](#amazon-rds-vs-amazon-aurora)
 
 <br>
 <br>
@@ -108,13 +110,15 @@ Key Features:
 <br>
 <br>
 
-### AWS RDS (Relational Database Service)
+### Amazon RDS (Relational Database Service)
 - RDS stands for **Relational Database Service**.
 - It is a managed service that takes care of:
     - Database setup
     - Scaling
     - Backup & Snapshots
-- Supports multiple database engines like MySQL, PostgreSQL, Oracle, SQL Server, AWS Arora, etc.
+    - Patching
+    - Security
+- Supports 6 database engines: MySQL, PostgreSQL, Oracle, SQL Server, MariaDB, AWS Arora.
 
 <br>
 
@@ -130,6 +134,66 @@ Key Features:
 Multi-AZ:
 - **Multi-AZ (Availability Zone)** is a high-availability feature that automatically replicates your RDS database to a standby instance in a different AZ (within the same region).
 - It is not for read scaling — it’s for failover and disaster recovery.
+
+<br>
+<br>
+<br>
+
+### Amazon Aurora
+- It is a **Fully Managed Relational Database** service offered by AWS.
+- It provides performance of high-end commercial databases (Oracle, SQL Server), but with the simplicity and cost-effictiveness of open source databases (MySQL, PostgreSQL).
+- Supports only 2 database engines: MySQL & PostgreSQL.
+
+<br>
+
+Key features:
+- Upto 5x faster that MySQL & 3x faster faster than PostgreSQL.
+- Supports auto-scaling for read replicas (upto 15).
+- Storage automatically scales upto 128 TB.
+- High availability: replicates 6 copies of data across 3 Availability zones (AZs).
+- Supports multi-master deployment to provide even higher availability.
+
+<br>
+<br>
+<br>
+
+### Amazon RDS vs Amazon Aurora
+
+| Feature / Criteria           | **Amazon RDS**                                                             | **Amazon Aurora**                                                       |
+| ---------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Database Engines**         | Supports 6 engines: MySQL, PostgreSQL, Oracle, SQL Server, MariaDB, Aurora | Only Aurora MySQL & Aurora PostgreSQL (compatible with open-source)     |
+| **Performance**              | Standard performance based on engine                                       | Up to **5x faster than MySQL**, **3x faster than PostgreSQL**           |
+| **Storage Scaling**          | Manual or auto (for some engines), but slower                              | **Auto-scales storage** (10 GB to 128 TB) seamlessly                    |
+| **Availability**             | Multi-AZ available with failover                                           | **Built-in high availability** (6 copies across 3 AZs), faster failover |
+| **Read Replicas**            | Up to 5 (depending on engine)                                              | Up to **15 low-latency replicas**                                       |
+| **Serverless Option**        | Only Aurora (not available in standard RDS)                                | **Aurora Serverless v2** supports auto-scaling compute                  |
+| **Backups & Snapshots**      | Automated & manual                                                         | Same, with faster recovery times                                        |
+| **Pricing**                  | Generally **lower cost**                                                   | Higher cost but better performance and scalability                      |
+| **Multi-Master Support**     | Not available                                                              | Available (Aurora Multi-Master – limited)                               |
+| **Use of Custom Extensions** | More flexible (especially in PostgreSQL)                                   | Some limitations (fewer extensions)                                     |
+
+<br>
+
+When to Use Amazon RDS
+- We need standard performance and lower cost.
+- We are using commercial databases like Oracle or SQL Server.
+- We don’t need massive scaling or extreme fault tolerance.
+- We're running small-to-medium applications or traditional workloads.
+
+<br>
+
+When to Use Amazon Aurora
+- You need high performance and high availability.
+- You want automatic scalability of storage and compute.
+- You need fast failover and high resilience.
+- You're building high-throughput or globally distributed applications.
+- You want to stay close to MySQL or PostgreSQL compatibility, but with better performance.
+
+<br>
+<br>
+<br>
+
+### 
 
 <br>
 <br>
