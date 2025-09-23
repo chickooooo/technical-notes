@@ -1,12 +1,13 @@
 ## Index
-- [EC2 (Elastic Compute Cloud)](#ec2-elastic-compute-cloud)
+- [Amazon EC2](#amazon-ec2)
 - [Spot Instance](#spot-instance)
 - [Security Groups](#security-groups)
 - [AWS Lambda](#aws-lambda)
-- [AWS S3](#aws-s3-simple-storage-service)
-- [Amazon RDS](#amazon-rds-relational-database-service)
+- [AWS S3](#aws-s3)
+- [Amazon RDS](#amazon-rds)
 - [Amazon Aurora](#amazon-aurora)
 - [Amazon RDS vs Amazon Aurora](#amazon-rds-vs-amazon-aurora)
+- [Amazon SQS](#amazon-sqs)
 
 <br>
 <br>
@@ -14,10 +15,10 @@
 <br>
 <br>
 
-### EC2 (Elastic Compute Cloud):
+### Amazon EC2:
 
 What is EC2?
-- EC2 stands for Elastic Compute Cloud.
+- EC2 stands for **Elastic Compute Cloud**.
 - EC2 is a core AWS service that provides general purpose cloud server (instances).
 - These servers can be used to run backend services, APIs, crown jobs, etc.
 - There are various types of servers available, we can choose the OS, instance size, network, storage, etc.
@@ -89,7 +90,7 @@ Limits:
 <br>
 <br>
 
-### AWS S3 (Simple Storage Service)
+### AWS S3
 - S3 stands for **Simple Storage Service**.
 - It is used to store objects like images, videos, files, etc.
 
@@ -110,7 +111,7 @@ Key Features:
 <br>
 <br>
 
-### Amazon RDS (Relational Database Service)
+### Amazon RDS
 - RDS stands for **Relational Database Service**.
 - It is a managed service that takes care of:
     - Database setup
@@ -193,6 +194,40 @@ When to Use Amazon Aurora
 <br>
 <br>
 
+### Amazon SQS
+- SQS stands for **Simple Queue Service**.
+- It is a fully managed message queuing service provided by AWS.
+- It allows sending, storing and receiving messages accross different components without losing them.
+- It is used to decouple components in a distributed system and provide asynchronous mode of communication.
+
+<br>
+
+Key Features:
+- A producer sends the message to a queue. A consumer polls the queue and process the message.
+- Once processed, the message is deleted from the queue.
+- Each message has multiple replicas stored across availability zones (AZs).
+- SQS scales automatically to handle the required throughput.
+- Supports **Dead Letter Queue (DLQ)** to capture failed messages.
+
+<br>
+
+Types:
+- Standard Queue
+    - This is the default queue provided by SQS.
+    - Gaurantees at-least-once delivery (may deliver messages more than once).
+    - Does best effort for ordering (not guaranteed).
+    - Has High throughput (nearly unlimited).
+
+- First-in-first-out (FIFO) Queue
+    - Each message is processed exactly once.
+    - Preserves message order.
+    - Lower throughput compared to standard queue.
+    - Ideal for tasks where order and uniqueness is important.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
@@ -223,7 +258,6 @@ ECS (Elastic Container Service):
 <br>
 
 - ELB (Elastic Load Balancer):
-- Lambda
 - Elastic IP
 - AMI (Amazon machine image)
 - EBS (Elastic Block Storage)
