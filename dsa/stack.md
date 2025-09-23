@@ -81,3 +81,29 @@
 - **Algorithm**: Monotonic stack.
 - Iterate through the array, if an asteroid is moving right, add it to the `stack`.
 - If an asteroid is moving left, perform the collisions.
+
+<br>
+<br>
+<br>
+
+### Sum of subarray minimums
+
+- Problem: Given an array of integers arr, find the sum of min(b), where b ranges over every (contiguous) subarray of arr. Since the answer may be large, return the answer modulo 10^9 + 7.
+- Link: https://leetcode.com/problems/sum-of-subarray-minimums/description/
+
+---
+
+- **Algorithm**: Sliding window + Monotonic stack
+- Create a stack and `prefix` that holds the sum of elements in stack.
+- While iterating through the array if `num >= stack[-1]`, add `(item, 1)` to the stack and update `prefix`.
+- If `num <= stack[-1]`, remove all small or equal items from stack.
+- While removing, note the count `freq` of items removed. Also remove the sum from `prefix`.
+- At last, add `(item, freq)` to the stack and update `prefix`.
+- At each step, add `prefix` to the `total` sum.
+
+---
+
+Why modulo (10^9 + 7) ?
+- Large numbers can lead to integer overflow. To avoid that modulo is taken.
+- The number 10^9 + 7 (i.e., 1000000007) is a large prime.
+- Doing modulo retains the original number that are less than it.
