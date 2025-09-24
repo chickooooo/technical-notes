@@ -101,7 +101,7 @@ Use Cases:
 - Problem: Given an array of integers nums and an integer k. Return the number of continuous subarrays that contains k odd numbers.
 
 ---
-- **Algorithm**: Simplify the given problem to a simpler problem.
+- **Algorithm**: Simplify the given problem to a simpler problem. Fixed size sliding window.
 - Create a new list containing all odd indexes.
 - Perform fixed sized (k) sliding window on this list.
 - At each step,
@@ -120,6 +120,31 @@ Use Cases:
 ---
 
 Approach 2
+
+<br>
+<br>
+<br>
+
+### Substrings containing a,b,c atleast once
+
+- Problem: Given a string s consisting only of characters a, b and c. Return the number of substrings containing at least one occurrence of all these characters a, b and c.
+- Link: https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
+
+---
+
+- **Algorithm**: Variable sliding window + Counting at each step.
+- Use 2 pointers `i & j`.
+- Increment `j` till you find the first window containing `a,b,c`.
+- This window and all the windows to the right (by increasing `j`) are valid. Add this count to `total`.
+- Now decrement `i`. If the window is valid, add the same above count to `total`.
+- Continue decrement of `i` till the window becomes invalid.
+- Again start from 2nd step.
+
+<br>
+<br>
+<br>
+
+### 
 
 <br>
 <br>
