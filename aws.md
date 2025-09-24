@@ -1,6 +1,7 @@
 ## Index
 - [Amazon EC2](#amazon-ec2)
 - [Spot Instance](#spot-instance)
+- [Amazon ECS](#amazon-ecs)
 - [Security Groups](#security-groups)
 - [AWS Lambda](#aws-lambda)
 - [AWS S3](#aws-s3)
@@ -41,6 +42,23 @@ Key features:
 - AWS can reclaim (terminate) the instance with 2 minutes notice.
 - Ideal for non-realtime, fault safe tasks.
 - When working with spot instances, use **Elastic Block Store (EBS)** to save data on persistent volumes.
+
+<br>
+<br>
+<br>
+
+### Amazon ECS
+- ECS stands for **Elastic Container Service**.
+- It is a fully managed container orchestration service managed by AWS.
+- It manages running, scheduling and scaling of docker containers.
+- It acts as a substitue for services like kubernetes.
+
+<br>
+
+Key Features:
+- Fully managed container orchestration
+- Handles container auto-scalling & load balancing.
+- Monitors container health and handles auto recovery
 
 <br>
 <br>
@@ -240,16 +258,6 @@ Auto Scaling:
 - It scales based on metrics like CPU usage, network traffic or custom metrics.
 - Used with services like EC2, ECS, Aurora replicas, DynamoDB, etc.
 - It also performs health checks and replaces unhealthy instances.
-
-<br>
-<br>
-<br>
-
-ECS (Elastic Container Service):
-- ECS is a fully managed container orchestration service.
-- It manages running, scheduling and scaling of docker containers.
-- Just like kubernetes it monitors container health and handles auto recovery.
-- ECS is AWS native solution just like kubernetes.
 
 <br>
 <br>
