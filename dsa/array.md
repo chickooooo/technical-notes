@@ -53,6 +53,40 @@ Use Cases:
 <br>
 <br>
 <br>
+
+### Merge Intervals
+
+Overview:
+- This algorithm deals with **merging overlapping intervals** in a list of intervals.
+- Each interval is represented as a pair `[start, end]`.
+- For example, given `[[1,3], [2,6], [8,10], [15,18]]`, the merged result is `[[1,6], [8,10], [15,18]]`.
+
+Key Properties:
+- Time Complexity: **O(n log n)** (due to sorting).
+- Space Complexity: **O(n)** (to store the merged intervals).
+- Sorting the intervals by start time simplifies the merging logic.
+
+Core Idea:
+- **Sort** all intervals by their starting point.
+- Initialize a list with the first interval.
+- For each remaining interval:
+    - If it **overlaps** with the last interval in the merged list, **merge** them by updating the end time:
+    ```py
+    last = [
+        min(last[0], current[0]),
+        max(last[1], current[1]),
+    ]
+    ```
+    - Otherwise, append the current interval to the merged list.
+
+Use Cases:
+- Calendar management (e.g., merging meeting times).
+- Range compression (e.g., merging IP ranges or numeric ranges).
+- Data cleaning (e.g., consolidating overlapping time intervals in logs).
+
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -143,3 +177,24 @@ Use Cases:
 - Create a new array of same size. Set `pos = 0` and `neg = 1`.
 - Iterate through the given array. If element is positive, copy it to the new array at `pos` index and increment `pos` by 2.
 - If element is negative, copy it to the new array at `neg` index and increment `neg` by 2.
+
+<br>
+<br>
+<br>
+
+### Merge overlapping intervals
+
+- Problem: Given an array of intervals where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+- Link: https://leetcode.com/problems/merge-intervals/
+
+---
+
+- **Algorithm**: Merge intervals
+- Sort the intervals in ascending order.
+- If `start` of the current interval is greater than `end` of the last interval, add it to the array.
+- Otherwise, merge last interval and current interval.
+```py
+last = [
+    min(last[0], current[0]),
+    max(last[1], current[1]),
+]
