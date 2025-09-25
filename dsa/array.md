@@ -198,3 +198,21 @@ last = [
     min(last[0], current[0]),
     max(last[1], current[1]),
 ]
+```
+
+<br>
+<br>
+<br>
+
+### Merge 2 sorted arrays
+
+- Problem: You are given two integer arrays nums1 (m) and nums2 (n), sorted in non-decreasing order. Merge nums1 and nums2 into a single array sorted in non-decreasing order. There are n zeros at the end of nums1.
+- Link: https://leetcode.com/problems/merge-sorted-array/
+
+---
+
+- **Algorithm**: Two pointers
+- Set `i=m-1`, `j=n-1` & `k=m+n-1`. `i` will iterate `nums1` and `j` will iterate `nums2`.
+- The larger number from `i` or `j` will be replaced with the zero present at `k`.
+- Continue this replacement until all number of `nums2` are in `nums1`.
+- Handle the edge case where `nums1` finishes before `nums2`.
