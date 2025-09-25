@@ -107,3 +107,20 @@ Why modulo (10^9 + 7) ?
 - Large numbers can lead to integer overflow. To avoid that modulo is taken.
 - The number 10^9 + 7 (i.e., 1000000007) is a large prime.
 - Doing modulo retains the original number that are less than it.
+
+<br>
+<br>
+<br>
+
+### Sum of subarray ranges
+
+- Problem: You are given an integer array nums. The range of a subarray of nums is the difference between the largest and smallest element in the subarray. Return the sum of all subarray ranges of nums.
+- Link: https://leetcode.com/problems/sum-of-subarray-ranges/description/
+
+---
+
+- **Algorithm**: Sliding window + Monotonic stack
+- Calculate sum of subarray minimums: [Sum of subarray minimums](#sum-of-subarray-minimums).
+- Similarly, calculate sum of subarray maximums.
+- Subarray range sum = Maximum sum - Minimum sum.
+- `∑(ai​-bi​) = ∑ai ​- ∑bi`
