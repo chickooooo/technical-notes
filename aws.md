@@ -9,6 +9,7 @@
 - [Amazon Aurora](#amazon-aurora)
 - [Amazon RDS vs Amazon Aurora](#amazon-rds-vs-amazon-aurora)
 - [Amazon SQS](#amazon-sqs)
+- [Amazon Lightsail](#amazon-lightsail)
 
 <br>
 <br>
@@ -246,6 +247,38 @@ Types:
 <br>
 <br>
 
+### Amazon Lightsail
+- Lightsail makes it easy to deploy and manage **Virtual Private Servers (VPS)**.
+- It is ideal for deploying small applications without managing complex infrastructure.
+
+<br>
+
+Key Features:
+- It provides pre-configured servers with **SSD storage**, **Static IPs** and **DNS management**.
+- It has fixed (predictable) monthly pricing, unlike EC2, which uses pay-as-you-go billing.
+- It has integrated networking features like: static IP, DNS management, and firewall settings.
+- Has support for deploying containerized apps.
+- Typical use cases:
+    - Running web applications.
+    - Hosting small e-commerce (or other) websites.
+    - Development and test environments
+
+<br>
+
+Lightsail vs EC2:
+
+| Feature     | Lightsail                            | EC2                               |
+| ----------- | ------------------------------------ | --------------------------------- |
+| Complexity  | Beginner-friendly                    | Highly customizable, complex      |
+| Billing     | Fixed monthly pricing                | Pay-as-you-go                     |
+| Setup       | Fast, with pre-configured blueprints | Manual setup                      |
+| Scalability | Limited scalability                  | Highly scalable                   |
+| Use Case    | Small/medium apps, quick deploys     | Enterprise apps, high flexibility |
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
@@ -265,6 +298,7 @@ Auto Scaling:
 <br>
 <br>
 
+- DynamoDB
 - ELB (Elastic Load Balancer):
 - Elastic IP
 - AMI (Amazon machine image)
