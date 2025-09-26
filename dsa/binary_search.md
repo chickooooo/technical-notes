@@ -4,20 +4,6 @@
 <br>
 <br>
 
-### Max of min / Min of max
-
-How to identify:
-- The problem asks to **maximise the minimum value** or **minimise the maximum value**.
-- Cannot be solved using traditional array, greedy or other approaches.
-
-Steps:
-- The steps to solve and other details are same as **Binary search on range** problems.
-- The crucial part is to identify such problems.
-
-<br>
-<br>
-<br>
-
 ### Binary search on range
 
 How to identify:
@@ -47,6 +33,26 @@ Note:
 <br>
 <br>
 <br>
+
+### Max of min / Min of max
+
+How to identify:
+- The problem asks to **maximise the minimum value** or **minimise the maximum value**.
+- Cannot be solved using traditional array, greedy or other approaches.
+
+Steps:
+- The steps to solve and other details are same as **Binary search on range** problems.
+- The crucial part is to identify such problems.
+
+<br>
+<br>
+<br>
+
+### Binary search on rotated sorted array
+
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -70,6 +76,22 @@ Note:
 ### Find element index / insert position in sorted array
 - Find element index using binary search.
 - After BS, if element not found, the `left` pointer will point to insert position.
+
+<br>
+<br>
+<br>
+
+### Find minimum in rotated sorted array
+
+- Problem: Given a sorted rotated array nums of unique elements, return the minimum element of this array. You must write an algorithm that runs in O(log n) time.
+- Link: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+
+---
+
+- **Algorithm**: Binary search on rotated sorted array
+- Check which part is sorted using the standard **Binary search on rotated sorted array** algorithm.
+- The minimum element can be the starting element of this sorted part.
+- Use binary search to shrink the search space and keep on updating the minimum element.
 
 <br>
 <br>
