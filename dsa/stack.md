@@ -124,3 +124,20 @@ Why modulo (10^9 + 7) ?
 - Similarly, calculate sum of subarray maximums.
 - Subarray range sum = Maximum sum - Minimum sum.
 - `∑(ai​-bi​) = ∑ai ​- ∑bi`
+
+<br>
+<br>
+<br>
+
+### Smallest integer after removing k digits
+
+- Problem: Given string num representing a non-negative integer num, and an integer k, return the smallest possible integer after removing k digits from num.
+- Link: https://leetcode.com/problems/remove-k-digits/
+
+---
+
+- **Algorithm**: Monotonic stack
+- Maintain an increasing monotonic stack. Can contain duplicates.
+- Remove atmost k elements when creating the stack.
+- If less than k elements were removed, remove remaining elements from the end of the stack.
+- Handle leading zeros.
