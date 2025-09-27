@@ -11,6 +11,10 @@ How to identify:
 - There exists a range of possible answers with a clear lower and upper bound.
 - The problem is about searching for a value that satisfies a constraint.
 
+---
+- Note: Brute-force solution for such problems will give `O(range*n)` complexity.
+- The range will be sorted, so instead of normal linear iteration, we can perform binary search to reduce the time complexity to `O(log(range)*n)`. 
+
 Steps:
 1. Define the lower and upper limit of the search space.
 2. Perform binary search on this search space and verify the constraints.
@@ -124,6 +128,22 @@ Steps:
 - Define the lower `1` & upper limit `max(nums)`. Perform binary search on this limit.
 - At each step, iterate the array to find required hours.
 - Move the pointers depending on required & given hours.
+
+<br>
+<br>
+<br>
+
+### Minimum Number of Days to Make m Bouquets
+
+- Problem: You are given an integer array bloomDay, an integer m and an integer k. You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden. The garden consists of n flowers, the ith flower will bloom in the `bloomDay[i]` and then can be used in exactly one bouquet. Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1.
+- Link: https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
+
+---
+
+- **Algorithm**: Binary search on range.
+- Define the lower `1` & upper limit `max(nums)`. Perform binary search on this limit.
+- At each step, iterate the array to find the bouquets made.
+- Move the pointers depending on required & made bouquets.
 
 <br>
 <br>
