@@ -91,6 +91,9 @@ products = MyProduct.objects.bulk_create([
 ])
 ```
 
+- It is not atomic by default. It may partially succeed depending on the database and error type.
+- To make it atomic, wrap it with `transaction.atomic()`.
+
 <br>
 <br>
 <br>
@@ -441,11 +444,15 @@ products.update(price=22)
 <br>
 
 ## Q objects
+- Q objects are used to build complex queries with `OR`, `AND` and `NOT` conditions.
+- Import Q object like this: `from django.db.models import Q`.
+- You can use `&` (AND), `|` (OR) and `~` (NOT) operators.
+
 
 <br>
 <br>
 
-**Q objects: OR query**
+### OR query
 
 ```python
 q = Q(id__lt=2) | Q(price=22)
@@ -453,8 +460,9 @@ products = MyProduct.objects.filter(q)
 ```
 
 <br>
+<br>
 
-**Q objects: AND query**
+### AND query
 
 ```python
 q = Q(id__lte=4) & Q(price=22)
@@ -462,8 +470,19 @@ products = MyProduct.objects.filter(q)
 ```
 
 <br>
+<br>
 
-**Q objects: complex query**
+### NOT query
+
+```python
+q = Q(price=22) & ~Q(name="Banana")
+products = MyProduct.objects.filter(q)
+```
+
+<br>
+<br>
+
+### Complex query
 
 ```python
 q = (Q(id__lte=4) & Q(price=22)) | Q(price=30)
@@ -471,8 +490,17 @@ products = MyProduct.objects.filter(q)
 ```
 
 <br>
+<br>
+<br>
+<br>
+<br>
 
-**Select Related**
+## Related Objects
+
+<br>
+<br>
+
+### Select Related
 
 - Works with `ForeignKey()` and `OneToOneField()` relationships.
 - Performs a join and includes the related object in the original query.
@@ -489,8 +517,9 @@ cart_product = MyCartProduct.objects.select_related("cart", "product").get(id=1)
 ```
 
 <br>
+<br>
 
-**Prefetch Related**
+### Prefetch Related
 
 - Works with `ManyToManyField()` and reverse `ForeignKey()` relationships.
 - Executes separate queries and combines them in Python.
@@ -505,11 +534,12 @@ carts = MyCart.objects.prefetch_related("products")
 # Prefetch MyCartProduct items for a cart (reverse FK relationship)
 cart = MyCart.objects.prefetch_related("mycartproduct_set").get(id=1)
 ```
-- `mycartproduct_set` is the default related name for the reverse FK from MyCartProduct to MyCart.
+- `mycartproduct_set` is the default related name for the reverse FK from `MyCartProduct` to `MyCart`.
 
 <br>
+<br>
 
-**Select Related vs Prefetch Related**
+### Select Related vs Prefetch Related
 
 - `select_related()` works by creating an SQL join and including the fields of the related object in the SELECT statement.
 - That means, `select_related()` gets the related objects in the same database query.
@@ -517,25 +547,24 @@ cart = MyCart.objects.prefetch_related("mycartproduct_set").get(id=1)
 - It is used when a SQL JOIN isn't practical or possible, such as with **ManyToMany** or **reverse ForeignKey** relationships.
 
 <br>
+<br>
 
-**N+1 Query Problem**
+### N+1 Query Problem
 
 - Happens when your code makes 1 query to get N objects, and then N additional queries to fetch related data for each object.
 - Total queries: 1 (main) + N (users) = N+1 queries
 - To solve this problem, use:
-    - `select_related()` for ForeignKey/OneToOne
-    - `prefetch_related()` for ManyToMany or reverse ForeignKey
+    - `select_related()` for **ForeignKey** and **OneToOne** relationship.
+    - `prefetch_related()` for **ManyToMany** and **Reverse ForeignKey** relationships.
 
 <br>
-
-****
-
-- 
-
 <br>
-
+<br>
+<br>
+<br>
 
 ## 
 
 - what is a queryset?
 - lazy initialization of queryset
+- transactions in django
