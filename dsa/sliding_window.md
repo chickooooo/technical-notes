@@ -144,6 +144,23 @@ Approach 2
 <br>
 <br>
 
+### Count subarrays with given XOR
+
+- Problem: Given an array of integers arr[] and a number k, count the number of subarrays having XOR of their elements as k.
+- Link: https://www.geeksforgeeks.org/problems/count-subarray-with-given-xor/1
+
+---
+
+- **Algorithm**: Prefix sum + hash map
+- Maintain a hashmap of `{prefix_xor: count}`. Set `hashmap[0] = 1`.
+- At each step, perform XOR with current element and update the value of `prefix_xor`.
+- Count the number of subarrays with XOR equal to `prefix_xor ^ k`.
+- Increment the count of current `prefix_xor` in the hashmap.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
