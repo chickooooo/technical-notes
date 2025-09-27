@@ -446,7 +446,7 @@ products.update(price=22)
 ## Q objects
 - Q objects are used to build complex queries with `OR`, `AND` and `NOT` conditions.
 - Import Q object like this: `from django.db.models import Q`.
-- You can use `&` (AND), `|` (OR) and `~` (NOT) operators.
+- We can use `&` (AND), `|` (OR) and `~` (NOT) operators.
 
 
 <br>
@@ -560,11 +560,111 @@ cart = MyCart.objects.prefetch_related("mycartproduct_set").get(id=1)
 <br>
 <br>
 <br>
+
+### Querying using related object
+
+```python
+# get all carts belonging to user named 'Alice'
+carts = MyCart.objects.filter(user__name='Alice')
+```
+
+- Django performs SQL join behind the scenes when querying using related objects.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Aggregation
+- The `.aggregate()` method is used to perform an aggregate calculation over a **Queryset** and return a dictionary containing the computed values.
+- It runs aggregate queries directly on the database.
+- It returns a single dictionary with the result(s), not a QuerySet.
+
+<br>
+
+Example:
+
+```python
+from django.db.models import Avg
+
+# using default alias
+res = MyProduct.objects.all().aggregate(Avg("price"))
+print(res)  # `{'price__avg': 21.0}`
+
+# using custom alias
+res = MyProduct.objects.all().aggregate(price=Avg("price"))
+print(res)  # `{'price': 21.0}`
+```
+
+<br>
+<br>
+
+### Aggregate methods
+
+<br>
+<br>
+
+| Django Aggregate Method | Description                                               | SQL Equivalent                |
+| ----------------------- | --------------------------------------------------------- | ----------------------------- |
+| `Count('field')`        | Counts the number of rows (or non-null values in a field) | `COUNT(column)` or `COUNT(*)` |
+| `Sum('field')`          | Calculates the sum of values in a column                  | `SUM(column)`                 |
+| `Avg('field')`          | Calculates the average value of a column                  | `AVG(column)`                 |
+| `Min('field')`          | Finds the minimum value in a column                       | `MIN(column)`                 |
+| `Max('field')`          | Finds the maximum value in a column                       | `MAX(column)`                 |
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Annotation
+- Annotation allows to add **Calculated Fields** to each item in a queryset.
+- It makes use of `.annotate()` method.
+- These fields are usually aggregations or expressions computed per-row or per-group.
+- We can access these fields just like any other model attribute.
+
+<br>
+
+Example:
+
+```python
+from django.db.models import Count
+
+# get count of products in each cart
+res = MyCart.objects.all().annotate(products_count=Count("products"))
+for item in res:
+    print(item.id, item.products_count)  # 1 2
+```
+
+<br>
+
+`.annotate()` vs `.aggregate()`
+
+| `.annotate()`                       | `.aggregate()`                     |
+| ----------------------------------- | ---------------------------------- |
+| Adds calculated fields **per row**  | Returns a **single summary** value |
+| Returns a QuerySet                  | Returns a dictionary               |
+| Used for grouping/adding extra info | Used for overall statistics        |
+
+<br>
+<br>
+<br>
 <br>
 <br>
 
 ## 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
 - what is a queryset?
 - lazy initialization of queryset
 - transactions in django
+
+- Django field types: `OneToOne`, `ForeignKey`, etc.
