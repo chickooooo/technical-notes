@@ -7,7 +7,7 @@
 ### Prefix, Postfix, Infix
 - Prefix to ANY:
     - Iterate backwards on input.
-    - Reverse the output.
+    - Reverse the output (if needed).
 
 <br>
 <br>
@@ -50,6 +50,16 @@
 - Use stack to store operands.
 - When an operator arrives, replace last operand with `{operator}{left}{right}`.
 - Return **reversed** output.
+
+<br>
+<br>
+<br>
+
+### Prefix to infix conversion
+- Iterate from the back.
+- Use stack to store operands.
+- When an operator arrives, replace last operand with `({left}{operator}{right})`.
+- Return the only item present in the stack
 
 <br>
 <br>
