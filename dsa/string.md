@@ -65,3 +65,20 @@
 - Iterate the string using 2 for loops in `O(n^2)` time complexity.
 - At each step, use frequency array to calculate the difference between max & min frequency.
 - Total time complexity: `O(n*n*26)`
+
+<br>
+<br>
+<br>
+
+### Longest palindromic substring
+
+- Problem: Given a string s, return the longest palindromic substring in s.
+- Link: https://leetcode.com/problems/longest-palindromic-substring/
+
+---
+
+- **Algorithm**: Check Palindrome from middle
+- Iterate the given string `s`.
+- At each step, find the longest palindromic substring with centre as `s[i]`. Odd length palindromic substring.
+- Also, find the longest palindromic substring with centre as `s[i], s[i+1]`. Even length palindromic substring.
+- Keep track of longest palindromic substring and return it.
