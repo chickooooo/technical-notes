@@ -66,6 +66,25 @@ Steps:
 <br>
 <br>
 
+### Kth missing positive number
+
+- Problem: Given an array arr of positive integers sorted in a strictly increasing order, and an integer k. Return the kth positive integer that is missing from this array.
+- Link: https://leetcode.com/problems/kth-missing-positive-number/
+
+---
+
+- **Algorithm**: Standard binary search
+- Perform standard binary search.
+- At each step, calculate the count of missing numbers towards the left of middle. `missing_count = arr[index] - (index + 1)`.
+- If missing count is less than `k`, eliminate left search space.
+- If missing count is `>= k`, set `upper_bound = middle` and eliminate right search space.
+- After binary search, if `upper_bound == -1`, that means the missing element is present after the last element of array: `missing_element = len(arr) + k`.
+- Otherwise, `missing_element = arr[upper_bound] - (missing_count - k) - 1`. This simplifies to: `missing_element = upper_bound + k`
+
+<br>
+<br>
+<br>
+
 ### Find element index in sorted array
 - Core binary search algorithm.
 - Setup:
