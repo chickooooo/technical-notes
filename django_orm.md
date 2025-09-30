@@ -448,7 +448,6 @@ products.update(price=22)
 - Import Q object like this: `from django.db.models import Q`.
 - We can use `&` (AND), `|` (OR) and `~` (NOT) operators.
 
-
 <br>
 <br>
 
@@ -648,6 +647,67 @@ for item in res:
 | Adds calculated fields **per row**  | Returns a **single summary** value |
 | Returns a QuerySet                  | Returns a dictionary               |
 | Used for grouping/adding extra info | Used for overall statistics        |
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## F objects
+- Also known as **F Expressions**.
+- F objects are used when we want to refer to **value of a model field**, directly in the database.
+- It avoids the need to pull the values in python and work with them in memory.
+- Example: Get all the warehouses where the inventory is equal to it's max capacity.
+
+```python
+from django.db.models import F
+
+# get maxed out warehouses
+maxed_out = Warehouse.objects.filter(inventory=F('max_capacity'))
+
+# SQL query used
+"SELECT * FROM warehouses WHERE inventory=max_capacity;"
+```
+
+<br>
+<br>
+
+### Usecases:
+
+<br>
+
+Updating a field relative to its current value
+
+```python
+# Increase price by 10
+Product.objects.update(price=F('price') + 10)
+```
+
+<br>
+
+Comparing values between fields
+
+```python
+# Get products where the inventory is less than the threshold
+Product.objects.filter(inventory__lt=F('reorder_threshold'))
+```
+
+<br>
+
+Using F objects in annotations and aggregations
+
+```python
+from django.db.models import F, ExpressionWrapper, FloatField
+
+# Annotate discount percentage
+products = Product.objects.annotate(
+    discount_percent=ExpressionWrapper(
+        (F('original_price') - F('sale_price')) * 100.0 / F('original_price'),
+        output_field=FloatField()
+    )
+)
+```
 
 <br>
 <br>
