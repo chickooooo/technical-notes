@@ -151,3 +151,21 @@ Why modulo (10^9 + 7) ?
 - Remove atmost k elements when creating the stack.
 - If less than k elements were removed, remove remaining elements from the end of the stack.
 - Handle leading zeros.
+
+<br>
+<br>
+<br>
+
+### Next greater element in a circular array
+
+- Problem: Given a circular integer array nums, return the next greater number for every element in nums.
+- Link: https://leetcode.com/problems/next-greater-element-ii/
+
+---
+
+- **Algorithm**: Next greater element + Circular array
+- Just like every circular array problem, we can make `nums = nums + nums`. Or we can iterate nums twice.
+- Iterate `nums` from the back, maintain a monotonic stack to keep track of the next greater element.
+- Using the same stack, iterate `nums` from the back again.
+- This time at each step, update the value of next greater element in the output array.
+- Return the output array.
