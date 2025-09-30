@@ -57,6 +57,52 @@ Steps:
 <br>
 <br>
 <br>
+
+### Binary search for decimal
+
+How to identify:
+- The problem requires finding a **real number (floating point)** answer, not just an integer.
+- This is similar to binary search on integers but adapted to handle **floating-point precision**.
+- Because floating point numbers are infinite within any range, we stop the search based on a **precision threshold**, not just when `left <= right`.
+
+Steps:
+
+1. Define the **lower and upper bounds** of the search space.
+2. Choose a **precision level** (`e.g. 1e-6` if answer is required up to 5 decimal places).
+3. Perform binary search using:
+   `while right - left > precision:`
+4. Check the **condition at mid**, and move either `left` or `right` accordingly.
+
+Key Properties:
+
+- Time Complexity: `O(log(range * 10^decimal_places))`
+- Space Complexity: `O(1)`
+- Works on **continuous ranges**, not just integers.
+
+Pointer Movement:
+
+```python
+if condition(mid):
+    left = mid
+else:
+    right = mid
+```
+
+Use Cases:
+
+- Finding **square root**, **cube root**, or any **root of a monotonic function**.
+- **Minimum time**, **distance**, or **rate** in physics or optimization problems.
+- Problems involving **probability thresholds**, **geometry (e.g., circle/radius fitting)**, etc.
+
+Note:
+
+- Always set `precision = 1e-(p+1)` if the problem asks for `p` decimal places of accuracy.
+- In floating point problems, use caution with comparison (avoid `==`).
+- Final answer should often be **rounded** to the required decimal precision.
+
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -175,7 +221,7 @@ Steps:
 
 ---
 
-- Algorithm: Max of min / Min of max
+- **Algorithm**: Max of min / Min of max
 - Define the lower `max(nums)` & upper limit `sum(nums)`. Perform binary search on this limit.
 - At each step, iterate the array to find the groups formed.
 - Move the pointers depending on required & formed groups.
@@ -199,3 +245,22 @@ Steps:
 - If the target is greater, we know it can't be on that row, so `i += 1`.
 - If the target is smaller, we know it can't be on that column, so `j -= 1`.
 - TC: `O(m+n)`
+
+<br>
+<br>
+<br>
+
+### ⭐ Minimize max distance to gas station
+
+- Problem: You are given a sorted list of gas station positions on a number line. You can add k more stations to minimize the maximum distance between any two adjacent stations. The goal is to find the smallest possible maximum distance after adding the stations, rounded to 2 decimal places.
+- Link: https://www.geeksforgeeks.org/problems/minimize-max-distance-to-gas-station/1
+
+---
+
+- **Algorithm**: Max of min / Min of max
+- Define the lower limit: `0` and upper limit: `max(stations[i]-stations[i-1])`.
+- Define the decimal precision (always required precision + 1): `precision = 1e-3`.
+- Perform **Binary search for decimal**.
+- At each step, iterate the array to find the stations required such that the max distance between adjacent stations is `middle`.
+- Number of stations required between 2 adjacent stations: `math.ceil((stations[i]-stations[i-1]) / max_distance) - 1`
+- Move the pointers depending on required & given stations.
