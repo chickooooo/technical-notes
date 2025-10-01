@@ -231,3 +231,22 @@ last = [
 - **Algorithm**: 2 for loops
 - The outer for loop decides how many rows to add.
 - The inner for loop create a new row by adding neighbouring elements from the previous row.
+
+<br>
+<br>
+<br>
+
+### Find the repeating and missing number
+
+- Problem: Given an unsorted array arr[] of size n, containing elements from the range 1 to n, it is known that one number in this range is missing, and another number occurs twice in the array, find both the duplicate number and the missing number.
+- Link: https://www.geeksforgeeks.org/problems/find-missing-and-repeating2512/1
+
+---
+
+- **Algorithm**: Using array index
+- Iterate through the array.
+- In the first iteration, for all `nums`, mark `(num-1)th` element in array as negative.
+- While marking a number negative, if that number is already negative, that means `num` is duplicate.
+- Iterate through the array again and find the number that is not negative.
+- This number was not marked, that means `index+1` number is missing from the array.
+- Return duplicate and missing number.
