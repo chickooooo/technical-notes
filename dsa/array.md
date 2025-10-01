@@ -216,3 +216,18 @@ last = [
 - The larger number from `i` or `j` will be replaced with the zero present at `k`.
 - Continue this replacement until all number of `nums2` are in `nums1`.
 - Handle the edge case where `nums1` finishes before `nums2`.
+
+<br>
+<br>
+<br>
+
+### Pascal's triangle
+
+- Problem: Given an integer numRows, return the first numRows of Pascal's triangle.
+- Link: https://leetcode.com/problems/pascals-triangle/
+
+---
+
+- **Algorithm**: 2 for loops
+- The outer for loop decides how many rows to add.
+- The inner for loop create a new row by adding neighbouring elements from the previous row.
