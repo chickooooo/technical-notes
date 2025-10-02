@@ -35,6 +35,12 @@ Use Cases:
 <br>
 <br>
 <br>
+
+### Inverse sliding window
+
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -156,6 +162,42 @@ Approach 2
 - At each step, perform XOR with current element and update the value of `prefix_xor`.
 - Count the number of subarrays with XOR equal to `prefix_xor ^ k`.
 - Increment the count of current `prefix_xor` in the hashmap.
+
+<br>
+<br>
+<br>
+
+### Maximum sum using elements from start / end
+
+- Problem: Given an array cardPoints and an integer k, pick exactly k cards from either the start or end of the array to maximize your total score. Return the maximum score possible.
+- Link: https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
+
+---
+
+- **Algorithm**: Inverse sliding window
+- Calculate `total` sum of the array.
+- Create a window of size `n-k`. Subtract the sum of this window from the `total`.
+- Slide this window over the array and find the maximum value of total.
+- The idea is to maintain a fixed size window that will subtract elements instead of adding them.
+
+<br>
+<br>
+<br>
+
+### Longest substring with atmost k distinct characters
+
+- Problem: You are given a string 'str' and an integer ‘K’. Your task is to find the length of the largest substring with at most ‘K’ distinct characters.
+- Link: https://www.naukri.com/code360/problems/distinct-characters_2221410
+
+---
+
+- **Algorithm**: Variable sliding window + hashmap
+- Use a `hashmap` to maintain the distinct elements in the window and their frequency.
+- If current element is already in window or `len(hashmap)` is less than `k`, then add the `jth` element to the window and increase the window `j+=1`.
+- After each window increase, update the `maximum`.
+- If current element is not in window, then `while len(hashmap)==k`, remove the `ith` element from the window and shrink the window `i-=1`.
+- At last, return the `maximum`.
+- At each point in time, the window will contain atmost k distinct characters.
 
 <br>
 <br>
