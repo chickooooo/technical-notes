@@ -82,3 +82,25 @@
 - At each step, find the longest palindromic substring with centre as `s[i]`. Odd length palindromic substring.
 - Also, find the longest palindromic substring with centre as `s[i], s[i+1]`. Even length palindromic substring.
 - Keep track of longest palindromic substring and return it.
+
+<br>
+<br>
+<br>
+
+### Sort characters by frequency
+
+- Problem: Given a string s, sort it in decreasing order based on the frequency of the characters. Return the sorted string. If there are multiple answers, return any of them.
+- Link: https://leetcode.com/problems/sort-characters-by-frequency/
+
+---
+
+- **Algorithm**: String + hashmap
+- Calculate frquency of characters using `Counter(s)`.
+- Create an array of `(-freq, key)` and sort the array.
+- Iterate through the sorted array and construct the output.
+
+<br>
+<br>
+<br>
+
+###
