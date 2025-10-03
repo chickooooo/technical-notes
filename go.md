@@ -252,4 +252,95 @@ for i := 1; i <= 5; i++ {
 <br>
 <br>
 
+## Functions
+
+<br>
+<br>
+
+### Basic function
+
+```go
+// Greet the user
+func greet() {
+	fmt.Println("Hello Go!")
+}
+```
+
+- `func` keyword is used to define a function.
+- Documentation for a function is added above the function definition.
+- Functions must be defined outside other functions. No nested functions alowed.
+
+<br>
+<br>
+
+### Function with parameters and return value
+
+```go
+func add(x int, y int) int {
+	return x + y
+}
+```
+
+- We must specify the type for each parameter.
+- Return type should be specified after the parameters and before `{}`.
+
+<br>
+<br>
+
+### Multiple return values
+
+```go
+func divide(x, y int) (int, error) {
+	if y == 0 {
+		return 0, fmt.Errorf("cannot divide by zero")
+	}
+	return x / y, nil
+}
+
+result, err := divide(4, 2)
+```
+
+- When returning multiple values, the return types should be enclosed in parenthesis `()`.
+- Multiple return values are commonly used for returning result + error.
+
+<br>
+<br>
+
+### Named return values
+
+- We can name the return variables in the function signature.
+- These variables are already declared. We just have to reassign them.
+
+```go
+func subtract(x, y int) (res int) {
+	res = x - y  // note `=` is used and not `:=`
+	return  // empty return
+}
+```
+
+<br>
+<br>
+
+### Variadic functions
+
+- Just like `*args` in Python, use `...type` to accept a variable number of arguments.
+
+```go
+// Add all nums and return the total
+func addAll(nums ...int) (total int) {
+	for _, num := range nums {
+		total += num
+	}
+	return total
+}
+
+result := addAll(1, 2, 5)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
