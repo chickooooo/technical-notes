@@ -3,6 +3,8 @@
 <br>
 <br>
 <br>
+<br>
+<br>
 
 ## Declaring variables
 
@@ -119,6 +121,135 @@ const Pi float32 = 3.1415
 <br>
 <br>
 <br>
+<br>
+<br>
+
+## Loops
+
+- Go has only one looping keyword i.e. `for`.
+- We can use this single keyword to behave like a `for` loop, `while` loop, `enumerate`, etc.
+
+<br>
+<br>
+
+### Classic loop
+
+- Standard `for` loop to iterate over a range of numbers.
+
+```go
+// Prints 0 1 2 3 4
+for i := 0; i < 5; i++ {
+    fmt.Println(i)
+}
+```
+
+<br>
+<br>
+
+### Range loop
+
+- Range `for` loop to iterate over a range of numbers.
+
+```go
+// Prints 0 1 2 3 4
+for i := range 5 {
+    fmt.Println(i)
+}
+```
+
+<br>
+<br>
+
+### While-style loop
+
+- We can omit the init and post parts, and just use the condition.
+
+```go
+// Prints 1 2 3 4 5
+i := 1
+for i < 6 {
+    fmt.Println(i)
+    i++
+}
+```
+
+<br>
+<br>
+
+### Infinite loop
+
+- To create an infinite loop, omit everything.
+- Use `break` keyword to exit the loop.
+
+```go
+import "math/rand"
+
+var num int
+for {
+    num = rand.Intn(11)
+    fmt.Println(num)
+    if num == 10 {
+        break
+    }
+}
+```
+
+<br>
+<br>
+
+### Looping over collections
+
+- We can use `range` keyword to loop over collections liked array, string, slice, etc.
+- The `range` keyword provides access to both the index and the value.
+- If we don't require the index or the value, we can use `_` to ignore it.
+
+```go
+var nums = []int{1, 3, 5, 7}
+
+// Prints 0 1  1 3  2 5  3 7
+for index, num := range nums {
+    fmt.Println(index, num)
+}
+```
+
+<br>
+
+- When looping over a string, `range` provides access to the index and character unicode.
+- We can use `%c` get back the character value from that unicode.
+
+```go
+var s = "abcd"
+
+// Prints a b c d
+for _, unicode := range s {
+    fmt.Printf("Char: %c\n", unicode)
+}
+```
+
+<br>
+<br>
+
+### Breaking and Continuing
+
+- Use `break` keyword to exit the loop.
+- Use `continue` keyword to skip to the next iteration.
+
+```go
+for i := 1; i <= 5; i++ {
+    if i == 3 {
+        continue  // skip 3
+    }
+    if i == 5 {
+        break  // exit loop when i == 5
+    }
+    fmt.Println(i)
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## 
-
