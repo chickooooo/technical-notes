@@ -169,3 +169,27 @@ Why modulo (10^9 + 7) ?
 - Using the same stack, iterate `nums` from the back again.
 - This time at each step, update the value of next greater element in the output array.
 - Return the output array.
+
+<br>
+<br>
+<br>
+
+### Online stock span
+
+- Problem: Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day. The span of the stock's price in one day is the maximum number of consecutive days (starting from that day and going backward) for which the stock price was less than or equal to the price of that day. For example, if the prices of the stock in the last four days is `[7,2,1,2]` and the price of the stock today is 2, then the span of today is 4 because starting from today, the price of the stock was less than or equal 2 for 4 consecutive days.
+- Link: https://leetcode.com/problems/online-stock-span/
+
+---
+
+- **Algorithm**: Monotonic stack
+- Maintain a monotonic strictly decreasing `stack`. This stack will hold `(price, count)`.
+- If current price is less than `stack[-1][0]`, add `(price, 1)` in the stack.
+- If current price is greater than or equal to `stack[-1][0]`, remove the lower or same price items from the stack. While removing, keep updating the value of `count`.
+- At last, add `(price, count)` to the stack.
+- Return the count at each step.
+
+<br>
+<br>
+<br>
+
+### 
