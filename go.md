@@ -343,4 +343,135 @@ result := addAll(1, 2, 5)
 <br>
 <br>
 
+## Conditional statements
+
+<br>
+<br>
+
+### if-else statement
+
+```go
+if x > 10 {
+    fmt.Println("Good")
+} else if x > 5 {
+    fmt.Println("OK")
+} else {
+    fmt.Println("Bad")
+}
+```
+
+- There are no parentheses around the condition.
+- Curly brackets are mandatory even for one-liners.
+
+<br>
+<br>
+
+### Short statement in `if`
+
+- Go allows a **short statement** after the `if` keyword and before the condition.
+- This variable is scoped only within the if-else block.
+
+```go
+if x := 10; x > 0 {
+    fmt.Println(x, "Positive")
+} else {
+    fmt.Println(x, "Negative")
+}
+```
+
+<br>
+<br>
+
+### Note
+
+- Go does not have a ternary operator `(cond ? a : b)`. Use standard `if` block instead.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Logical operators
+
+<br>
+<br>
+
+### Logical AND (`&&`)
+
+```go
+a := true
+b := false
+
+fmt.Println(a && b)  // false
+```
+
+- Both operands should be true.
+- Short-circuits: If the first condition is false, second one is not evaluated.
+
+<br>
+<br>
+
+### Logical OR (`||`)
+
+```go
+a := true
+b := false
+
+fmt.Println(a || b)  // true
+```
+
+- Any one operand should be true.
+- Short-circuits: If the first condition is true, second one is not evaluated.
+
+<br>
+<br>
+
+### Logical NOT (`!`)
+
+```go
+a := true
+
+fmt.Println(!a)  // false
+```
+
+- Inverts the boolean value.
+
+<br>
+<br>
+
+### Grouping conditions
+
+- Use parentheses for clear grouping of logical operators.
+
+```go
+if (score >= 90 && score <= 100) || bonus {
+    fmt.Println("Eligible for reward")
+}
+```
+
+<br>
+<br>
+
+### Note
+
+- Boolean expressions must be **explicit**.
+- Unlike Python, Go does not allow implicit boolean coercion.
+
+```go
+x := 5
+
+// Incorrect: non-boolean used as condition
+if x {}
+
+// Correct: boolean value used as condition
+if x != 0 {}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
