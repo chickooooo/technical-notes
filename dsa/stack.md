@@ -192,4 +192,42 @@ Why modulo (10^9 + 7) ?
 <br>
 <br>
 
+### Largest rectangle in histogram
+
+- Problem: Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+- Link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+
+---
+
+- **Algorithm**: Left minimum + right minimum
+- Use monotonic `stack` to find the previous smaller element's index for all the elements.
+- Again, use monotonic `stack` to find the next smaller element's index for all the elements.
+- The largest possible area that includes current element is calculated as `width * height`. i.e. `(righ_min_idx - left_min_idx - 1) * nums[i]`.
+- Note: Use only 1 array to store PSE's index and use the same area to calculate area.
+- Keep updating the `maximum` at each step and return it at the end.
+
+<br>
+<br>
+<br>
+
+### Max rectangular area in a grid
+
+- Problem: Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+- Link: https://leetcode.com/problems/maximal-rectangle/
+
+---
+
+- **Algorithm**: Left minimum + right minimum
+- First create a column-wise prefix sum grid: `matrix[i][j] += matrix[i - 1][j]`.
+- Then for each row, find the area of rectangle with the maximum area.
+- The process of finding the max area is same as the problem **Largest rectangle in histogram**.
+
+---
+
+- DP approach
+
+<br>
+<br>
+<br>
+
 ### 
