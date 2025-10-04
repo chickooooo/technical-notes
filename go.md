@@ -474,4 +474,115 @@ if x != 0 {}
 <br>
 <br>
 
+## Switch statement
+
+<br>
+<br>
+
+### Standard switch statement
+
+```go
+day := "Sunday"
+
+switch day {
+case "Monday":
+    fmt.Println("Weekday")
+case "Friday":
+    fmt.Println("Almost Weekend")
+default:
+    fmt.Println("No Idea")
+}
+```
+
+- Go evaluates the expression (`day`) and runs the first matching `case`.
+- If no cases match, it runs the `default` block (if provided).
+- No `break` needed. Go automatically breaks after a matching case.
+
+<br>
+<br>
+
+### Multiple values matching
+
+- We can even match multiple values in a single case.
+- Add these values separated by a comma.
+
+```go
+day := "Tuesday"
+
+switch day {
+case "Monday", "Tuesday":  // multiple values matching
+    fmt.Println("Weekday")
+case "Friday":
+    fmt.Println("Almost Weekend")
+// optional default case
+}
+```
+
+<br>
+<br>
+
+### Switch without expression
+
+- If you omit the expression in a `switch` statement, it acts like an `if-else` statement.
+- Conditions are matched from top to bottom.
+- Only the first matching condition runs.
+
+```go
+marks := 85
+
+switch {
+case marks >= 90:
+    fmt.Println("Grade A")
+case marks >= 80:
+    fmt.Println("Grade B")
+case marks >= 70:
+    fmt.Println("Grade C")
+}
+```
+
+<br>
+<br>
+
+### `fallthrough` keyword
+
+- Unlike C/C++, Go does not fall through the cases by default.
+- We can force it using the `fallthrough` keyword.
+- Use `fallthrough` carefully, it ignores the next case's condition.
+
+```go
+num := 1
+
+switch num {
+case 1:
+    fmt.Println("One") // This is logged
+    fallthrough
+case 2:
+    fmt.Println("Two") // This is logged
+case 3:
+    fmt.Println("Three")
+}
+```
+
+<br>
+<br>
+
+### Short statement in `switch`
+
+- Just like in `if` statement, we can declare and use a variable inside the `switch` statement.
+
+```go
+switch day := "Monday"; day {
+case "Monday":
+    fmt.Println("Weekday")
+case "Friday":
+    fmt.Println("Almost Weekend")
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
