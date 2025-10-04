@@ -203,6 +203,39 @@ Approach 2
 <br>
 <br>
 
+### Count subarrays with k distinct integers (⭐)
+
+- Problem: Given an integer array nums and an integer k, return the number of good subarrays of nums. A good array is an array where the number of different integers in that array is exactly k.
+- Link: https://leetcode.com/problems/subarrays-with-k-different-integers/
+
+---
+
+- **Algorithm**: f(k) = g(k) - g(k-1)
+- Count of subarrays with k distinct integers = Count of subarrays with **atmost k** distinct integers - Count of subarrays with **atmost k-1** distinct integers.
+- f(k) = Count of subarrays with k distinct integers
+- g(k) = Count of subarrays with **atmost k** distinct integers
+
+<br>
+
+Algorithm to count subarrays with k distinct integers.
+
+- **Algorithm**: Variable sliding window + hashmap
+- Use a `hashmap` to maintain the distinct elements in the window and their frequency.
+- If current element is already in window or `len(hashmap)` is less than `k`, then add the `jth` element to the window and increase the window `j+=1`.
+- After each window increase, update the count `count += j - i`.
+- If current element is not in window, then `while len(hashmap)==k`, remove the `ith` element from the window and shrink the window `i-=1`.
+- At last, return the `count`.
+- At each point in time, the window will contain atmost k distinct characters.
+
+---
+
+- Far-near pointer approach
+
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
