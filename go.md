@@ -526,6 +526,7 @@ case "Friday":
 - If you omit the expression in a `switch` statement, it acts like an `if-else` statement.
 - Conditions are matched from top to bottom.
 - Only the first matching condition runs.
+- Useful for range-based logic.
 
 ```go
 marks := 85
@@ -577,6 +578,120 @@ case "Monday":
 case "Friday":
     fmt.Println("Almost Weekend")
 }
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Array
+
+- In Go, an array is a **fixed size**, **ordered** collection of elements of the **same type**.
+- Arrays are mutable, i.e. we can update an element within an array.
+- They are fixed size. We cannot add a new element or remove an existing element from an array.
+
+<br>
+
+### Key points
+
+- The size of an array is part of its type. That means `[3]int` and `[4]int` are two completely different types.
+- Arrays are **value types** and not reference types like Python lists.
+- When passed to functions, arrays are copied if not passed by reference.
+
+<br>
+<br>
+
+### Declaring and initialising array
+
+```go
+var arr [5]int // array of 5 integers
+```
+
+<br>
+
+#### Default values
+
+```go
+var a [3]int // [0 0 0]
+```
+
+- If not initialised while declaration, array will hold **zero values**.
+
+<br>
+
+#### With values
+
+```go
+b := [3]int{1, 2, 3}
+```
+
+<br>
+
+#### Let Go infer the length
+
+```go
+c := [...]int{10, 20, 30} // length = 3
+```
+
+<br>
+<br>
+
+### Accessing and modifying elements
+
+```go
+b[0] = 100
+fmt.Println(b[0]) // Output: 100
+```
+
+- Out-of-range access will cause a **compile-time error** or a **runtime error**.
+
+<br>
+<br>
+
+### Looping over array
+
+```go
+// using standard for loop
+for i := 0; i < len(b); i++ {
+    fmt.Println(b[i])
+}
+```
+
+<br>
+
+```go
+// using range for loop
+for index, value := range b {
+    fmt.Println(index, value)
+}
+```
+
+<br>
+<br>
+
+### Copying arrays
+
+- Arrays are **value types**. Assigning a variable holding an array to another variable will create a new copy of that array.
+
+```go
+a := [3]int{1, 2, 3}
+b := a
+b[0] = 100
+
+fmt.Println(a) // [1 2 3]
+fmt.Println(b) // [100 2 3]
+```
+
+<br>
+<br>
+
+### Array length
+
+```go
+arr := [4]string{"a", "b", "c", "d"}
+fmt.Println(len(arr)) // 4
 ```
 
 <br>
