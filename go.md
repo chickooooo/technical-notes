@@ -700,4 +700,180 @@ fmt.Println(len(arr)) // 4
 <br>
 <br>
 
+## Slice
+
+- In Go, a slice is a **variable sized**, flexible view of an array.
+- Under the hood, a slice contains these 3 things:
+    - A pointer to an underlying array
+    - A length
+    - A capacity
+- Slices are of **reference type** in nature.
+
+<br>
+<br>
+
+### Creating a slice
+
+<br>
+
+#### Empty slice
+
+```go
+var mySlice = []int{}
+fmt.Println(mySlice) // []
+
+mySlice = append(mySlice, 1, 2, 3)
+fmt.Println(mySlice) // [1 2 3]
+```
+
+<br>
+
+#### Direct initialization
+
+```go
+mySlice := []int{4, 5, 6}
+```
+
+<br>
+
+#### From an array
+
+- We can create a slice from an array by **slicing** that array.
+- This newly created slice is just a view of the original array. That means, any changes made to the slice will be reflected in the original array as well.
+
+```go
+myArray := [5]int{1, 2, 3, 4, 5}
+mySlice := myArray[2:5]
+
+fmt.Println(myArray) // [1 2 3 4 5]
+fmt.Println(mySlice) // [3 4 5]
+
+mySlice[0] = 100
+fmt.Println(mySlice) // [100 4 5]
+fmt.Println(myArray) // [1 2 100 4 5]
+```
+
+<br>
+
+#### Using make
+
+- A slice created using `make()` is filled with zero values.
+- This slice will be of `length` size.
+
+```go
+mySlice := make([]int, 3) // length 3, capacity 3
+fmt.Println(mySlice, len(mySlice), cap(mySlice)) // [0 0 0] 3 3
+
+mySlice2 := make([]int, 2, 5) // length 2, capacity 5
+fmt.Println(mySlice2, len(mySlice2), cap(mySlice2)) // [0 0] 2 5
+```
+
+<br>
+<br>
+
+### Indexing and slicing
+
+- We can access a single element or a slice of elements using the index.
+- Slicing a slice or an array creates just a new view. Any changes made to this slice will be reflected in the original as well.
+
+```go
+mySlice := []int{10, 20, 30}
+mySlice2 := mySlice[1:]
+
+fmt.Println(mySlice[2]) // 30
+
+fmt.Println(mySlice)  // [10 20 30]
+fmt.Println(mySlice2) // [20 30]
+
+mySlice2[0] = 100
+fmt.Println(mySlice2) // [100 30]
+fmt.Println(mySlice)  // [10 100 30]
+```
+
+<br>
+<br>
+
+### Slice is a reference type
+
+- If two slices share the same underlying array, changes to one will affect the other.
+
+```go
+a := []int{1, 2, 3}
+b := a
+b[0] = 99
+fmt.Println(a) // [99 2 3] → changed!
+```
+
+<br>
+<br>
+
+### Copying slices
+
+- Use built-in `copy()` function to make a new copy of the slice.
+- The destination slice should be of same length as the source slice to copy all elements.
+
+```go
+mySlice := []int{10, 20, 30}
+mySlice2 := make([]int, len(mySlice))
+
+fmt.Println(mySlice2) // [0 0 0]
+
+copy(mySlice2, mySlice)
+fmt.Println(mySlice2) // [10 20 30]
+```
+
+<br>
+<br>
+
+### Adding and removing elements
+
+- Use `append()` method to add one or more elements to the slice.
+- Use **Ellipsis operator** `mySlice...` to copy elements of one slice into another.
+
+```go
+mySlice := []int{10}
+
+mySlice = append(mySlice, 20, 30)
+fmt.Println(mySlice) // [10 20 30]
+
+mySlice2 := []int{40, 50}
+
+mySlice = append(mySlice, mySlice2...)
+fmt.Println(mySlice) // [10 20 30 40 50]
+```
+
+<br>
+
+- To pop the last element, we can using slicing to slice off the last element.
+- Similarly, we can use slicing to slice off any number of elements from any place.
+
+```go
+mySlice := []int{10, 20, 30, 40, 50}
+
+mySlice = mySlice[:len(mySlice)-1]
+fmt.Println(mySlice) // [10 20 30 40]
+```
+
+<br>
+<br>
+
+### Nil vs empty slice
+
+- A slice created without initialization has no underlying array, hence it is `nil`.
+- A slice initialized with an empty array is **not nil**.
+
+```go
+var mySlice []int      // nil slice (no underlying array)
+var mySlice2 = []int{} // empty slice (0-length, but allocated)
+
+fmt.Println(mySlice == nil)  // true
+fmt.Println(mySlice2 == nil) // false
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
