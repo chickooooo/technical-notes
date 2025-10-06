@@ -29,4 +29,24 @@
 <br>
 <br>
 
+### Form pairs of k consecutive numbers
+
+- Problem: Alice has some number of cards and she wants to rearrange the cards into groups so that each group is of size groupSize, and consists of groupSize consecutive cards. Given an integer array hand where `hand[i]` is the value written on the ith card and an integer groupSize, return true if she can rearrange the cards, or false otherwise.
+- Link: https://leetcode.com/problems/hand-of-straights/
+
+---
+
+- **Algorithm**: Frequency heap
+- Create a heap that holds `[element, frequency]`.
+- Use `Counter()` from `collections` to populate this heap.
+- While heap is not empty, pop `groupSize` elements from the heap at a time. If less than `groupSize` elements exist, return `False`.
+- Verify these elements are consecutive. If not, return `False`.
+- Next, decrement the `frequency` of extracted elements by `1` and add non-zero frequency elements back to the heap. 
+- Keep doing so until the heap is empty.
+- If heap is emptied, return `True`.
+
+<br>
+<br>
+<br>
+
 ### 
