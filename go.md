@@ -876,4 +876,186 @@ fmt.Println(mySlice2 == nil) // false
 <br>
 <br>
 
+## Map
+
+- In Go, a `map` is a data structure that holds **key-value** pairs. Similar to Python `dict`.
+- Maps are of **reference type** in nature.
+
+<br>
+<br>
+
+### Creating a map
+
+#### Declaration only
+
+```go
+var hashmap map[string]int
+
+fmt.Println(hashmap == nil) // true
+```
+
+- When a map is declared without initialization, its value is `nil`.
+- Go doesn't allocate memory to maps that are not initialized.
+
+<br>
+
+#### Using make
+
+```go
+hashmap := make(map[string]int)
+
+fmt.Println(hashmap == nil) // false
+fmt.Println(hashmap)        // map[]
+```
+
+- A map created using `make` is initialised at the time of declaration.
+- Such map is empty and contains no key-value pairs.
+
+<br>
+
+#### Direct initialization
+
+```go
+hashmap := map[string]int{}
+
+fmt.Println(hashmap == nil) // false
+fmt.Println(hashmap)        // map[]
+
+hashmap2 := map[string]int{
+    "alice": 1,
+    "bob":   2,
+}
+
+fmt.Println(hashmap2) // map[alice:1 bob:2]
+```
+
+- Initialization can be done with one or more key-value pairs, or no key-value pairs.
+
+<br>
+<br>
+
+### Adding and updating key-value pair
+
+```go
+hashmap := map[string]int{}
+
+hashmap["Alice"] = 10
+hashmap["Bob"] = 20
+
+fmt.Println(len(hashmap)) // 2
+fmt.Println(hashmap)      // map[Alice:10 Bob:20]
+```
+
+- Syntax for adding & updating a key-value pair is same as Python.
+- If the key already exists, it is updated, otherwise a new key-value pair is created.
+- Also, `len()` function can be used to get the length of the map.
+
+<br>
+<br>
+
+### Accessing data
+
+#### Direct access
+
+```go
+hashmap := map[string]int{
+    "Alice": 10,
+}
+
+fmt.Println(hashmap["Alice"]) // 10
+fmt.Println(hashmap["Bob"])   // 0
+```
+
+- Syntax for accessing a value for the given key is same as Python.
+- If the key is not present in the map, Go **will not** throw an error, instead it will return a zero value.
+
+<br>
+
+#### Checking if exists
+
+```go
+hashmap := map[string]int{"Alice": 10}
+fmt.Println(hashmap["Alice"]) // 10
+
+value, exists := hashmap["Bob"]
+
+fmt.Println(value, exists) // 0, false
+```
+
+- We can use `value, exists := myMap[key]` syntax to check if the key exists in the map.
+
+<br>
+<br>
+
+### Deleting key-value pair
+
+```go
+hashmap := map[string]int{
+    "Alice": 10,
+    "Bob":   20,
+}
+
+delete(hashmap, "Alice")
+fmt.Println(hashmap) // map[Bob:20]
+```
+
+- Use built-in `delete()` method to delete a key from the map.
+- If the map is `nil` or if the key does not exist, delete does nothing.
+
+<br>
+<br>
+
+### Iterating a map
+
+- We can use `for range` loop to iterate over a map.
+
+#### Iterating over keys and values
+
+```go
+hashmap := map[string]int{
+    "Alice": 10,
+    "Bob":   20,
+}
+
+for key, value := range hashmap {
+    fmt.Println(key, value)
+}
+```
+
+<br>
+
+#### Iterating over keys only
+
+```go
+hashmap := map[string]int{
+    "Alice": 10,
+    "Bob":   20,
+}
+
+for key := range hashmap {
+    fmt.Println(key)
+}
+```
+
+<br>
+
+#### Iterating over values only
+
+```go
+hashmap := map[string]int{
+    "Alice": 10,
+    "Bob":   20,
+}
+
+for _, value := range hashmap {
+    fmt.Println(value)
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
