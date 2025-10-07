@@ -1120,4 +1120,123 @@ p := &x
 <br>
 <br>
 
+## Structure
+
+- A Structure is defined using the `struct` keyword.
+- It is a **Composite data type** that groups together zero or more fields with varying types.
+- Think of it as a Python `class` without methods, just data.
+
+<br>
+<br>
+
+### Creating a struct
+
+```go
+type Person struct {
+	Name string
+	Age  int
+}
+```
+
+<br>
+<br>
+
+### Using struct
+
+#### Declaration only
+
+- If we create a struct without assigning values, all its fields get **zero values**.
+
+```go
+var p1 Person
+fmt.Println(p1) // { 0}
+```
+
+<br>
+
+#### Direct initialization
+
+```go
+alice := Person{
+    Name: "Alice",
+    Age:  30,
+}
+
+fmt.Println(alice) // {Alice 30}
+```
+
+<br>
+<br>
+
+### Accessing and modifying fields
+
+```go
+alice := Person{
+    Name: "Alice",
+    Age:  30,
+}
+
+alice.Age = 40
+
+fmt.Println(alice.Name) // Alice
+fmt.Println(alice)      // {Alice 40}
+```
+
+<br>
+<br>
+
+### Pointer to struct
+
+- We can use pointers to `struct`, to avoid copying large data structures.
+- When accessing / updating fields, we can use `pointer.Name` syntax. No need for `(*pointer).Name`.
+
+```go
+alice := Person{"Alice", 30}
+
+pointer := &alice
+pointer.Name = "Bob"
+
+fmt.Println(alice) // {Bob 30}
+```
+
+<br>
+<br>
+
+### Nested struct
+
+- One structure can contain another structure within itself.
+
+```go
+type Address struct {
+    Street string
+    Zip    string
+}
+
+type Employee struct {
+    Name    string
+    Address Address
+}
+
+
+e := Employee{
+    Name: "Eve",
+    Address: Address{
+        Street: "123 Main St",
+        Zip:    "12345",
+    },
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
+
+<br>
+<br>
+<br>
+<br>
+<br>
