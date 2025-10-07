@@ -49,4 +49,21 @@
 <br>
 <br>
 
+### Top k frequent elements
+
+- Problem: Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+- Link: https://leetcode.com/problems/top-k-frequent-elements/
+
+---
+
+- **Algorithm**: Top k / bottom k elements
+- Maintain a `heap` of size k containing `(freq, num)`.
+- Iterate through `Counter(nums)` and if `len(heap) < k`, keep on pushing data into the heap.
+- If `len(heap) == k`, push and pop data from the heap.
+- At last, return `num` from the last k data items present in the heap.
+
+<br>
+<br>
+<br>
+
 ### 
