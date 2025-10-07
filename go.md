@@ -1058,4 +1058,66 @@ for _, value := range hashmap {
 <br>
 <br>
 
+## Pointer
+
+- A pointer is a variable that stores the **memory address** of another variable.
+- We use `&x` syntax to get the memory address of a variable `x`.
+- And `*p` syntax to get the value, present at the memory address, where pointer `p` is pointing to.
+
+```go
+x := 10 // integer variable
+p := &x // 'p' is a pointer to 'x' (using &)
+
+fmt.Println("Value of x:", x)                // 10
+fmt.Println("Value of p (address of x):", p) // 0xc0000100e0
+fmt.Println("Value pointed to by p:", *p)    // 10 (dereferencing)
+```
+
+<br>
+<br>
+
+### Pass by reference
+
+- When passing variables to a function, Go uses **pass by value**, by default.
+- We can make use of pointers to **pass by reference**.
+
+```go
+func modify(x *int) {
+	*x = 100
+}
+
+x := 10
+modify(&x)
+fmt.Println(x) // 100
+```
+
+<br>
+<br>
+
+### Declaring a pointer
+
+#### Zero value of a pointer
+
+- If we declare a pointer without initialization, its value is `nil`.
+
+```go
+var p *string
+fmt.Println(p == nil) // true
+```
+
+<br>
+
+#### Direct initialization
+
+```go
+x := 10
+p := &x
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
