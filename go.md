@@ -1319,6 +1319,127 @@ func (c Celsius) toFahrenheit() float64 {
 <br>
 <br>
 
+## Interface
+
+- An **Interface** in Go, defines a set of method signatures.
+- Any type that implements all the methods of an interface is said to satisfy that interface.
+- Go has **implicit** interface implementation behaviour. Unlike other languages like Python or Java where we have to explicitly state that a class implements an interface.
+- Go uses **duck typing**: "If it walks like a duck and quacks like a duck, then its a duck."
+
+<br>
+<br>
+
+### Creating an interface
+
+```go
+type Speaker interface {
+	Speak() string
+}
+```
+
+- Any type that has a `Speak() string` method, automatically implements the `Speaker` interface.
+
+<br>
+<br>
+
+### Implementing an interface
+
+```go
+type Dog struct{}
+
+func (d Dog) Speak() string {
+	return "Woof!"
+}
+
+type Cat struct{}
+
+func (c Cat) Speak() string {
+	return "Meow!"
+}
+```
+
+- Both `Dog` & `Cat` structures now implement `Speaker` interface as they have a `Speak()` method.
+
+<br>
+<br>
+
+### Using an interface
+
+```go
+// Function that accepts type Speaker
+func makeNoise(s Speaker) {
+	fmt.Println(s.Speak())
+}
+
+func main() {
+	var speaker Speaker
+
+    // Speaker can be a dog
+	speaker = Dog{}
+	makeNoise(speaker) // Woof!
+
+    // Speaker can be a cat
+	speaker = Cat{}
+	makeNoise(speaker) // Meow!
+}
+```
+
+- An interface is a **type**, that means we can use it as a paramter, return value, field type, etc.
+
+<br>
+<br>
+
+### Empty interface
+
+- A special type `interface{}` can hold any type. Because every type has zero or more methods.
+
+```go
+var anything interface{}
+
+anything = 5
+anything = "hello"
+anything = true
+```
+
+<br>
+<br>
+
+### Interface composition
+
+- We can **compose** interfaces by using other interfaces into an interface.
+
+```go
+type Speaker interface{ Speak() string }
+
+type Feelings interface{ Happy() string }
+
+// Composition
+type Animal interface {
+	Speaker
+	Feelings
+}
+
+type Dog struct{}
+
+func (d Dog) Speak() string { return "Woof!" }
+
+func (d Dog) Happy() string { return "Wag tail!" }
+
+func main() {
+	var animal Animal
+	animal = Dog{}
+
+	fmt.Println(animal.Speak()) // Woof!
+	fmt.Println(animal.Happy()) // Wag tail!
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
