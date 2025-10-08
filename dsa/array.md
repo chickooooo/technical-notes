@@ -250,3 +250,21 @@ last = [
 - Iterate through the array again and find the number that is not negative.
 - This number was not marked, that means `index+1` number is missing from the array.
 - Return duplicate and missing number.
+
+<br>
+<br>
+<br>
+
+### Insert interval
+
+- Problem: You're given a sorted list of non-overlapping intervals and a new interval to insert. Insert the new interval into the list, merging any overlapping intervals, so that the final list remains sorted and non-overlapping. Return the updated list.
+- Link: https://leetcode.com/problems/insert-interval/
+
+---
+
+- **Algorithm**: Merge intervals
+- Create a new `output` array.
+- Add all the intervals that are less than `newInterval` to the array.
+- If `newInterval` is less than current interval, add `newInterval` to the array and rest of the intervals.
+- In case of overlapping intervals, add their merger to the array: `[min(interval[0], newInterval[0]), max(interval[1], newInterval[1])]`.
+- Once `newInterval` is inserted, perform **Merge overlapping intervals** for rest of the intervals.
