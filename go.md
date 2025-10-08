@@ -1233,6 +1233,92 @@ e := Employee{
 <br>
 <br>
 
+## Method
+
+- In Go, methods are functions that are associated with a **type**, usually a `struct`.
+- A **Go Method** is equivalent of a method of a Python class.
+
+<br>
+<br>
+
+### Syntax
+
+```go
+func (receiver Type) methodName(params) returnType {
+    // method body
+}
+```
+
+- `receiver` is like `self` in Python, but explicitly named.
+- Receiver and it's type is placed before the method name.
+- The receiver associates the method with a type.
+
+<br>
+<br>
+
+### Creating a method
+
+#### Value receiver
+
+```go
+type Person struct {
+	Name string
+	Age  int
+}
+
+func (p Person) greet() {
+	fmt.Printf("My name is %s and I'm %d years old.\n", p.Name, p.Age)
+}
+
+func main() {
+	alice := Person{"Alice", 25}
+	alice.greet() // calling a method
+}
+```
+
+- The method `greet()` is bound to type `Person`.
+- The receiver `p Person` is passed by value (copied).
+
+<br>
+
+#### Pointer receiver
+
+- We can also pass a **pointer to the receiver** in a method.
+- This allows us to modify the receiver inside the method.
+
+```go
+func (p *Person) incrementAge() {
+	p.Age++
+}
+
+func main() {
+	alice := Person{"Alice", 25}
+	alice.incrementAge()
+	alice.greet() // My name is Alice and I'm 26 years old.
+}
+```
+
+<br>
+<br>
+
+### Method for non-struct type
+
+- Go allows defining methods for any **user-defined types**, not only `struct`.
+
+```go
+type Celsius float64
+
+func (c Celsius) toFahrenheit() float64 {
+    return float64(c)*1.8 + 32
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
