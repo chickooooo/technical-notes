@@ -71,6 +71,17 @@ message := "Hello Go!"
 ```
 
 <br>
+
+- In a `:=` declaration, if at least one new variable is being declared, it's valid to reuse other variables.
+- Already declared variables are not declared again, instead are reassigned.
+
+```go
+result, err := divide(10, 3)
+...
+result2, err := divide(10, 0)
+```
+
+<br>
 <br>
 
 ### 4. Declaring multiple variables
@@ -1433,6 +1444,103 @@ func main() {
 	fmt.Println(animal.Happy()) // Wag tail!
 }
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Error handling
+
+- Go does not use exceptions like Python.
+- Instead, functions that can fail returns an error as the last return value.
+- Errors are values and handling them explicitly is part of idiomatic Go.
+
+<br>
+<br>
+
+### Returning error
+
+```go
+import "errors"
+
+func divide(a, b int) (int, error) {
+    if b == 0 {
+        return 0, errors.New("division by zero")
+    }
+    return a / b, nil
+}
+```
+
+- Use `errors` package to create and return a new error.
+
+<br>
+<br>
+
+### Handling error
+
+```go
+result, err := divide(10, 0)
+
+if err != nil {
+    fmt.Println("Error:", err)
+} else {
+    fmt.Println("Result:", result)
+}
+```
+
+- Use `err != nil` syntax to check if error has occured.
+
+<br>
+<br>
+
+### Custom error type
+
+- We can also define our own error type by implementing the `Error() string` method.
+- This makes sure our custom error type follows the `error` interface.
+
+<br>
+
+### Create custom error
+
+```go
+type APIError struct {
+	status  int
+	message string
+}
+
+func (a *APIError) Error() string {
+	return fmt.Sprintf("API Error, status: %d, message: %s", a.status, a.message)
+}
+```
+
+<br>
+
+### Return custom error
+
+```go
+func apiRequest() error {
+	// do something
+	return &APIError{
+		status:  400,
+		message: "Bad Request",
+	}
+}
+```
+
+- When returning a custom error, we must return a pointer to custom error value.
+
+<br>
+<br>
+
+### Error vs Panic
+
+| Feature   | `error`                   | `panic`                  |
+| --------- | ------------------------- | ------------------------ |
+| Purpose   | Expected errors           | Unexpected fatal issues  |
+| Recover   | Yes (via `if err != nil`) | Only with `recover()`    |
+| Idiomatic | Yes                       | Avoid unless critical    |
 
 <br>
 <br>
