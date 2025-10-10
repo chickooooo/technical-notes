@@ -1548,6 +1548,111 @@ func apiRequest() error {
 <br>
 <br>
 
+## Package
+
+- In Go, a package is basically a folder that holds `.go` files.
+- Every `.go` file must start with a package declaration.
+
+<br>
+
+- The `main` package is a special package. It tells Go compiler to compile the program as an executable
+- Other packages are compiled as reusable libraries.
+
+```go
+package main
+```
+
+<br>
+<br>
+
+### Creating package
+
+```
+// folder structure
+
+- main.go
+- pokemon/
+    - grass_type.go
+```
+
+```go
+// grass_type.go
+
+package pokemon
+
+func GrassType() string {
+	return "Bulbasaur"
+}
+```
+
+- Every file in package `pokemon` will contain `package pokemon` line at the top.
+
+<br>
+<br>
+
+### Using package
+
+```go
+// main.go
+
+package main
+
+import (
+	"fmt"
+
+	"example.com/local/pokemon"
+)
+
+func main() {
+	pok := pokemon.GrassType()
+
+	fmt.Println(pok) // Bulbasaur
+}
+```
+
+- Only capitalised function name & variable names are exported.
+- Lowercase names are not exported and are private to that package.
+- We can use lowercase names in other files of the same package.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Module
+
+- A module is a collection of Go packages.
+- A module contains a `go.mod` file in its root directory.
+- This file defines the module's name and track the dependencies of the project.
+
+```go
+// go.mod
+
+module example.com/local
+
+go 1.25.1
+```
+
+<br>
+<br>
+
+### Managing dependencies
+
+- If our project has third-party dependencies, Go fetches these packages automatically when we build or run the program.
+- It stores the dependencies data in `go.sum` and `go.mod`.
+
+<br>
+
+#### `go.mod` vs `go.sum`
+
+<br>
+
+| File     | Purpose                                  | Contains                                          | Role in Go Modules                      |
+| -------- | ---------------------------------------- | ------------------------------------------------- | --------------------------------------- |
+| `go.mod` | Declares the module and its dependencies | Module name, Go version, required module versions | Tracks and manages project dependencies |
+| `go.sum` | Verifies integrity of dependencies       | Checksums of downloaded module versions           | Ensures security and consistency        |
+
 ## 
 
 <br>
