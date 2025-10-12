@@ -102,6 +102,54 @@ Space optimised
 <br>
 <br>
 
+### Partition equal subset sum
+
+- Problem: Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
+- Link: https://leetcode.com/problems/partition-equal-subset-sum/
+
+---
+
+- Assumption: `f(i, j)` returns true is it is possible to pick m elements from nums, whose sum is `j`, starting from `i` and going to right. Otherwise false.
+- To find: `f(0, k)`. Where `k = sum(nums) / 2`
+- Functional equation: `f(i, j) = f(i+1, j - A[i]) or f(i+1, j)`
+- Range: `i ∈ [0, n-1]` and `j ∈ [k, 0]`
+
+<br>
+
+Top-down approach
+
+- Create a 2D `memo` of size `n * (k+1)`.
+- Start from `i = 0, j = k`.
+- Return true if `j == 0` and return false if `j < 0 or i == n`.
+- If `f(i, j)` is already memoized, return the memoized value.
+- Otherwise, use the **Functional equation** to calculate value of `f(i, j)`.
+- Memoize `f(i, j)` and return the response.
+
+<br>
+
+Bottom-up approach
+
+- Create a 2D `memo` of size `(n+1) * (k+1)`.
+- Set `memo[*][0] = True` (priority) and `memo[n][*] = False`.
+- Iterate for `i ∈ [n-1, 0]`, `j ∈ [0, k]`.
+- Populate the `memo` using the **Functional equation**.
+- Return `memo[0][k]`.
+
+<br>
+
+Space optimised
+
+- At each step `i`, we only need the next row `i+1`.
+- So, set `temp = [True] + [False] * k` & `memo = [True] + [False] * k`.
+- Iterate for `i ∈ [n-1, 0]`, `j ∈ [0, k]`. And populate the `temp`.
+- Here `temp` refers to current row and `memo` refers to the next row.
+- After that update the values of `memo` to `temp` and `temp` to `[True] + [False] * k`.
+- At last, return `memo[k]`.
+
+<br>
+<br>
+<br>
+
 ###
 
 <br>
