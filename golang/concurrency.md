@@ -224,6 +224,101 @@ for item := range ch {
 <br>
 <br>
 
+## Select statement
+
+- A `select` statement is similar to a `switch` statement, but for channels.
+- It allows a goroutine to manage multiple channel operations.
+
+<br>
+
+Key features:
+- It blocks until one of its cases can proceed.
+- If multiple cases are ready, one is chosen at random (pseudo random).
+- It also supports `default` and timeouts.
+- Only 1 case of `select` statement gets executed. No multiple cases execution.
+
+<br>
+<br>
+
+### Syntax
+
+```go
+select {
+	// Waiting to receive data from channel ch1
+	case val := <-ch1:
+		fmt.Println("Received data:", val)
+
+	// Waiting to send data to channel ch2
+	case ch2 <- "data":
+		fmt.Println("Sent data to ch2")
+	
+	// If neither ch1 & ch2 are ready
+	default:
+		fmt.Println("No communication. Moving on.")
+}
+```
+
+- Case 1: `val := <-ch1`. This case gets triggered when we receive data on `ch1`.
+- Case 2: `ch2 <- "data"`. This case gets triggered if the channel ch2 is ready to receive data immediately. When selected, the data "data" is sent into ch2, and the associated code block executes.
+- Case 3: `default`. This case gets triggered when neither `ch1` nor `ch2` are ready for operation. In this case, the message is logged and the program continues its execution.
+
+<br>
+<br>
+
+### Basic select
+
+```go
+select {
+case msg1 := <-ch1:
+	fmt.Println(msg1)
+case msg2 := <-ch2:
+	fmt.Println(msg2)
+}
+```
+
+- Here we are waiting to receive data either on `ch1` or `ch2`.
+- The channel from which the data is received first, that case gets selected. Other cases is ignored.
+- If both the channels have data on them, any one is selected at random.
+- Note: Only 1 case is chosen for execution. There is no such scenario where both cases will be chosen.
+
+<br>
+<br>
+
+### Select with default
+
+```go
+select {
+case val := <-ch:
+	fmt.Println("Received:", val)
+default:
+	fmt.Println("No value received")
+}
+```
+
+- When the execution of `select` statement starts, if there is no data on `ch` to be received, the `default` case is executed.
+- The statement inside the `default` case is logged and the program execution continues post `select`.
+
+<br>
+<br>
+
+### Select with timeout
+
+```go
+select {
+case msg := <-ch:
+	fmt.Println("Received:", msg)
+case <-time.After(2 * time.Second):
+	fmt.Println("Timeout!")
+}
+```
+
+- If we don't receive data on channel `ch` within 2 seconds, the timeout case is executed.
+- In general, if no other case of `select` statement is selected before the timeout, the timeout case is executed.
+
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
