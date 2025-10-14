@@ -1653,6 +1653,138 @@ go 1.25.1
 | `go.mod` | Declares the module and its dependencies | Module name, Go version, required module versions | Tracks and manages project dependencies |
 | `go.sum` | Verifies integrity of dependencies       | Checksums of downloaded module versions           | Ensures security and consistency        |
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Embedded structs
+
+- In Go, we can embed once struct inside another.
+- This **promotes** inner struct's fields and methods as if they belong to the outer struct.
+- This is Go's way of encouraging **composition over inheritance**.
+
+<br>
+<br>
+
+### Create embedded structs
+
+```go
+type Address struct {
+    City  string
+    State string
+}
+
+type Person struct {
+    Name string
+    Address  // Embedded struct
+}
+
+
+p := Person{
+    Name: "John",
+    Address: Address{
+        City:  "New York",
+        State: "NY",
+    },
+}
+
+fmt.Println(p.City)   // field promotion
+fmt.Println(p.State)  // field promotion
+```
+
+- Here, `Address` struct is embedded inside `Person` struct.
+- This makes `Address`'s fields available to values of `Person` struct.
+
+<br>
+<br>
+
+### Conflict fields
+
+- If both structs have a field with the same name, Go uses outermost field.
+
+```go
+type A struct {
+    Name string
+}
+
+type B struct {
+    Name string
+    A
+}
+
+b := B{
+    Name: "Outer",
+    A:    A{Name: "Inner"},
+}
+
+fmt.Println(b.Name)    // "Outer"  // Outermost field is used
+fmt.Println(b.A.Name)  // "Inner"  // Access inner field through chaining
+```
+
+<br>
+<br>
+
+### Method promotion
+
+- Just like field promotion, **method promotion** also happens, when we embedded structs.
+- Method conflicts are handled in the same way as field conflicts.
+
+```go
+type Logger struct{}
+
+func (l Logger) Log(message string) {
+    fmt.Println("Log:", message)
+}
+
+type App struct {
+    Logger
+}
+
+app := App{}
+app.Log("Hello") // Method promoted
+```
+
+<br>
+<br>
+
+### Multiple embedding
+
+- We can also embed more than one structs inside an outer struct.
+
+```go
+type Location struct {
+    Latitude  float64
+    Longitude float64
+}
+
+type Info struct {
+    Name string
+}
+
+type Place struct {
+    Info
+    Location
+}
+
+p := Place{
+    Info:     Info{Name: "Park"},
+    Location: Location{Latitude: 12.34, Longitude: 56.78},
+}
+
+fmt.Println(p.Name)     // from Info
+fmt.Println(p.Latitude) // from Location
+```
+
+- Note: If 2 sibling embedded structs have a field with the same name, we will get compile time error: `ambiguous selector p.Name`.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
