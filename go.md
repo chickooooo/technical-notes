@@ -1785,6 +1785,64 @@ fmt.Println(p.Latitude) // from Location
 <br>
 <br>
 
+## Defer
+
+- In Go, `defer` keyword is used to schedule a function call to be executed later.
+- This function is usually executed right before the surrounding function returns.
+- It is used to do clean ups like closing a file, closing request body, releasing lock, etc.
+
+<br>
+
+Key Features:
+
+- The deffered function is executed regardless of how the surrounding function ends (normal return, error, panic).
+- These functions are executed in a **LIFO** (last-in-first-out) manner.
+
+<br>
+<br>
+
+### Example
+
+```go
+func main() {
+    fmt.Println("Start")
+
+    defer fmt.Println("Deferred call 1")
+    defer fmt.Println("Deferred call 2")
+
+    fmt.Println("End")
+}
+
+// Output:
+// Start
+// End
+// Deferred call 2
+// Deferred call 1
+```
+
+<br>
+<br>
+
+### Argument evaluation
+
+- The arguments of the deferred function are evaluated immediately when the `defer` statement executes, but the function itself runs later.
+
+```go
+func main() {
+    x := 5
+    defer fmt.Println(x) // x is evaluated now (5)
+    x = 10
+}
+
+// Output: 5 (not 10)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
