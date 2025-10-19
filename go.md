@@ -1789,7 +1789,7 @@ fmt.Println(p.Latitude) // from Location
 
 - In Go, `defer` keyword is used to schedule a function call to be executed later.
 - This function is usually executed right before the surrounding function returns.
-- It is used to do clean ups like closing a file, closing request body, releasing lock, etc.
+- It is used for cleanup tasks like closing a file, closing request body, releasing lock, etc.
 
 <br>
 

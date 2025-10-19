@@ -319,6 +319,151 @@ case <-time.After(2 * time.Second):
 <br>
 <br>
 
+## Goroutine leak
+
+- A goroutine leak occurs when a goroutine is started but never exits.
+- This usually happens when a goroutine is blocked indefinitely either over a channel or an external resource.
+- These blocked goroutines consume memory and other system resources, leading to performance degradation over time.
+
+<br>
+<br>
+
+### Common goroutine leaks
+
+#### Blocked channel
+
+- A goroutine is waiting to read/write to a channel that never sends/receives data.
+
+```go
+func leaky() {
+    ch := make(chan int)
+    go func() {
+        <-ch // blocks forever
+    }()
+}
+```
+
+<br>
+
+#### Infinite select
+
+- Not exiting from an infinite `for` loop + `select` combo.
+
+```go
+func leaky2() {
+    ch := make(chan int)
+    go func() {
+        for {
+            select {
+            case data := <-ch:
+                fmt.Println(data)
+            }
+        }
+    }()
+}
+```
+
+<br>
+
+#### Cancelled work
+
+- When a task that a goroutine is performing is cancelled by the user.
+
+```go
+func leaky3(ch chan<- int) {
+	// doing work
+	data := doWork()
+
+	// send data to the client
+	// but the client is not there to receive
+	ch <- data
+}
+```
+
+<br>
+<br>
+
+### Solutions for goroutine leaks 
+
+#### `done` channel
+
+- Use a `done` channel inside `select` statement to indicate that data transfer has completed.
+
+```go
+func safe() {
+    ch := make(chan int)
+	done := make(chan struct{})
+
+	go func() {
+		select {
+		case data := <-ch:
+			fmt.Println(data)
+		case <-done:
+			fmt.Println("Stopping goroutine")
+			return
+		}
+	}()
+
+	fmt.Println(runtime.NumGoroutine()) // 2
+	close(done)
+
+	time.Sleep(100 * time.Millisecond)
+	fmt.Println(runtime.NumGoroutine()) // 1
+}
+```
+
+<br>
+
+#### Context package
+
+- Use features provided by `context` package for safely exiting goroutine.
+- It can handle cancellations, timeouts, etc.
+
+```go
+func worker(ctx context.Context, ch <-chan int) {
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("Worker stopped")
+			return
+		case data := <-ch:
+			fmt.Println("Got:", data)
+		}
+	}
+}
+
+func main() {
+	ch := make(chan int)
+	ctx, cancel := context.WithCancel(context.Background())
+	go worker(ctx, ch)
+
+	ch <- 1
+	ch <- 2
+
+	fmt.Println(runtime.NumGoroutine()) // 2
+	cancel()                            // this will stop the goroutine
+
+	time.Sleep(100 * time.Millisecond)
+	fmt.Println(runtime.NumGoroutine()) // 1
+}
+```
+
+<br>
+
+Other solutions include using timeouts (`Time.After()`) and `default` case.
+
+<br>
+<br>
+
+### Detect goroutine leaks
+
+- Get number of active goroutine using `runtime.NumGoroutine()`.
+- Use `pprof` or `runtime/pprof` to profile goroutines.
+
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
