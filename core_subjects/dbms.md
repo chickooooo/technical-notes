@@ -611,11 +611,13 @@ REFRESH MATERIALIZED VIEW active_users;
 
 ### 
 
+- What is database denormalization?
 - What are triggers?
 - What is a stored procedure?
 - What is a stored function?
 - Difference between UNION & UNION ALL
 - Difference between COMMIT and ROLLBACK operations
+- What is database Replication?
 - What is database Sharding?
 - What is database Partioning?
 - Sharding vs Partioning 
@@ -633,3 +635,5 @@ REFRESH MATERIALIZED VIEW active_users;
 - Explain features of neo4j & usecase
 - Explain features of DynamoDB & usecase
 - Why NoSQL databases are more scalable?*
+
+- Query analysis & planning
