@@ -2,11 +2,9 @@
 
 <br>
 <br>
-<br>
 
 This repository contains technical notes for reference.
 
-<br>
 <br>
 
 Notes that are well written and covers major portion of that subject:
