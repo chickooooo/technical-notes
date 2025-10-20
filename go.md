@@ -6,6 +6,35 @@
 <br>
 <br>
 
+## Index
+
+- [Declaring Variables](#declaring-variables)
+- [Loops](#loops)
+- [Functions](#functions)
+- [Conditional statements](#conditional-statements)
+- [Logical operators](#logical-operators)
+- [Switch statement](#switch-statement)
+- [Array](#array)
+- [Slice](#slice)
+- [Map](#map)
+- [Pointer](#pointer)
+- [Structure](#structure)
+- [Method](#method)
+- [Interface](#interface)
+- [Error handling](#error-handling)
+- [Package](#package)
+- [Module](#module)
+- [Embedded structs](#embedded-structs)
+- [Defer](#defer)
+- [new() vs make()](#new-vs-make)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Declaring variables
 
 - In golang, variables are statically typed. That means each variable has a fixed datatype.
@@ -1835,6 +1864,88 @@ func main() {
 }
 
 // Output: 5 (not 10)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## `new()` vs `make()`
+
+### `new()`
+
+- `new(T)` allocates zeroed storage for a value of type (T) and **returns pointer** to it (*T).
+- It's like: "Give me memory for a value of type T and give me the pointer to it."
+- Used to allocate memory for int, string, array, struct, etc.
+- The allocated memory holds **zero value** of that type.
+
+```go
+type Temp struct {
+	num int
+}
+
+n := new(int)
+fmt.Println(*n, n) // 0 0xc0000120e0
+
+s := new(string)
+fmt.Println(*s) // ""
+
+st := new(Temp)
+fmt.Println(*st, (*st).num) // {0} 0
+```
+
+<br>
+
+- `new()` allocates memory for a zero value of that type.
+- In the case of slices, maps, and channels, this zero value is `nil`, so the resulting value needs further initialization using `make()` before use.
+
+```go
+type Temp struct {
+	num  int
+	nums []int
+}
+
+slc := new([]int)
+fmt.Println(*slc, *slc == nil) // [] true
+
+hashmap := new(map[string]int)
+fmt.Println(*hashmap, *hashmap == nil) // map[] true
+
+ch := new(chan int)
+fmt.Println(*ch, *ch == nil) // <nil> true
+
+st := new(Temp)
+fmt.Println(*st, (*st).nums == nil) // {0 []} true
+```
+
+<br>
+<br>
+
+### `make()`
+
+- `make()` is used to initialise and prepare:
+    - Slices
+    - Maps
+    - Channels
+- It returns a value of that type, not a pointer.
+- It sets up internal data structures for that type (like backing array for slices), that `new()` does not handle.
+
+```go
+nums := make([]int, 2, 5)
+fmt.Println(nums) // [0 0]
+
+hashmap := make(map[string]int)
+fmt.Println(hashmap) // map[]
+
+ch := make(chan int)
+fmt.Println(ch) // 0xc000098070
+
+// Not nil
+fmt.Println(nums == nil)    // false
+fmt.Println(hashmap == nil) // false
+fmt.Println(ch == nil)      // false
 ```
 
 <br>
