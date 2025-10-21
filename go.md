@@ -27,6 +27,7 @@
 - [Embedded structs](#embedded-structs)
 - [Defer](#defer)
 - [new() vs make()](#new-vs-make)
+- [Panic and Recover](#panic-and-recover)
 
 
 <br>
@@ -1946,6 +1947,77 @@ fmt.Println(ch) // 0xc000098070
 fmt.Println(nums == nil)    // false
 fmt.Println(hashmap == nil) // false
 fmt.Println(ch == nil)      // false
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Panic and Recover
+
+- Go's primary error handling pattern is returning errors, but for truly unrecoverable errors, Go provides `panic` and `recover`.
+
+<br>
+<br>
+
+### Panic
+
+- `panic()` stops the ordinary flow of execution and begins panicking.
+- It unwinds the stack, runs deferred functions and eventually crashes the program of not recovered.
+- Example usecase: invalid memory access, corrupted state, etc.
+- We should always prefer returning errors and use `panic` only for truly exceptional cases.
+
+```go
+func main() {
+	fmt.Println("Before panicking")
+	panic("Unexpected error")
+	fmt.Println("After panicking. This line will not execute")
+}
+
+// Output:
+// Before panicking
+// panic: Unexpected error
+// 
+// goroutine 1 [running]:
+// main.main()
+```
+
+<br>
+<br>
+
+### Recover
+
+- `recover()` is used to recover from a panicking state.
+- It must be called inside a **deferred function** to handle panic.
+- Once we have recovered from a panicking state, the program execution continues normally after the deferred function.
+
+
+```go
+func safe() {
+	defer func() {
+		if rec := recover(); rec != nil {
+			fmt.Println("Recovered from:", rec)
+		}
+	}()
+
+	fmt.Println("Before panicking")
+	panic("Unexpected error")
+	fmt.Println("After panicking. This line will not execute")
+}
+
+func main() {
+	fmt.Println("Start")
+	safe()
+	fmt.Println("End") // normal execution from here onwards
+}
+
+// Output:
+// Start
+// Before panicking
+// Recovered from: Unexpected error
+// End
 ```
 
 <br>
