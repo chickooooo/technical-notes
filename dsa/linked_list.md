@@ -57,6 +57,23 @@ o1 -> e1 -> o2 -> e2
 <br>
 <br>
 
+### Delete Node in a Linked List
+
+- Problem: You’re given a node (not the last) in a singly linked list with all nodes having unique value. You must delete the given node without access to the head node.
+- Link: https://leetcode.com/problems/delete-node-in-a-linked-list/
+
+---
+
+- **Algorithm**: Alter node values
+- We want to remove current node, but we do not know what the previous node is.
+- Instead we have pointer to the current node and current node is not the last node.
+- So, we will copy the value of next node to current node and remove the next node.
+- All the values are unique and the problem explicitly tells it is okay to not remove the node from the memory.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
