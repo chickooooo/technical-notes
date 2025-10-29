@@ -131,6 +131,52 @@ func main() {
 
 ### WaitGroup
 
+- A `WaitGroup` is used to block the main goroutine, until a set of goroutines finish their execution.
+- It makes use of `.Add()`, `.Done()` and `.Wait()` methods to manage synchronization.
+
+<br>
+
+#### Working
+
+- A `WaitGroup` maintains a counter of how many goroutines are currently running.
+- We `.Add(1)` to the counter when we start a new goroutine.
+- Each goroutine calls `.Done()` when it finishes.
+- The main goroutine calls `.Wait()`, which blocks until the counter drops back to zero.
+
+<br>
+
+#### Example
+
+```go
+func worker(id int, wg *sync.WaitGroup) { // Accept pointer
+	defer wg.Done() // Decrement counter
+
+	fmt.Println("Started job:", id)
+	time.Sleep(time.Duration(rand.Intn(3)+1) * time.Second)
+	fmt.Println("Finished job:", id)
+}
+
+func main() {
+	var wg sync.WaitGroup // Create waitgroup
+
+	for i := range 5 {
+		wg.Add(1) // Increment counter
+		go worker(i, &wg)
+	}
+
+	wg.Wait() // Wait for all goroutines to finish
+	fmt.Println("Done")
+}
+```
+
+<br>
+
+#### Important notes
+
+- Always accept pointer (`*WaitGroup`) in the goroutine. If value is passed, a copy of that waitgroup is created.
+- Always call `.Add(1)` outside of the goroutine and before starting the goroutine. This avoids race condition.
+- `WaitGroup` is not reusable for overlapping goroutine sets. Always ensure all goroutines are done before reusing it.
+
 <br>
 <br>
 <br>
