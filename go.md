@@ -2026,6 +2026,56 @@ func main() {
 <br>
 <br>
 
+## Closure
+
+- A closure is a function value (inner function) that references variables from outside its body.
+- The inner function can access and modify the variables present outside its body.
+
+<br>
+
+```go
+// Function that returns a closure
+func counter() func() int {
+    count := 0 // variable captured by the closure
+
+    // This inner function is the closure
+    return func() int {
+        count++         // modifies the captured variable
+        return count    // returns updated value
+    }
+}
+
+func main() {
+    // Create two independent counters
+    counterA := counter()
+    counterB := counter()
+
+    fmt.Println(counterA()) // Output: 1
+    fmt.Println(counterA()) // Output: 2
+    fmt.Println(counterB()) // Output: 1
+    fmt.Println(counterA()) // Output: 3
+}
+```
+
+- `func() int {}` is the inner anonymous function, also known as **closure**.
+- `count` is the variable captured by this closure.
+- `counter()` is the outer function that returns a closure.
+
+<br>
+<br>
+
+### Key Points
+
+- The value of captured variables (`count`) is persisted across closure calls.
+- Each call to `counter()` function returns a new closure with a new internal state.
+- Closures are used for **stateful behaviour**, **encapsulation** and **callbacks**.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
 
 <br>
