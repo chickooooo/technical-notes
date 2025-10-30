@@ -46,18 +46,35 @@ Key points:
 
 #### Consumer
 
-- Reads (subscribes to) messages from a Kafka topics.
-- A consumer can belong to a consumer group for load balancing.
-- Each partition can be consumed by only one consumer from a consumer group.
+- A consumer reads (subscribes to) messages from one or more Kafka topics.
+- Consumer properties:
+    - Reads messages sequentially within a partition.
+    - Maintains an **offset** to track progress. This offset can be stored in Kafka itself or externally.
+    - Can replay messages by replaying offset.
+
+Key points:
+- Unlike push-based systems, consumers pull data from the the broker.
+- This gives us flexibility in adding & removing consumers.
 
 <br>
 <br>
 
 #### Consumer group
 
-- A group of consumers that consumes from partitions of a topic.
-- They ensure load balancing and parallel processing.
-- A consumer group gaurantees that each message is processed exactly once by the group.
+- A consumer group is a logical grouping of consumers that coordinate together to consume data from a topic.
+- It ensures load balancing and parallel processing.
+- Each partition can be consumed by only one consumer from a consumer group.
+- A consumer group ensures that each message is processed exactly once by the group.
+
+Bahaviour:
+- If a group has less consumers than the number of partitions, then the load is distributed as evenly as possible.
+- If a group has same number of consumers and partitions, then the load is distributed evenly.
+- If a group has more consumers than the number of partitions, then extra consumers will sit ideal.
+
+Key points:
+- Each consumer group consumes independently the topic(s).
+- Each group maintains its own **offset tracking**.
+- Multiple independent consumer groups can process the same data differently (e.g., analytics, processing).
 
 <br>
 <br>
@@ -105,34 +122,49 @@ Why this architecture?
 
 #### Replication
 
-- Each partition has multiple replicas across brokers.
+- Partition replication ensures durability and fault tolerance.
+- Each partition has multiple replicas placed across brokers.
 - One broker hosts the leader replica (handles read/write) and others host follower replica (for fault tolerance).
+- A typical Kafka setup contains 1 leader partition and it's 2 replicas.
+
+Key points:
+- Kafka keeps track of **In-sync replicas (ICR)**. These replicas are fully caught up with the leader.
+- If the leader fails, one of the in-sync replicas become the new leader.
 
 <br>
 <br>
 
 #### Broker
 
-- A broker is just a Kafka server that stores and serves messages.
+- A broker is a Kafka server that stores and serves messages.
 - It receives messages from the producers and makes them available to the consumers.
 - Messages are presisted on the disk and replicated for fault tolerance.
+
+Broker-partition behaviour:
+- Each broker handles a subset of partitions for one or more topics.
+- One broker acts as the leader for each partition, and others brokers act as followers (hold replicas of that partition).
+
+Leader–Follower architecture:
+- Leader: Handles all reads and writes for that partition.
+- Followers: Replicate (copies) the leader’s data for redundancy.
+- If a leader fails, one of the followers is automatically promoted.
 
 <br>
 <br>
 
 #### Cluster
 
-- A cluster is a collection of one or more kafka brokers.
-- Multiple brokers are used for scalability and fault tolerance.
+- A cluster is a collection of one or more Kafka brokers.
+- Typically a cluster contains 3+ brokers for scalability and fault tolerance.
 
 <br>
 <br>
 
 #### ZooKeeper / Kafka Raft (KRaft)
 
-- Manages cluster metadata and leader election.
-- Keeps track of brokers, topics, partitions and their leaders.
-- Ensures fault tolerance.
+- Modern Kafka (v2.8+) uses KRaft mode, Kafka’s own built-in consensus layer.
+- KRaft manages cluster metadata, leader election and configurations.
+- It also keeps track of brokers, topics, partitions and their leaders.
 
 <br>
 <br>
