@@ -66,4 +66,35 @@
 <br>
 <br>
 
+### Design twitter
+
+- Problem: Design a simplified Twitter system that lets users post tweets, follow or unfollow others, and view the 10 most recent tweets in their personalized news feed
+- Link: https://leetcode.com/problems/design-twitter/
+
+---
+
+- **Algorithm**: Latest k elements
+- Maintain two maps:
+    - `tweets`: Keeps track of tweets posted by user. Latest tweet is appended at the end.
+    - `followers`: Keeps tracks of users that the given user follows. Use set for `O(1)` operations.
+    - Also maintain a `time` integer to compare relative order of tweets.
+- To get the feed for the user:
+    - First collect 10 most recent tweets of that user.
+    - Then iterate through the followers of that user.
+    - For each follower, iterate through his tweets in reverse order and if a tweet has time greater than the oldest tweet in the heap, add that tweet to the heap.
+- At any given point, the heap will contain at max 10 tweets.
+- At last, collect all the tweet ids from the heap and return them in the reversed order.
+
+---
+
+- Good question, makes use of `List`, `Dict`, `Set`, `Tuple` and `Heap` data structures.
+
+<br>
+<br>
+<br>
+
 ### 
+
+<br>
+<br>
+<br>
