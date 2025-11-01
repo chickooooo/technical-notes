@@ -51,6 +51,24 @@
 <br>
 <br>
 
+### Diameter of binary tree
+
+- Problem: Given the root of a binary tree, return the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root. The length of a path between two nodes is represented by the number of edges between them.
+- Link: https://leetcode.com/problems/diameter-of-binary-tree/
+
+---
+
+- **Algorithm**: Max of left or right
+- Create a variable `maximum` to keep track of maximum diameter. 
+- Recursively find the max depth of each node: [Maximum depth of binary tree](#maximum-depth-of-binary-tree).
+- In the recursive function, add one extra check for diameter.
+- If 'current node + no. of nodes on left + no. of nodes on right' is greater than `maximum`, then update `maximum`.
+- At last, return `maximum - 1`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
