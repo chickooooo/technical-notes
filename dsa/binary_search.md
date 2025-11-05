@@ -250,7 +250,7 @@ Note:
 <br>
 <br>
 
-### ⭐ Minimize max distance to gas station
+### Minimize max distance to gas station (⭐) 
 
 - Problem: You are given a sorted list of gas station positions on a number line. You can add k more stations to minimize the maximum distance between any two adjacent stations. The goal is to find the smallest possible maximum distance after adding the stations, rounded to 2 decimal places.
 - Link: https://www.geeksforgeeks.org/problems/minimize-max-distance-to-gas-station/1
@@ -264,3 +264,33 @@ Note:
 - At each step, iterate the array to find the stations required such that the max distance between adjacent stations is `middle`.
 - Number of stations required between 2 adjacent stations: `math.ceil((stations[i]-stations[i-1]) / max_distance) - 1`
 - Move the pointers depending on required & given stations.
+
+<br>
+<br>
+<br>
+
+### Single element in a sorted array
+
+- Problem: You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once. Return the single element that appears only once.
+- Link: https://leetcode.com/problems/single-element-in-a-sorted-array/
+
+---
+
+- **Algorithm**: Standard binary search
+- While performing binary search, check if `middle` element matches with `middle-1`th element or `middle+1`th element.
+- If none matches, return the `middle` element.
+- If anyone matches, calculate the number of elements to the left of the matching pair.
+- If this count is `odd`, move `right` pointer to just before the matching pair.
+- If the count is `even`, move `left` pointer to just after the matching pair.
+- While iterating if `left == right`, that element is single, return it.
+
+<br>
+<br>
+<br>
+
+### 
+
+<br>
+<br>
+<br>
+
