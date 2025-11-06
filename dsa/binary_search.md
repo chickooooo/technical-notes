@@ -166,6 +166,28 @@ Note:
 <br>
 <br>
 
+### Search in rotated sorted array
+
+- Problem: Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+- Link: https://leetcode.com/problems/search-in-rotated-sorted-array/
+
+---
+
+- **Algorithm**: Binary search on rotated sorted array
+- Use standard binary search loop `left <= right`.
+- If the `middle` element is `target`, return its index.
+- If the left part is sorted:
+    - If the target lies in left half, set `right=middle-1`.
+    - Otherwise set `left=middle+1`.
+- If the right part is sorted:
+    - If the target lies in right half, set `left=middle+1`.
+    - Otherwise set `right=middle-1`.
+- If the loop exists, return `-1`.
+
+<br>
+<br>
+<br>
+
 ### Search in rotated sorted array with duplicates
 - If `nums[left] == nums[middle] == nums[right]`, we cannot decide which half to eliminate.
 - So we reduce the search space like this: `left += 1, right -= 1`.
