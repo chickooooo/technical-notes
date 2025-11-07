@@ -150,7 +150,54 @@ Space optimised
 <br>
 <br>
 
-###
+### Unique paths
+
+- Problem: A robot moves from the top-left to the bottom-right of an m × n grid, moving only right or down. Find the number of unique paths it can take to reach the destination.
+- Link: https://leetcode.com/problems/unique-paths/
+
+---
+
+- Assumption: `f(i, j)` represents the number of unique paths the robot can take to reach the destination starting from `ith` row and `jth` column.
+- To find: `f(0, 0)`
+- Functional equation: `f(i, j) = f(i+1, j) + f(i, j+1)`
+- Range: `i ∈ [0, m-1]`, `j ∈ [0, n-1]`
+
+<br>
+
+Top-down approach
+
+- Create a 2D `memo` of size `m * n`. Set `memo[m-1][n-1] = 1`.
+- Start from `i = 0, j = 0`.
+- Return `0` if `i == m` or `j == n`.
+- If `f(i, j)` is already memoized, return the memoized value.
+- Otherwise, use the **Functional equation** to calculate value of `f(i, j)`.
+- Memoize `f(i, j)` and return the response.
+
+<br>
+
+Bottom-up approach
+
+- Create a 2D `memo` of size `(m+1) * (n+1)`. Set `memo[m-1][n-1] = 1`.
+- Iterate for `i ∈ [m-1, 0]`, `j ∈ [n-1, 0]`.
+- Populate the `memo` using the **Functional equation**.
+- Return `memo[0][0]`.
+
+<br>
+
+Space optimised
+
+- At each step `i`, we only need the next row `i+1`.
+- So, set `temp := make([]int, n+1)` & `current := make([]int, n+1)`. Also set `temp[n-1] = 1`.
+- Iterate for `i ∈ [m-1, 0]`, `j ∈ [n-1, 0]`. And populate the `temp`.
+- Here `temp` refers to next row and `current` refers to the current row.
+- After that update the values of `temp` to `current` and `current` to `make([]int, n+1)`.
+- At last, return `temp[0]`.
+
+<br>
+<br>
+<br>
+
+### 
 
 <br>
 <br>
