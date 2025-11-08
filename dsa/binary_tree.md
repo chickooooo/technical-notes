@@ -87,6 +87,23 @@
 <br>
 <br>
 
+### Zigzag level order traversal
+
+- Problem: Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+- Link: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+
+---
+
+- **Algorithm**: Level order traversal
+- Use standard [Level order traversal](#level-order-traversal).
+- We will need an extra `forward` flag. Initially `forward` will be `true`.
+- During LOT, when we encounter `nil` element, we will use this flag to determine whether to add `temp` to `output` in forward direction or reverse direction.
+- After insertion, flip the `forward` flag. Rest of the template remains the same.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
