@@ -268,3 +268,30 @@ last = [
 - If `newInterval` is less than current interval, add `newInterval` to the array and rest of the intervals.
 - In case of overlapping intervals, add their merger to the array: `[min(interval[0], newInterval[0]), max(interval[1], newInterval[1])]`.
 - Once `newInterval` is inserted, perform **Merge overlapping intervals** for rest of the intervals.
+
+<br>
+<br>
+<br>
+
+### Check if array is sorted and rotated
+
+- Problem: Given an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false. There may be duplicates in the original array.
+- Link: https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/
+
+---
+
+- **Algorithm**: Normal array iteration
+- Create a variable `drop`, this will indicate whether there was a drop in array values.
+- A sorted array when rotated, will either have no drop or only 1 drop.
+- If no drop is present, than means the array is sorted and not rotated.
+- If only 1 drop is present, also check the last element should be less than equal to the first element.
+
+<br>
+<br>
+<br>
+
+### 
+
+<br>
+<br>
+<br>
