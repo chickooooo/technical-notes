@@ -39,8 +39,9 @@
 
 - **Algorithm**: Left & right count
 - For each node, keep track of how many nodes are to it's left and to it's right.
+- This transforms the BST into an **Order Statistic Tree**.
 - We can use this `left` and `right` count to find the `kth` smallest node in `O(logn)` time complexity.
-- When a node is inserted or deleted, we just need to update the counts of it's parent elements.
+- When a node is inserted or deleted, we just need to update the counts of it's parent elements (while going down the path).
 
 <br>
 <br>

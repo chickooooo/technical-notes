@@ -290,6 +290,22 @@ last = [
 <br>
 <br>
 
+### Rotate array by k steps
+
+- Problem: Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+- Link: https://leetcode.com/problems/rotate-array/
+
+---
+
+- **Algorithm**: Reverse array in parts.
+- Reverse complete array.
+- Reverse first `k` elements.
+- Reverse remaining `n-k` elements.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
