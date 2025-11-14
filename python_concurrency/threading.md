@@ -118,7 +118,7 @@ import threading
 from typing import List
 
 
-def download_file(url: str, contents: List[str], lock: threading.Lock) -> str:
+def download_file(url: str, contents: List[str], lock: threading.Lock):
     # Download file
     print(f"Download started for {url}")
     delay = random.randint(1, 5)

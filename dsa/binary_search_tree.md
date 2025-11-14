@@ -47,6 +47,23 @@
 <br>
 <br>
 
+### LCA of a BST
+
+- Problem: Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+- Link: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+---
+
+- **Algorithm**: Left or right
+- If `p` or `q` is same as current node, then current node is the LCA.
+- If one is smaller and one is greater (values), then current node is the LCA.
+- If both are smaller, go left.
+- If both are greater, go right.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
