@@ -74,6 +74,52 @@ o1 -> e1 -> o2 -> e2
 <br>
 <br>
 
+### Reverse linked list
+
+- Problem: Given the head of a singly linked list, reverse the list, and return the reversed list.
+- Link: https://leetcode.com/problems/reverse-linked-list/
+
+---
+
+- **Algorithm**: Reverse linked list (iterative)
+- Set previous node to `nil` initially.
+- Make current node point to previous node.
+- Move current by one step and previous by one step.
+- Keep doing so untils current becomes `nil`.
+- At last, return the previous node. This is the new head now.
+
+---
+
+- **Algorithm**: Reverse linked list (recursive)
+- Recursively call `current.Next` until we reach the last node.
+- If current node is last node, set `newHead` to this node and return the node.
+- After the recursive call, set received node's next to current node and return the current node.
+- After the class stack is emptied, first node is still pointing to second node. So, set `first.Next = nil`.
+- At last, return the `newHead`.
+
+<br>
+<br>
+<br>
+
+### Sort linked list
+
+- Problem: Given the head of a linked list, return the list after sorting it in ascending order.
+- Link: https://leetcode.com/problems/sort-list/
+
+---
+
+- **Algorithm**: Merge sort
+- Use **Slow & Fast pointer** algorithm to get the middle of the linked list.
+- Split linked list into 2 parts from the middle.
+- Recursively keep on splitting each part until a single node is left.
+- Now get the left sorted part and right sorted part and merge these two parts.
+- The algorithm is same as **Merge two sorted linked lists**. No need for extra space.
+- Keep doing so until we get a single sorted linked list.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
