@@ -11,7 +11,8 @@
 - [Threading in Python](#threading-in-python)
 - [GIL impact on threading](#gil-impact-on-threading)
 - [Typical threading workflow](#typical-threading-workflow)
-- [Thread Pool Executor](#thread-pool-executor) 
+- [ThreadPoolExecutor](#thread-pool-executor) 
+- [Future](#future) 
 
 <br>
 <br>
@@ -189,7 +190,7 @@ if __name__ == "__main__":
 <br>
 <br>
 
-### Thread Pool Executor
+### ThreadPoolExecutor
 
 - `ThreadPoolExecutor` is a high level interface for managing a pool of threads.
 - It simplifies multithreading. We just have to provide a target function and arguments that will be passed to this function.
@@ -267,6 +268,123 @@ def main():
 <br>
 
 #### `.submit()` method
+
+- `.submit()` schedules a function to be executed in a thread pool and returns a `Future` object.
+- A `Future` object represents the result of an asynchronous operation.
+
+```py
+import time
+from typing import List
+from concurrent.futures import ThreadPoolExecutor, Future
+
+def divide(a: int, b: int) -> float:
+    time.sleep(1)
+    return a / b
+
+def main():
+    a_list = [2, 2, 10, 3]
+    b_list = [1, 0, 2, 2]
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        # Will hold future objects
+        futures: List[Future] = []
+
+        for a, b in zip(a_list, b_list):
+            future = executor.submit(divide, a, b)
+            futures.append(future)
+    
+    for future in futures:
+        exc = future.exception()
+        if exc is not None:
+            print(exc)  # Print exception
+        else:
+            print(future.result())  # Print result
+
+if __name__ == "__main__":
+    main()
+
+# Output:
+# 2.0
+# division by zero
+# 5.0
+# 1.5
+```
+
+- Above code creates 2 threads and submits 4 tasks to be executed on these threads.
+- Each `.submit()` call returns a `Future` object, which is stored in `futures` array.
+- Once all the threads have finished execution, we iterate on these futures and print the result or exception.
+
+<br>
+<br>
+
+#### `.shutdown()` method
+
+- `.shutdown()` method does the clean up and free resources once all tasks have been completed.
+- By default, it blocks until all tasks are completed.
+- When the `with` block of `ThreadPoolExecutor` exits, the executor automatically calls `.shutdown()` method and waits for all tasks to finish before cleaning up.
+
+```py
+executor.shutdown(wait=True, cancel_futures=False)
+# wait until all tasks are completed
+# cancels any futures that haven’t yet started executing
+```
+
+<br>
+<br>
+<br>
+
+### Future
+
+- A `Future` object represents the result of an asynchronous operation.
+- It is used to check the status of a task and retrieve result after completion.
+
+<br>
+
+#### `.done()`
+
+- Returns `True` if the task has finished execution else `False`.
+- A task execution finishes when it completes successfully or raises exception.
+
+```py
+future.done()  # True
+```
+
+<br>
+
+#### `.result()`
+
+- Blocks until the result of the task is available and then returns it.
+- If the task raised an exception, it will be re-raised when calling `.result()`.
+- We can also set a timeout indicating, how long to wait until we get the result.
+- If the timeout expires, it raises `concurrent.futures.TimeoutError`.
+
+```py
+future.result(timeout=None)
+```
+
+<br>
+
+#### `.exception()`
+
+- Returns the exception raised by the task, or `None` if the task completed successfully.
+
+```py
+future.exception()
+```
+
+<br>
+
+#### `.add_done_callback()`
+
+- Registers a callback function that is called when the task finishes, regardless of whether it completes successfully or raises an exception.
+- This callback function takes one argument, the `Future` object.
+
+```py
+future.add_done_callback(my_callback)
+
+def my_callback(future: Future):
+    print(f"Task result: {future.result()}")
+```
 
 <br>
 <br>
