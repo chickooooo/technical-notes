@@ -11,6 +11,7 @@
 - [Threading in Python](#threading-in-python)
 - [GIL impact on threading](#gil-impact-on-threading)
 - [Typical threading workflow](#typical-threading-workflow)
+- [Thread Pool Executor](#thread-pool-executor) 
 
 <br>
 <br>
@@ -183,6 +184,89 @@ if __name__ == "__main__":
 # Download completed for 'https://s3.amazon.com/file_1.txt' in 5 seconds
 # ['file_2.txt', 'file_3.txt', 'file_1.txt']
 ```
+
+<br>
+<br>
+<br>
+
+### Thread Pool Executor
+
+- `ThreadPoolExecutor` is a high level interface for managing a pool of threads.
+- It simplifies multithreading. We just have to provide a target function and arguments that will be passed to this function.
+- `ThreadPoolExecutor` efficiently manages the threads, their execution and returns back the result.
+- It is part of `concurrent.futures` module.
+- Useful when we require a pool of threads to perform tasks concurrently.
+
+<br>
+<br>
+
+#### `.map()` method
+
+- `.map()` method is used when we want to execute the same function multiple times using a different set of arguments.
+- It takes a target function as an input and `n` iterables. Here `n` is equal to the number of arguments that function accepts.
+- Each row of the iterables is passed as arguments to the function and then it is scheduled for execution.
+- `.map()` method blocks until all the threads have finished their execution.
+- After all executions are completed, `.map()` returns the results in the **same order** as that of input arguments.
+
+```py
+from concurrent.futures import ThreadPoolExecutor
+
+def divide(a: int, b: int) -> float:
+    return a / b
+
+def main():
+    a_list = [2, 2, 10]
+    b_list = [1, 2, 2]
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        result = executor.map(divide, a_list, b_list)
+
+    for item in result:
+        print(item)
+
+if __name__ == "__main__":
+    main()
+
+# Output:
+# 2.0
+# 1.0
+# 5.0
+```
+
+<br>
+
+Exception in thread
+
+```py
+def main():
+    a_list = [2, 2, 10]
+    b_list = [1, 0, 2]
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        result = executor.map(divide, a_list, b_list)
+        print("here")
+
+    for item in result:
+        print(item)
+
+# Output:
+# here
+# 2.0
+# Traceback (most recent call last):
+# ...
+# ZeroDivisionError: division by zero
+```
+
+- In the above example, when we call `.map()`, it schedules 3 tasks.
+- All these 3 tasks complete their execution and `"here"` is printed to the console.
+- Now, when we iterate the `result`, the first result gets printed `2.0`.
+- The second result raises an exception and the iterator and program stops there.
+- Even though third result is computed and is present in the `result`.
+
+<br>
+<br>
+
+#### `.submit()` method
 
 <br>
 <br>
