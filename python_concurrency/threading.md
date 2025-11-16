@@ -14,6 +14,10 @@
 - [ThreadPoolExecutor](#thread-pool-executor)
 - [Future](#future)
 - [Synchronization Primitives](#synchronization-primitives)
+    - [Lock](#lock)
+    - [RLock](#rlock)
+    - [Semaphore](#semaphore)
+    - [Queue](#queue)
 
 <br>
 <br>
@@ -471,6 +475,123 @@ class BankAccount:
 
 - In the above example, we are acquiring the same lock twice in `transfer()` method.
 - Using a standard `Lock()` would cause a deadlock, hence we have used `RLock()`.
+
+<br>
+<br>
+
+#### Semaphore
+
+- A semaphore controls access to a shared resource by allowing upto **N** threads to acquire it.
+- Use semaphore when we want to limit concurrent access. For example: allow only max 5 Database connections.
+
+Key behaviour:
+- It is initialized with a counter.
+- `.acquire()` acquires a connection and decrements the counter.
+- `.release()` realeases the connection and increments the counter.
+- If the counter is at 0. Further acquire calls have to wait.
+
+```py
+def main():
+    sem = threading.Semaphore(2)
+
+    def connect():
+        with sem:
+            print("Connected to DB")
+            time.sleep(2)
+            print("DB connection closed")
+
+    threads: List[threading.Thread] = []
+    for _ in range(3):
+        t = threading.Thread(target=connect)
+        t.start()
+        threads.append(t)
+    
+    for t in threads:
+        t.join()
+
+    print("done")
+
+main()
+
+# Output:
+# Connected to DB
+# Connected to DB
+# DB connection closed
+# DB connection closed
+# Connected to DB
+# DB connection closed
+# done
+```
+
+<br>
+<br>
+
+#### Queue
+
+- A `Queue` is a thread-safe FIFO data structure from `queue` module.
+- It is used to send and receive data safely between multiple threads.
+- Used in concurrency patterns like: producer-consumer, work distribution, etc.
+- Similar to a `channel` in Go.
+
+Key behaviour:
+- `.put()` is used to put an item in the queue. Blocks if queue is full.
+- `.get()` is used to get an item from the queue. Blocks if queue is empty.
+- `.task_done()` is used to signal task completion.
+- `.join()` blocks till all tasks are completed. Each enqueued task should call `task_done()` to inform its completion.
+
+```py
+def worker(wid: str, queue: Queue[int | None]):
+    while True:
+        item = queue.get()
+        # Signal to stop consuming
+        if item is None:
+            break
+
+        print(f"Worker {wid} working on {item}")
+        time.sleep(2)
+
+        # Signal task completion
+        queue.task_done()
+        print(f"Worker {wid} completed {item}")
+
+    print(f"Worker {wid} finished working")
+
+def main():
+    # No max size, infinite queue
+    queue = Queue[int | None]()
+    queue.put(10)
+    queue.put(20)
+    queue.put(30)
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        # Start 2 workers
+        executor.submit(worker, "a", queue)
+        executor.submit(worker, "b", queue)
+        
+        # Wait for all tasks to complete
+        queue.join()
+        
+        # Signal workers to stop
+        print("Stopping workers...")
+        queue.put(None)
+        queue.put(None)
+
+    print("done")
+
+main()
+
+# Output:
+# Worker a working on 10
+# Worker b working on 20
+# Worker a completed 10
+# Worker b completed 20
+# Worker a working on 30
+# Worker a completed 30
+# Stopping workers...
+# Worker a finished working
+# Worker b finished working
+# done
+```
 
 <br>
 <br>
