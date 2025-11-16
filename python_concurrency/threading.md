@@ -11,8 +11,9 @@
 - [Threading in Python](#threading-in-python)
 - [GIL impact on threading](#gil-impact-on-threading)
 - [Typical threading workflow](#typical-threading-workflow)
-- [ThreadPoolExecutor](#thread-pool-executor) 
-- [Future](#future) 
+- [ThreadPoolExecutor](#thread-pool-executor)
+- [Future](#future)
+- [Synchronization Primitives](#synchronization-primitives)
 
 <br>
 <br>
@@ -385,6 +386,91 @@ future.add_done_callback(my_callback)
 def my_callback(future: Future):
     print(f"Task result: {future.result()}")
 ```
+
+<br>
+<br>
+<br>
+
+### Synchronization Primitives
+
+#### Lock
+
+- A Lock (also known as a mutex) is the simplest synchronization primitive.
+- It ensures **mutual exclusion**. That means, only one thread can hold the lock at a time.
+- It is used to ensure only one thread can access the shared resource at a time.
+
+Key behaviour:
+- If a thread tries to acquire an already-held lock, it blocks until the lock is released. 
+- It prevents race condition on shared resources.
+
+```py
+import threading
+from concurrent.futures import ThreadPoolExecutor
+
+def increment(counter_map, lock):
+    with lock:
+        counter_map["key"] += 1
+
+def main():
+    counter_map = {"key": 0}
+    lock = threading.Lock()
+
+    with ThreadPoolExecutor(max_workers=100) as executor:
+        for _ in range(100):
+            executor.submit(increment, counter_map, lock)
+
+    print("Final counter:", counter_map["key"])
+
+main()
+
+# Output:
+# Final counter: 100
+```
+
+<br>
+<br>
+
+#### RLock
+
+- RLock stands for **Reentrant Lock**.
+- A same thread can acquire RLock multiple times without deadlocking.
+
+Use when:
+- A function holding a lock calls another function that needs the same lock.
+- We need **recursive acquisition** by the same thread.
+
+Key behaviour:
+- Maintains an internal counter indicating how many times the lock was acquired.
+- A thread must release the lock the same number of times to unlock it.
+
+```py
+import threading
+
+class BankAccount:
+    def __init__(self, balance: int) -> None:
+        self._balance = balance
+        # Normal Lock() will cause deadlock
+        self._lock = threading.RLock()
+
+    def deposit(self, amount: int):
+        with self._lock:
+            self._balance += amount
+
+    def withdraw(self, amount: int):
+        with self._lock:
+            self._balance -= amount
+    
+    def transfer(self, amount: int, other_account: BankAccount):
+        # We need lock to make this operation atomic
+        # No other deposit or withdrawl should interfere with a transfer
+        with self._lock:
+            # Same lock will be accessed during withdrawl
+            self.withdraw(amount)
+            other_account.deposit(amount)
+```
+
+- In the above example, we are acquiring the same lock twice in `transfer()` method.
+- Using a standard `Lock()` would cause a deadlock, hence we have used `RLock()`.
 
 <br>
 <br>
