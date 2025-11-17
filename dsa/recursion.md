@@ -6,6 +6,16 @@
 <br>
 <br>
 
+## Patterns
+
+- Time complexity of **Include / not include `i`** is: `O(2^n)`.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Problems
 
 <br>
@@ -68,6 +78,26 @@
 - Early stopping:
     - Returning `true` & `false` helps with early stopping and avoid unnecessary recursion calls.
     - Early stopping can only be implemented if the array is sorted.
+
+<br>
+<br>
+<br>
+
+### All possible subsets
+
+- Problem: Given an integer array nums of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
+- Link: https://leetcode.com/problems/subsets/
+
+---
+
+- **Algorithm**: Include / not include `i`
+- Create two empty arrays to hold the output (`output`) and elements during recursion (`temp`).
+- Start with `i=0`. At each step, we can either include `ith` element or exclude it.
+- First add `ith` element to temp array and go to `(i+1)th` step.
+- After `(i+1)th` step has completed, remove the last element from the array (this will be the `ith` element).
+- Then again go to `(i+1)th` step.
+- Once we reach `(i=n)th` step, make copy of `temp` and add it to the `output`.
+- At last, return the `output`.
 
 <br>
 <br>
