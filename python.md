@@ -14,12 +14,16 @@
 - [Python Lambda Function](#python-lambda-function)
 - [Python Deep Copy vs Shallow copy](#python-deep-copy-vs-shallow-copy)
 - [Python Generators](#python-generators)
+- [Python Iterator](#python-iterator)
+- [Generator vs Iterator](#generator-vs-iterator)
+- [Python Iterables](#python-iterables)
 - [Python Exception Handling](#python-exception-handling)
 - [Python GIL](#python-gil)
 - [Python == vs is](#python--vs-is)
 - [Python \_\_str\_\_ vs \_\_repr\_\_](#python-\_\_str\_\_-vs-\_\_repr\_\_)
 - [Python with Statement](#python-with-statement)
 - [Python Interning](#python-interning)
+- [Python Metaclass](#python-metaclass)
 
 <br>
 <br>
@@ -654,7 +658,8 @@ print(a_dcopy)  # Output: [[1, 2], 3, 4]
 
 - Generators in python are lazily evaluated objects.
 - The next loop is ran only when it is required.
-- Like normal iterables, generators do not evaluate all the results once and store them in memory
+- It uses `yield` keyword (to return a single value) instead of returning all values at once.
+- Like normal iterables, generators **do not** evaluate all the results once and store them in memory.
 
 <br>
 
@@ -667,6 +672,126 @@ def count_to_five():
 
 for i in count_to_five():
     print(i, end=" ")  # Output: 1 2 3 4 5 
+```
+
+<br>
+
+#### How generators work?
+- When `yield` is executed, the function pauses and returns a value.
+- The next call to `next()` resumes execution from where it left off.
+
+<br>
+
+#### Generator expression
+
+- A generator expression is a compact inline way to create a generator.
+- It doesn't create the whole list in memory, it lazily produces items when needed.
+- It is similar to list comprehension, but uses **parentheses** instead of sqaure brackets.
+
+```py
+(expression for item in iterable if condition)
+```
+
+<br>
+<br>
+<br>
+
+### Python Iterator
+
+- An iterator is an object that allows us to iterate over a collection of elements one at a time.
+- An iterator must implement these two methods:
+    - `__iter__()`: Returns the iterator object itself.
+    - `__next__()`: Returns the next element. Raises `StopIteration` indicating end of iteration.
+
+```py
+class MyIterator:
+    def __init__(self, n: int) -> None:
+        self._n = n
+        self._i = 0
+    
+    def __iter__(self):
+        # Return iterator object itself
+        return self
+
+    def __next__(self):
+        if self._i < self._n:
+            value = self._i
+            self._i += 1
+            return value
+
+        raise StopIteration
+
+def main():
+    iterator = MyIterator(5)
+
+    for i in iterator:
+        print(i)
+
+main()
+
+# Output:
+# 0
+# 1
+# 2
+# 3
+# 4
+```
+
+- Above example creates an iterator that iterates from `[0, n)`.
+- **Note**: A `for` loop internally uses `iter()` and `next()` method.
+
+<br>
+
+Usecases:
+- Reading large files line by line. Prevents loading the entire file into memory.
+- Fetching database records in chunk instead of all at once.
+- Lazily doing expensive computation when iterating over an iterable one by one.
+
+<br>
+<br>
+<br>
+
+### Generator vs Iterator
+
+| Feature                | Iterator                                                | Generator                                                         |
+| ---------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Definition**         | An object that implements `__iter__()` and `__next__()` | A special kind of iterator built using a function with `yield`    |
+| **Creation**           | Requires writing a full class                           | Created using a simple function or generator expression           |
+| **Memory Usage**       | Depends on implementation; may store large data         | Always lazy, produces one value at a time (very memory-efficient) |
+| **Ease of Use**        | More code; verbose                                      | Very easy; minimal code                                           |
+| **State Handling**     | You manage state manually                               | Python handles state automatically                                |
+| **Infinite Sequences** | Possible but more manual work                           | Very natural and simple                                           |
+| **Readability**        | Can be harder to maintain                               | Much more readable for sequential logic                           |
+
+<br>
+
+In short:
+- Use a **Generator** for simple, linear and lazy iteration.
+- Use an **Iterator** for complex, object-oriented iteration.
+
+<br>
+<br>
+<br>
+
+### Python Iterables
+
+- An iterable is an object we can loop over.
+- For an object to be an iterable, it must implement `__iter__()` or `__getitem__()` method.
+- Most common iterables: List, Tuple, Dict, Set, String, etc.
+
+<br>
+
+- **Iterable**: Something you can iterate over.
+- **Iterator**: The object that does the iteration one item at a time.
+- When we use a `for` loop, Python does this internally:
+
+```py
+iterable = [1, 2, 3]
+
+iterator = iter(iterable)   # gets an iterator
+print(next(iterator))       # 1
+print(next(iterator))       # 2
+print(next(iterator))       # 3
 ```
 
 <br>
@@ -894,4 +1019,36 @@ a is b  # Might be False
 <br>
 <br>
 
-### 
+### Python Metaclass
+
+- A metaclass is a class of a class.
+- It controls class creation behavior.
+- Automatically modify class attributes or methods.
+- Commonly used when we are creating a python package.
+- A class can only have one metaclass.
+
+<br>
+
+Example:
+
+```py
+class MethodNameChecker(type):
+    def __new__(cls, name, bases, attrs):
+        for attr in attrs:
+            if callable(attrs[attr]) and not attr.startswith('do_'):
+                raise TypeError(f"Method {attr} must start with 'do_'")
+        
+        return super().__new__(cls, name, bases, attrs)
+
+class MyActions(metaclass=MethodNameChecker):
+    def do_run(self): pass
+    def run_fast(self): pass  # Raises TypeError
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### More
