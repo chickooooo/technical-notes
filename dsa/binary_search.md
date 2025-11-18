@@ -202,7 +202,7 @@ Note:
 
 ### Capacity To Ship Packages Within D Days
 - standard template of **Binary search on answers**.
-- Define the lower `max(nums)` & upper limit `sum(nums)` . Perform binary search on this limit.
+- Define the lower `max(nums)` & upper limit `sum(nums)`. Perform binary search on this limit.
 - At each step, iterate the array to find required days.
 - Move the pointers depending on required & given days.
 
@@ -305,6 +305,28 @@ Note:
 - If this count is `odd`, move `right` pointer to just before the matching pair.
 - If the count is `even`, move `left` pointer to just after the matching pair.
 - While iterating if `left == right`, that element is single, return it.
+
+<br>
+<br>
+<br>
+
+### Smallest divisor given a threshold
+
+- Problem: Given an integer array nums and a threshold, find the smallest positive integer divisor such that the sum of `ceil(num / divisor)` for all numbers in the array is ≤ threshold.
+- Link: https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
+
+---
+
+- **Algorithm**: Binary search on range
+- Set `left=1`, `right=max(nums)` and `answer=0`.
+- Perform standard binary search `left <= right`.
+- At each step, get the `middle`. This represents the divisor.
+- Caculate the sum of quotients.
+- If this sum is less than or equal to `threshold`:
+    - Set `answer = middle`.
+    - Move right pointer: `right = middle - 1`.
+- Otherwise, move left pointer: `left = middle + 1`.
+- After completion of binary search, return the `answer`.
 
 <br>
 <br>
