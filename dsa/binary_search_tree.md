@@ -64,6 +64,26 @@
 <br>
 <br>
 
+### Validate BST
+
+- Problem: Given the root of a binary tree, determine whether it is a valid binary search tree (BST), where all left descendants are strictly less than the node and all right descendants are strictly greater.
+- Link: https://leetcode.com/problems/validate-binary-search-tree/
+
+---
+
+- **Algorithm**: Node value within limits
+- Maintain 2 variable `left` and `right`. These represents left and right limit of each node.
+- Start with `left = -INF` and `right = +INF`.
+- Check if the node value is within these limits. If not, return `false`.
+- Go to left child and update `right = current.val`.
+- Go to right child and update `left = current.val`.
+- Recursively check if both left **and** right children are within limits.
+- If current node is `nil`, return `true`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
