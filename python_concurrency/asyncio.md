@@ -9,6 +9,7 @@
 ## Index
 
 - [Event Loop](#event-loop)
+- [Coroutine](#coroutine)
 
 <br>
 <br>
@@ -46,6 +47,7 @@ Key characteristics:
 ---
 
 Example:
+
 ```py
 import asyncio
 
@@ -98,7 +100,113 @@ Non-blocking Operations:
 <br>
 <br>
 
-### 
+### Coroutine
+
+#### What is a coroutine?
+
+- A coroutine is a special Python function defined with `async def`.
+- A coroutine can be paused and resumed.
+- Coroutines enable asynchronous, non-blocking execution by yielding control using `await`.
+- Unlike normal functions, calling a coroutine does not execute it immediately. It returns a **coroutine object** which must be awaited or scheduled on the event loop.
+- They support **cooperative multitasking**, meaning they voluntarily yield control.
+
+---
+
+Example:
+
+```py
+async def fetch_data():
+    await asyncio.sleep(1)
+    return "done"
+```
+
+<br>
+
+#### Coroutine lifecycle
+
+The lifecycle of a coroutine can be summarized in four major stages:
+
+- Creation:
+    - The moment we call an `async def` function, a coroutine is created.
+    - Example: `coro = fetch_data()`. Here `coro` is a coroutine.
+    - This coroutine is not executed yet.
+- Schedule:
+    - A coroutine is scheduled when it is given to the event loop.
+    - We can use `await`, `asyncio.create_task()` or `asyncio.gather()` to schedule a coroutine.
+    - Now the loop can run it.
+- Execution:
+    - After a coroutine is scheduled, event loop will eventually pick it up and start executing this function.
+    - This execution continues unit `await` statement is encountered.
+    - At each `await`, it suspends, allowing other coroutines to run.
+- Completion:
+    - The coroutine finishes execution and produces a return value (or raises an exception).
+
+---
+
+Example:
+
+```py
+async def main():
+    coro = fetch_data()        # Created
+    result = await coro        # Scheduled → Running → Completed
+```
+
+<br>
+
+#### `async def` and `await`
+
+`async def`:
+- Declares a coroutine function.
+- Always returns a coroutine object when called.
+- Must be awaited or scheduled, otherwise it never runs.
+
+---
+
+`await`:
+- Suspends the coroutine until the awaited I/O operation completes.
+- Allows the event loop to run other tasks. Ensures non-blocking concurrency.
+- We can only use `await` inside an `async def` function.
+
+<br>
+
+#### When NOT to use coroutines?
+
+- Coroutines are ideal for:
+    - Network I/O (HTTP requests)
+    - File I/O
+    - Timers
+    - Waiting for OS events
+- Coroutines are NOT ideal for CPU-bound tasks, such as:
+    - Large computations (e.g., hashing, image processing)
+    - Compression
+    - Machine learning inference
+    - Heavy data processing
+
+---
+
+Why not?
+- CPU-bound code does NOT `await` while doing computation. Hence, the control is never yield to the event loop.
+- It blocks the event loop, blocking all other coroutines.
+- Use `ProcessPoolExecutor` for CPU-bound work.
+
+---
+
+Example handling CPU-bound tasks correctly:
+
+```py
+import asyncio
+from concurrent.futures import ProcessPoolExecutor
+
+def cpu_heavy(n):
+    return sum(i*i for i in range(n))
+
+async def main():
+    loop = asyncio.get_running_loop()
+    result = await loop.run_in_executor(
+        ProcessPoolExecutor(), cpu_heavy, 10_000_000
+    )
+    print(result)
+```
 
 <br>
 <br>
