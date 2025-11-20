@@ -104,6 +104,27 @@
 <br>
 <br>
 
+### Vertical order traversal
+
+- Problem: You are given the root of a binary tree. Each node has a (row, col) position where left children go to (row+1, col–1) and right children to (row+1, col+1). You must return the vertical order traversal: group nodes by column from leftmost to rightmost, and within each column sort nodes first by row (top to bottom) and then by value if they share the same row and column.
+- Link: https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+
+---
+
+- **Algorithm**: Preorder traversal with node position
+- Maintain a `hashmap` that will hold nodes having the same `col`. `{col: [(row,node)]}`.
+- Start with `row=0` & `col=0`. Use standard Preorder traversal.
+- At each node, add `row` + `node.val` in `hashmap[col]`.
+- Keep doing so, until whole tree is traversed.
+- Now iterate from `min_col` to `max_col`. While iterating:
+    - Sort `hashmap[col]`.
+    - Add sorted node values to the `output`.
+- At last return the `output`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
