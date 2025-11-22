@@ -23,6 +23,11 @@
   - [Multi-Stage Builds](#multi-stage-builds)
   - [Dockerfile Best Practices](#dockerfile-best-practices)
   - [Building & Managing Images](#building--managing-images)
+- [Working with containers](#working-with-containers)
+  - [Core container commands](#core-container-commands)
+  - [Container states & Restart policies](#container-states--restart-policies)
+  - [Networking Concepts](#networking-concepts)
+  - [Useful Commands Summary](#useful-commands-summary)
 
 <br>
 <br>
@@ -492,6 +497,247 @@ docker push myrepo/myimage:latest
 
 - Requires docker login first.
 - Image must be tagged with the registry name.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Working with containers
+
+### Core container commands
+
+#### Run a container
+
+```bash
+docker run <image>
+
+docker run -d --name myapp -p 8000:8000 myimage
+```
+
+- `-d`: Run in detached mode.
+- `--name`: Container name.
+- `-p host:container`: Port mapping.
+- `-e KEY=VALUE`: Environment variables.
+- `-v host:container`: Volume mounting.
+- `--network`: Attach to network.
+- `--restart`: Restart policy.
+
+<br>
+
+#### Other important commands:
+
+View running containers:
+```bash
+docker ps
+```
+
+<br>
+
+View all containers (including stopped)
+```bash
+docker ps -a
+```
+
+<br>
+
+Stop a running container
+```bash
+docker stop <containerName>
+```
+
+<br>
+
+Start a stopped container
+```bash
+docker start <containerName>
+```
+
+<br>
+
+Remove a container
+```bash
+docker rm <containerName>
+```
+
+<br>
+
+View container logs
+```bash
+docker logs <containerName>
+```
+
+<br>
+
+View container logs (with follow)
+```bash
+docker logs -f <containerName>
+```
+
+<br>
+
+Execute inside a running container (SSH)
+```bash
+docker exec -it <containerName> bash
+```
+
+<br>
+
+Copy files between host and container
+```bash
+# host to container
+docker cp ./local.txt <containerName>:/app/text.txt
+
+# container to host
+docker cp <containerName>:/app/text.txt ./local.txt
+```
+
+<br>
+
+Inspect container metadata
+```bash
+docker inspect <containerName>
+```
+
+- Useful for inspecting:
+  - IP address
+  - Mounted volumes
+  - Environment variables
+  - Network information
+  - Entrypoint / Cmd
+
+<br>
+<br>
+
+### Container states & Restart policies
+
+#### Container states
+
+- **Created**: Container is created but not yet started.
+- **Running**: Container is actively executing its process.
+- **Paused**: All processes in the container are temporarily suspended. `docker pause <containerName>`.
+- **Restarting**: Container is restarting due to a configured restart policy.
+- **Exited**: Container has stopped after completing its main process.
+- **Dead**: Container failed to stop properly and is in an unusable state.
+
+<br>
+
+#### Restart policies
+
+- Restart policy is set for a container using the `--restart` flag.
+- Most commonly used restart policies are:
+  - `no`: Never restart the container (default).
+  - `on-failure`: Restart only if the container exits with a non-zero (error) status.
+  - `on-failure:N`: Restart on failure but limit retries to N times.
+  - `always`: Always restart the container regardless of exit status.
+  - `unless-stopped`: Restart the container unless it was manually stopped by the user.
+
+<br>
+<br>
+
+### Networking Concepts
+
+#### Default bridge network
+
+- The default bridge network is a built-in network that Docker creates automatically (named `bridge`) when you install Docker.
+- Containers attached to this network can communicate with each other using their IP addresses.
+- These containers are isolated from the host unless ports are explicitly published.
+
+Key points:
+
+- **Pre-created network**: Docker automatically provides a network named `bridge`.
+- **Container-to-container communication**: Containers can talk to each other only via IP addresses, not by container name.
+- **Basic isolation**: Containers are isolated from the host and external networks unless you publish ports using `-p`.
+- **Advantage**: Suitable for testing or small setups, but not recommended for production.
+- **User-defined bridge is better**: Creating your own bridge network allows **name-based DNS**, better isolation, and more control.
+
+<br>
+
+Command to list all networks:
+```bash
+docker network ls
+```
+
+<br>
+
+#### User-defined bridge network
+
+- A user-defined bridge network is a custom bridge network that you create in Docker.
+- It provides better isolation, improved container discovery, and more control compared to the default bridge network.
+
+Key points:
+
+- **Custom-created**: You create it using `docker network create <name>`.
+- **Built-in DNS**: Containers can communicate using container names instead of IPs.
+- **Better isolation**: Containers in a user-defined network are isolated from containers in other networks unless connected explicitly.
+- **Automatic service discovery**: Docker’s embedded DNS automatically resolves container names.
+- **Fine-grained control**: You can configure subnet, gateway, IP ranges, and network options.
+- **Enhanced security**: Traffic stays within that network; easier to apply network-level rules and policies.
+
+<br>
+
+#### Host network
+
+- The host network makes a container share the host machine’s network stack directly.
+- This means the container does not get its own IP, instead it uses the host’s network interface as if it were running directly on the host.
+- `docker run --network=host myimage`
+
+Key points:
+
+- **No network isolation**: The container uses the host’s network namespace directly.
+- **No port mapping needed**: Services inside the container are accessible on the host’s IP and ports without -p publishing.
+- **Higher network performance**: Eliminates virtual network overhead; useful for high-performance or low-latency workloads.
+- **Potential port conflicts**: Since container ports == host ports, conflicts can occur.
+- **Reduced security isolation**: Less isolation compared to bridge networks; increases exposure if misconfigured.
+
+<br>
+
+#### Port Publishing
+
+- Use to expose container's port to the host.
+- `docker run -p <hostPort>:<containerPort> myimage`.
+- Allows host / external client to access services running inside the container.
+
+<br>
+
+#### Expose vs Publish
+
+- `EXPOSE 8000` (Dockerfile): Expose command is for documentation only.
+- `-p 8000:8000`: Actual port forwarding while running the container.
+
+<br>
+
+#### Inspecting networks
+
+- `docker network inspect <networkName>`.
+- Shows:
+  - Attached containers
+  - Their IPs
+  - Subnet & gateway
+
+<br>
+<br>
+
+### Useful Commands Summary
+
+| Action               | Command                          |
+| -------------------- | -------------------------------- |
+| Run container        | `docker run -d image`            |
+| Shell into container | `docker exec -it container bash` |
+| List running         | `docker ps`                      |
+| List all             | `docker ps -a`                   |
+| Stop                 | `docker stop container`          |
+| Start                | `docker start container`         |
+| Remove container     | `docker rm container`            |
+| Logs                 | `docker logs -f container`       |
+| Copy                 | `docker cp`                      |
+| Inspect              | `docker inspect`                 |
+| List images          | `docker images`                  |
+| Remove image         | `docker rmi image`               |
+| List networks        | `docker network ls`              |
+| Inspect network      | `docker network inspect`         |
+| Create network       | `docker network create`          |
 
 <br>
 <br>
