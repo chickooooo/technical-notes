@@ -108,17 +108,46 @@ Non-blocking Operations:
 - A coroutine is a special Python function defined with `async def`.
 - A coroutine can be paused and resumed.
 - Coroutines enable asynchronous, non-blocking execution by yielding control using `await`.
-- Unlike normal functions, calling a coroutine does not execute it immediately. It returns a **coroutine object** which must be awaited or scheduled on the event loop.
 - They support **cooperative multitasking**, meaning they voluntarily yield control.
+
+<br>
+
+#### Creating a coroutine
+
+- Use `async` keyword in-front of the function definition to create a coroutine.
+- Unlike normal functions, calling a coroutine does not execute it immediately.
+- It returns a **coroutine object** which must be awaited or scheduled on the event loop.
+- A **coroutine object** has a type of `Coroutine[SendType, ThrowType, ReturnType]`:
+    - `SendType`: The type of the value you can send into the coroutine.
+    - `ThrowType`: The type of exceptions that may be thrown into the coroutine.
+    - `ReturnType`: The type of the value the coroutine returns when finished. This last type is the one we normally care about.
+
+```py
+async def work(name: str) -> str:
+    logger.info(f"work {name} started")
+    await asyncio.sleep(1)
+    logger.info(f"work {name} finished")
+    return name
+
+async def main():
+    coro = work("A")
+    res = await coro
+    logger.info(res)
+```
 
 ---
 
-Example:
+- If a coroutine is never awaited or scheduled using a task, Python will throw a runtime warning.
 
 ```py
-async def fetch_data():
-    await asyncio.sleep(1)
-    return "done"
+async def main():
+    work("A")
+
+asyncio.run(main())
+```
+
+```
+RuntimeWarning: coroutine 'work' was never awaited
 ```
 
 <br>
@@ -150,28 +179,6 @@ Example:
 async def main():
     coro = fetch_data()        # Created
     result = await coro        # Scheduled → Running → Completed
-```
-
----
-
-- If a coroutine is never awaited or scheduled using a task, Python will throw a runtime warning.
-
-```py
-import asyncio
-
-async def work(name: str):
-    print(f"work {name} started")
-    await asyncio.sleep(1)
-    print(f"work {name} finished")
-
-async def main():
-    work("A")
-
-asyncio.run(main())
-```
-
-```
-RuntimeWarning: coroutine 'work' was never awaited
 ```
 
 <br>
