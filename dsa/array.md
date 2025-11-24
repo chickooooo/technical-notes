@@ -306,6 +306,27 @@ last = [
 <br>
 <br>
 
+### Longest consecutive sequence
+
+- Problem: Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.
+- Link: https://leetcode.com/problems/longest-consecutive-sequence/
+
+---
+
+- **Algorithm**: Groups of consecutive numbers
+- Prepare a `hashset` of given nums.
+- Start iterating `nums`. Each element in `nums` will belong to a group.
+- Go to the first element of that group. Make use of the `hashset`.
+- Once at first element, start counting how many consecutive elements are in that group.
+- After we got the count, delete those nums from the `hashset`.
+- Go to the next element in `nums` and repeat the process.
+- Keep doing so until we have count of all the groups.
+- Return the count of the longest group.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
