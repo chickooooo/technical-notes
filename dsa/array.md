@@ -327,6 +327,23 @@ last = [
 <br>
 <br>
 
+### Three sum
+
+- Problem: Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. The solution set must not contain duplicate triplets.
+- Link: https://leetcode.com/problems/3sum/
+
+---
+
+- Algorithm: 2 sum + 1 more outer loop.
+- Sort the given array first.
+- Start iterating the array. At each step, perform 2 sum on the remaining array, such that `nums[i] + nums[j] + nums[k] == 0`.
+- Maintain a hashset to avoid dupliucate entries.
+- To optimise the algorithm, we can skip the duplicate iterations of `i` & `j`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
