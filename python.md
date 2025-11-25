@@ -40,75 +40,100 @@ A decorator can also take arguments. The syntax looks like this: `@authenticated
 
 <br>
 
-```python
-"""
-Simple decorator
-"""
+```py
+# Normal decorator
 
-def authenticated(func):
-    # add auth logic
-    print("auth")
-    # return view function
-    return func
+def my_decorator(func):
+    def inner():
+        print("before")
+        func()
+        print("after")
+    return inner
 
+@my_decorator
+def my_func():
+    print("Hello")
 
-@authenticated
-def my_view():
-    # add view logic here
-    print("view")
+my_func()
 
-my_view()
-# auth
-# view
+# Output:
+# before
+# Hello
+# after
+```
 
+```py
+# Overridden function accepts parameters
 
-"""
-Function arguments
-"""
+def my_decorator(func):
+    def inner(*args, **kwargs):
+        print("before")
+        func(*args, **kwargs)
+        print("after")
+    return inner
 
-def authenticated(func):
-    # add auth logic
-    print("auth")
-    # return view function
-    return func
+@my_decorator
+def my_func(name: str):
+    print("Hello", name)
 
-@authenticated
-def my_view(num):
-    # add view logic here
-    print("view", num)
+my_func("john")
 
-my_view(1)
-# auth
-# view 1
+# Output:
+# before
+# Hello john
+# after
+```
 
+```py
+# Overridden function return values
 
-"""
-Decorator arguments
-"""
+def my_decorator(func):
+    def inner(*args, **kwargs):
+        print("before")
+        res = func(*args, **kwargs)
+        print("after")
+        return res
+    return inner
 
-def authenticated(**kwargs):
-    # access parameters
-    print(kwargs)
-    # add auth logic
-    print("auth")
+@my_decorator
+def my_func(name: str):
+    print("Hello", name)
+    return 1
 
-    def decorator(func):
-        # return view function
-        return func
+print(my_func("john"))
 
-    # return decorator
-    return decorator
+# Output:
+# before
+# Hello john
+# after
+# 1
+```
 
-@authenticated(admin_only=True)
-def my_view(num):
-    # add view logic here
-    print("view", num)
+```py
+# Decorator accepts parameters
 
-my_view(1)
-# Output
-# {'admin_only': True}
-# auth
-# view 1
+def my_decorator(num):
+    def wrapper(func):
+        def inner(*args, **kwargs):
+            print("before", num)
+            res = func(*args, **kwargs)
+            print("after", num)
+            return res
+        return inner
+    return wrapper
+
+@my_decorator(10)
+def my_func(name: str):
+    print("Hello", name)
+    return 1
+
+print(my_func("john"))
+
+# Output:
+# before 10
+# Hello john
+# after 10
+# 1
 ```
 
 <br>
