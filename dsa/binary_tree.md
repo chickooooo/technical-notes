@@ -125,6 +125,26 @@
 <br>
 <br>
 
+### Maximum path sum
+
+- Problem: A path in a binary tree is a sequence of connected nodes with no repeats and does not need to include the root. The path sum is the total of its node values. Given a binary tree root, return the maximum path sum of any non-empty path.
+- Link: https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+---
+
+- **Algorithm**: Return global max + local max
+- For each node, return 2 values **global max** & **local max**.
+- Global max:
+    - Max path sum of that subtree.
+    - Max of: LGM, RGM, C, C+LLM, C+RLM, C+LLM+RLM.
+- Local max:
+    - Max path sum, if that node is to be included.
+    - Max of: C, C+LLM, C+RLM
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
