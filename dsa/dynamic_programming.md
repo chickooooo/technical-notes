@@ -293,6 +293,24 @@ Space optimised
 <br>
 <br>
 
+### Paths in matrix whose sum is divisible by k
+
+- Problem: Given an m×n grid and an integer k, count the number of paths from (0,0) to (m−1,n−1) moving only right or down such that the sum of values along the path is divisible by k. Return the count modulo 109 + 7.
+- Link: https://leetcode.com/problems/paths-in-matrix-whose-sum-is-divisible-by-k/
+
+---
+
+- **Algorithm**: DP on grid. Top-left to bottom-right.
+- In tabulation approach, we need to store `{num:count}` in each cell. Making it 3D DP problem.
+- This num will range from 0 to k-1, repesenting the number of paths with `count = path_sum % k`.
+- `f(i,j) = f(i+1,j) + f(i,j+1)`, here addition represents the summation of dictionary values, taking in consideration `grid[i][j]`.
+- At last, return the value of `0` key from `memo[0][0]`.
+- This represents all the paths starting from `(0,0)` that have `path_sum % k == 0`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
