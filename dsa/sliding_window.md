@@ -231,6 +231,23 @@ Algorithm to count subarrays with k distinct integers.
 
 - Far-near pointer approach
 
+<br>
+<br>
+<br>
+
+### Maximum subarray sum with length divisible by k
+
+- Problem: You are given an array of integers nums and an integer k. Return the maximum sum of a subarray of nums, such that the size of the subarray is divisible by k.
+- Link: https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/
+
+---
+
+- **Algorithm**: Fixed size sliding window + Kadane's algorithm
+- Use **Fixed size sliding window** algorithm to find sum of all subarrays of size k.
+- For each subarray, check if a trailing subarray of size `k` exists.
+    - If it exists and has `sum > 0`, include that sum in the sum of the current subarray.
+    - This approach follows **Kadane's algorithm**; include previous sum only if it is positive.
+- Keep track of maximum sum while iterating and return it.
 
 <br>
 <br>
