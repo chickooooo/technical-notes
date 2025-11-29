@@ -120,6 +120,23 @@ o1 -> e1 -> o2 -> e2
 <br>
 <br>
 
+### Delete the middle node of a linked list
+
+- Problem: You are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.
+- Link: https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
+
+---
+
+- **Algorithm**: Slow fast pointer
+- Create `slow=head`, `fast=head` & `prev=None` pointers. 
+- Iterate through the linkedlist using slow-fast algorithm till the `fast` pointer reaches the end.
+- After the iteration is complete, `slow` pointer will point to the middle node.
+- Use `prev` pointer to remove the middle node and return the `head` of LL.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
