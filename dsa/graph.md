@@ -31,6 +31,25 @@
 <br>
 <br>
 
+### Rotting oranges
+
+- Problem: Given a grid with 0 = empty, 1 = fresh orange, and 2 = rotten orange, each minute all fresh oranges next to rotten ones become rotten. Return the minimum minutes needed for all oranges to rot, or -1 if it's impossible.
+- Link: https://leetcode.com/problems/rotting-oranges/
+
+---
+
+- **Algorithm**: Multi-source BFS
+- All the cells with value `2` are staring point of BFS.
+- Perform standard BFS to get the time taken to rot all possible oranges.
+- Design BFS algorithm such that there is always 1 extra level of traversal.
+- This extra level will handle duplicate entries if present in any level.
+- If done correctly, when we start from `t=0`, we will get the final time as correct time.
+- Finally, to check if all fresh oranges were covered, use a counter to keep track of addition & rotting of fresh oranges.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
