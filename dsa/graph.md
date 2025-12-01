@@ -50,6 +50,22 @@
 <br>
 <br>
 
+### Nearest 0 in matrix
+
+- Problem: Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell. The distance between two cells sharing a common edge is 1.
+- Link: https://leetcode.com/problems/01-matrix/
+
+---
+
+- **Algorithm**: Multi-source BFS
+- All the `0` cells are the starting point of BFS.
+- Set `distance=0`, increment `distance` after each level of BFS.
+- Use the same matrix for storing distance without using extra space.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
