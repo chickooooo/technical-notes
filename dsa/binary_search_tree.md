@@ -84,6 +84,22 @@
 <br>
 <br>
 
+### Construct BST from preorder traversal
+
+- Problem: Given a preorder traversal array of a BST, reconstruct the BST and return its root.
+- Link: https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+
+---
+
+- **Algorithm**: Construct binary tree from preorder & inorder.
+- Get the inorder traversal by sorting the preorder array.
+- Iterate the preorder array. For each node, use the inorder array to find the nodes to it's left and right.
+- Recursively construct the left & right subtree and attach them to the current node.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
