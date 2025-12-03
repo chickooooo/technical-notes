@@ -137,6 +137,22 @@ o1 -> e1 -> o2 -> e2
 <br>
 <br>
 
+### LRU Cache
+
+- Problem: Design an LRU (Least Recently Used) cache that supports get and put operations in O(1) average time.
+- Link: https://leetcode.com/problems/lru-cache/
+
+---
+
+- **Algorithm**: Doubly linked list + hashmap
+- Use a doubly linkedlist to remove a node from any position in `O(1)`.
+- It also removes last node and inserts a new node at start in `O(1)`.
+- Use a hashmap of `{key: node}`, to quickly find the node associated with that key.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
