@@ -25,6 +25,7 @@
 - [Python Interning](#python-interning)
 - [Python Metaclass](#python-metaclass)
 - [Python Built-in Functions](#python-built-in-functions)
+- [Python Dunder Methods](#python-dunder-methods)
 
 <br>
 <br>
@@ -1281,6 +1282,272 @@ print(all(a))  # False
 a = [1,2,3]
 print(sum(a))  # 6
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Python Dunder Methods
+
+#### Object Initialization & Representation
+
+`__new__`
+
+- Responsible for creating the object.
+- `__new__` is called before `__init__`.
+- `__new__` is often used to implement singletons.
+
+<br>
+<br>
+
+`__init__`
+
+- Constructor: Called after `__new__` to initialize the already-created instance.
+- Should not return anything except `None`; returning a value causes an error.
+- Best place to set instance attributes and perform object setup.
+
+<br>
+<br>
+
+`__del__`
+
+- Acts as a destructor, called when an object is about to be garbage-collected.
+- **Not reliable** for critical cleanup, because garbage collection timing is unpredictable.
+- Should be used sparingly; prefer context managers (`with`) for deterministic cleanup.
+
+<br>
+<br>
+
+`__str__`
+
+- Defines the object’s human-readable string representation (used by `print()` and `str()`).
+- Should return something clear and user-friendly, not necessarily detailed.
+- Falls back to `__repr__` if not defined.
+
+<br>
+<br>
+
+`__repr__`
+
+- Defines the object’s official, unambiguous string representation (used in REPL, debugging).
+- Should ideally return a string that can recreate the object, e.g., `ClassName(arg=value)`.
+- If only `__repr__` is defined, it also serves as `__str__`.
+
+<br>
+<br>
+
+```py
+class MyClass:
+    def __new__(cls, *args, **kwargs):
+        print("creating new object")
+        return super().__new__(cls)
+
+    def __init__(self, num: int):
+        print("initializing object")
+        self.num = num
+
+    def __del__(self):
+        print("deleting object")
+
+    def __str__(self) -> str:
+        return f"Num is {self.num}"
+
+    def __repr__(self) -> str:
+        return f"MyClass(num={self.num})"
+
+
+a = MyClass(10)
+# creating new object
+# initializing object
+
+print(str(a))  # Num is 10
+print(repr(a))  # MyClass(num=10)
+
+# deleting object
+```
+
+<br>
+<br>
+<br>
+
+#### Arithmetic Operators
+
+| Method                      | Purpose                           |
+| --------------------------- | --------------------------------- |
+| `__add__(self, other)`      | `+`                               |
+| `__sub__(self, other)`      | `-`                               |
+| `__mul__(self, other)`      | `*`                               |
+| `__truediv__(self, other)`  | `/`                               |
+| `__floordiv__(self, other)` | `//`                              |
+| `__mod__(self, other)`      | `%`                               |
+| `__pow__(self, other)`      | `**`                              |
+
+<br>
+
+```py
+class MyClass:
+    def __init__(self, num: int):
+        self.num = num
+
+    def __add__(self, other):
+        return self.num + other.num
+
+    def __sub__(self, other):
+        return self.num - other.num
+
+    def __mul__(self, other):
+        return self.num * other.num
+
+    def __truediv__(self, other):
+        return self.num / other.num
+
+    def __floordiv__(self, other):
+        return self.num // other.num
+
+    def __mod__(self, other):
+        return self.num % other.num
+
+    def __pow__(self, other):
+        return self.num ** other.num
+
+a = MyClass(3)
+b = MyClass(4)
+
+print(a + b)  # 7
+print(a - b)  # -1
+print(a * b)  # 12
+print(a / b)  # 0.75
+print(a // b)  # 0
+print(a % b)  # 3
+print(a ** b)  # 81
+```
+
+<br>
+<br>
+<br>
+
+#### Comparison Operators
+
+| Method                | Purpose          |
+| --------------------- | ---------------- |
+| `__eq__(self, other)` | Equality (`==`)  |
+| `__ne__(self, other)` | Not equal        |
+| `__lt__(self, other)` | Less than        |
+| `__le__(self, other)` | Less or equal    |
+| `__gt__(self, other)` | Greater than     |
+| `__ge__(self, other)` | Greater or equal |
+
+<br>
+
+```py
+class MyClass:
+    def __init__(self, num: int):
+        self.num = num
+
+    def __eq__(self, other) -> bool:
+        return self.num == other.num 
+
+    def __ne__(self, other) -> bool:
+        return self.num != other.num 
+
+    def __lt__(self, other) -> bool:
+        return self.num < other.num 
+
+    def __le__(self, other) -> bool:
+        return self.num <= other.num 
+
+    def __gt__(self, other) -> bool:
+        return self.num > other.num 
+
+    def __ge__(self, other) -> bool:
+        return self.num >= other.num 
+
+a = MyClass(3)
+b = MyClass(4)
+
+print(a == b)  # False
+print(a != b)  # True
+print(a >= b)  # False
+print(a >= b)  # False
+print(a < b)  # True
+print(a <= b)  # True
+```
+
+<br>
+<br>
+<br>
+
+#### Sequence & Map Behaviour
+
+`__len__`
+
+<br>
+<br>
+
+`__getitem__`
+
+<br>
+<br>
+
+`__setitem__`
+
+<br>
+<br>
+
+`__delitem__`
+
+<br>
+<br>
+
+`__contains__`
+
+<br>
+<br>
+
+`__iter__` and `__next__`
+
+<br>
+<br>
+<br>
+
+#### Attribute Access
+
+`__getattr__`
+
+<br>
+<br>
+
+`__getattribute__`
+
+<br>
+<br>
+
+`__setattr__`
+
+<br>
+<br>
+
+`__delattr__`
+
+<br>
+<br>
+
+`__dir__`
+
+<br>
+<br>
+<br>
+
+#### Hashing & Truthiness
+
+`__hash__`
+
+<br>
+<br>
+
+`__bool__`
 
 <br>
 <br>
