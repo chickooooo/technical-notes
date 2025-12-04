@@ -153,6 +153,23 @@ o1 -> e1 -> o2 -> e2
 <br>
 <br>
 
+### LFU Cache (⭐)
+
+- Problem: Implement LFU cache.
+- Link: https://leetcode.com/problems/lfu-cache/
+
+---
+
+- Use doubly linkedlist to store items by descending frequency.
+- Use `{key:node}` for direct access of node using the key.
+- Use `{freq:node}` to keep track of starting node for each frequency.
+- Whenever a node is accessed / updated, increase it's frequency and update it's place in the doubly LL.
+- Intuition is easy, implementation is hard due to edge cases handling.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
