@@ -26,6 +26,7 @@
 - [Python Metaclass](#python-metaclass)
 - [Python Built-in Functions](#python-built-in-functions)
 - [Python Dunder Methods](#python-dunder-methods)
+- [Python Duck Typing](#python-duck-typing)
 
 <br>
 <br>
@@ -1548,6 +1549,46 @@ print(a <= b)  # True
 <br>
 
 `__bool__`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Python Duck Typing
+
+- Duck typing is a programming concept.
+- Here, the type or class of an object is less important than the methods or behaviors it supports.
+- If the object behaves correctly (e.g., has a certain method), it is accepted, regardless of its actual class.
+
+```
+If it looks like a duck and quacks like a duck, it’s a duck.
+```
+
+<br>
+
+```py
+class Duck:
+    def quack(self):
+        print("Quack!")
+
+class Person:
+    def quack(self):
+        print("I'm pretending to be a duck!")
+
+def make_it_quack(thing):
+    thing.quack()   # Works as long as 'thing' has a quack() method
+
+make_it_quack(Duck())    # Quack!
+make_it_quack(Person())  # I'm pretending to be a duck!
+```
+
+- Both objects work because they have a `quack()` method.
+- Advantages: 
+    - Flexibility: Code works with any object providing the right interface.
+    - Fewer type checks: Encourages cleaner, more Pythonic code.
+    - Supports polymorphism naturally.
 
 <br>
 <br>
