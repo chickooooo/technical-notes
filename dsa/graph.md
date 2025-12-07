@@ -66,6 +66,24 @@
 <br>
 <br>
 
+### Surrounded regions
+
+- Problem: Given an m × n board of 'X' and 'O', flip all 'O' regions that are completely surrounded by 'X'. An 'O' region is surrounded if none of its cells touch the board's edge. Replace all such 'O' cells with 'X' in-place.
+- Link: https://leetcode.com/problems/surrounded-regions/
+
+---
+
+- **Algorithm**: DFS
+- Traverse the horizontal and vertical edges of the matrix.
+- If we encounter an 'O', perform DFS and mark all the connected 'O's.
+- Now traverse the complete matrix.
+    - If we encounter a marked 'O', make that cell 'O'.
+    - Rest all the other cells will become 'X'.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
