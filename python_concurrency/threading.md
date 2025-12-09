@@ -9,7 +9,18 @@
 ## Index
 
 - [Threading in Python](#threading-in-python)
+    - [What is threading?](#what-is-threading)
+    - [When to use threading?](#when-to-use-threading)
+    - [When NOT to use threading?](#when-not-to-use-threading)
 - [GIL impact on threading](#gil-impact-on-threading)
+    - [What is GIL?](#what-is-gil)
+    - [Why does it exist?](#why-does-it-exist)
+    - [How GIL impacts threading performance?](#how-gil-impacts-threading-performance)
+- [Related concepts](#related-concepts)
+    - [Race condition](#race-condition)
+    - [Thread safety](#thread-safety)
+    - [Deadlock](#deadlock)
+    - [Daemon thread](#daemon-thread)
 - [Typical threading workflow](#typical-threading-workflow)
 - [ThreadPoolExecutor](#thread-pool-executor)
 - [Future](#future)
@@ -48,7 +59,7 @@
 
 <br>
 
-#### When NOT to use threading:
+#### When NOT to use threading?
 
 - Avoid threading for CPU-bound tasks like:
     - Image processing
@@ -62,7 +73,7 @@
 
 ### GIL impact on threading
 
-#### What is the GIL?
+#### What is GIL?
 
 - GIL stands for Global Interpreter Lock.
 - It is a mutex (a kind of lock) in the **CPython interpreter** that allows **only one thread** to execute Python bytecode at a time, even on multi-core processors.
@@ -81,6 +92,75 @@
 - For I/O-bound tasks, when a thread is waiting for a response, it releases the GIL, allowing other threads to perform their task. Hence for I/O-bound tasks, GIL does not degrade the performance.
 - For CPU-bound tasks, as GIL allows only one thread to execute at a time (on a single core), parallel processing is not possible. Hence the performance is not efficient and can even degrade due to context switching.
 - If we need true parallelism, use `multiprocessing`.
+
+<br>
+<br>
+<br>
+
+### Related concepts
+
+#### Race condition
+
+- Race condition occurs when two or more threads (or processes) access shared data at the same time.
+- In this scenario, both threads perform their respective operations on this shared data simultaneously.
+- This may lead to inconsistent or corrupted data.
+- To avoid race condition, use synchronization primitives like a Lock.
+- A simple example to demo race condition is a **distributed counter**.
+
+```py
+x = 0
+
+def increment():
+    global x
+    x += 1
+```
+
+<br>
+<br>
+
+#### Thread safety
+
+- It refers to whether a piece of code, function, or a data structure can be safely used by multiple threads at the same time without causing race conditions, corrupted data, or unexpected behavior.
+- A function or object is thread safe if:
+    - Multiple threads can call it simultaneously.
+    - It always behaves correctly.
+    - No additional synchronization (locks, etc.) is needed from the user.
+- Thread safety is achieved either by:
+    - Internal locking (e.g., some methods in `queue.Queue`)
+    - Atomic operations (operations that can't be interrupted)
+
+<br>
+<br>
+
+#### Deadlock
+
+- A deadlock occurs when two or more threads are permanently blocked.
+- Each thread is waiting for a resource that the another thread is holding. So none of them can ever proceed further.
+- Why deadlocks happen:
+    - Locks are acquired in inconsistent order.
+    - Threads never release a lock due to errors or timeouts.
+    - Circular waiting for resources.
+- How to prevent deadlocks:
+    - Always acquire locks in a **consistent order**.
+    - Use timeouts when acquiring locks.
+    - Avoid holding multiple locks when possible.
+
+<br>
+<br>
+
+#### Daemon thread
+
+- A daemon thread is a background thread that runs without blocking the program from exiting.
+- It is **automatically terminated** when the main program finishes.
+- Non-daemon (regular) threads blocks the program from exiting until they are finished.
+- When to use daemon threads:
+    - When is is okay if the thread stops abruptly when the program ends.
+    - When you don't need the result from the thread operation.
+    - Example: logging, monitoring, housekeeping, etc.
+- When not to use them:
+    - When the task must finish before the program ends.
+    - When abrupt termination could corrupt state.
+    - Example: saving data, writing to files, etc.
 
 <br>
 <br>
