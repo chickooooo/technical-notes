@@ -10,6 +10,7 @@
 
 - [Principles of REST](#principles-of-rest)
 - [HTTP methods](#http-methods)
+- [HTTP status codes](#http-status-codes)
 
 <br>
 <br>
@@ -188,6 +189,180 @@ Usecases:
     - Which headers can be sent?
 - A client can check what HTTP methods a resource supports (e.g., GET, POST, PUT, DELETE).
 - Useful when API testing/debugging to see available methods and limits on an endpoint.
+
+<br>
+<br>
+<br>
+
+### HTTP status codes
+
+- Every HTTP request receives a response with an **HTTP status code**.
+- These codes indicate whether the request was successful, failed, or requires additional action.
+- Status codes are grouped into five categories, based on the first digit:
+
+<br>
+
+| Code Range | Category      | Meaning                                          |
+| ---------- | ------------- | ------------------------------------------------ |
+| **1xx**    | Informational | Request received, processing continues           |
+| **2xx**    | Success       | Request was successfully processed               |
+| **3xx**    | Redirection   | Further action needed (e.g., follow another URL) |
+| **4xx**    | Client Error  | The request was incorrect or unauthorized        |
+| **5xx**    | Server Error  | Server failed to process a valid request         |
+
+<br>
+<br>
+
+#### 1xx: Informational Response
+
+- These are informational responses.
+- This means the server is communicating progress, not completing the request yet.
+
+<br>
+
+**100 Continue**
+- The server has received the request headers and the client should continue sending the request body.
+- Used for large uploads.
+- Acts as a safety to check if the server would accept or reject th request.
+
+<br>
+
+**101 Switching Protocol**
+- The server agrees to switch protocols as requested by the client via the `Upgrade` header.
+- Example: Switching from HTTP/1.1 to WebSocket.
+
+<br>
+
+**102 Processing**
+- Standard response for WebDAV.
+- The server has accepted the request but is still processing it; it prevents timeouts for long operations.
+- Example: Long-running WebDAV requests, such as copying large directory trees.
+
+<br>
+
+**103 Early Hints**
+- The server sends preliminary headers before the final response.
+- Commonly used for performance hints like sharing CSS & JS links.
+- Sample response:
+
+```
+103 Early Hints
+Link: </style.css>; rel=preload; as=style
+```
+
+<br>
+<br>
+
+#### 2xx: Success Response
+
+- Indicates that the request was successfully processed.
+
+**200 OK**
+
+- The request succeeded and the server is returning the requested data in the response body.
+- Common for:
+    - Successful GET requests (returning a webpage, JSON, image, etc.)
+    - Successful DELETE (with optional body)
+    - Successful PUT/PATCH (when returning the updated resource)
+
+<br>
+
+**201 Created**
+
+- A resource has been successfully created as a result of the request.
+- Common for:
+    - POST requests that create a new object (user, order, file, etc.)
+
+<br>
+
+**202 Accepted**
+
+- The request has been successfully received for processing but is not yet complete.
+- This is often used for long-running operations or background tasks.
+- Where the server acknowledges the request and the client can then poll for the final result or be notified later.
+
+<br>
+
+**204 No Content**
+
+- Request succeeded, but the response body is intentionally empty.
+- Common for:
+    - DELETE requests.
+    - PUT/PATCH when no return body is returned.
+    - Actions that succeed but have nothing to show
+
+<br>
+
+**206 Partial Content**
+
+- Server is returning part of a resource due to a `Range` header.
+- Used for:
+    - Resumable downloads
+    - Streaming media (video/audio players)
+    - Large file fetches
+
+<br>
+<br>
+
+#### 3xx: Redirection
+
+- 3xx HTTP status codes represent redirection.
+- They tell the client that it must take additional action (usually making a new request to a different URL) to complete the original request.
+
+**301 Moved Permanently**
+
+- The resource has been moved to a new permanent URL, and all future requests should use the new URL.
+- Client behavior:
+    - Browsers update bookmarks.
+    - Search engines change indexed URL.
+- Example: Redirecting from old website to new website.
+
+<br>
+
+**302 Found**
+
+- Previously was 'Moved Temporarily'.
+- The resource is temporarily at a different URL.
+- Client behavior:
+    - Use the new URL once.
+    - Keep using original URL afterward.
+- Example: After submitting a form, redirect to a 'success' page.
+- **Note**: Commonly used historically for temporary redirects, although `303` & `307` are more precise today.
+
+<br>
+
+**303 See Other**
+
+- The client should retrieve the resource using `GET` at another URL.
+- Very common after POST requests to avoid resubmission if user reloads.
+- Example flow: `POST` /checkout → redirect → `GET` /order/complete.
+
+<br>
+
+**304 Not Modified**
+
+- The resource has not changed since the client’s last request, so the client should use its cached copy.
+- Used for **Optimizing performance** and **Reducing bandwidth**.
+
+<br>
+
+**307 Temporary Redirect**
+
+- The resource is temporarily at another URL.
+- The HTTP method must NOT change when making request to the new URL.
+- Important difference from `302`:
+    - POST stays POST
+    - GET stays GET
+
+<br>
+
+**308 Permanent Redirect**
+
+- The resource has permanently moved.
+- The method must remain the same.
+- Important difference from `301`:
+    - Method cannot change (POST stays POST)
+- Used after **API version changes** or **URL restructuring**.
 
 <br>
 <br>
