@@ -344,6 +344,27 @@ last = [
 <br>
 <br>
 
+### Count special triplets
+
+- Problem: Given an array nums, count the number of index triplets (i, j, k) such that
+    - 0 ≤ i < j < k < n
+    - nums[i] = 2 * nums[j]
+    - nums[k] = 2 * nums[j]
+    - Return the count modulo `10**9 + 7`
+- Link: https://leetcode.com/problems/count-special-triplets/
+
+---
+
+- **Algorithm**: Left-right traversal + Right-left traversal
+- First traverse from left to right and for each `num`, find how many `num*2` exists to its left.
+- Then traverse from right to left and for each `num`, find how many `num*2` exists to its right.
+- Total = Summation of `left_count` * `right_count` for each `num`.
+- Return total modulo `10**9 + 7`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
