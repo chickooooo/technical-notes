@@ -1,4 +1,43 @@
-**How Hashing works?**
+# Hashing
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Index
+
+- [What is hashing?](#what-is-hashing)
+- [How hashing works?](#how-hashing-works)
+- [How hash collisions are handled?](#how-hash-collisions-are-handled)
+- [Encoding](#encoding)
+- [Encryption](#encryption)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### What is hashing?
+
+Hashing:
+- Hashing is the process of converting data of any size into a **fixed-size string**.
+- The function used is called a **Hash function** and the output is called a **Hash**.
+- This process is non-reversible. It is a one-way conversion.
+- It is used to verify that the data has not been altered.
+- Use cases:
+    - Password storage (store hash, not actual password)
+    - Data integrity checks (checksums)
+    - Hash tables (in-memory key-value lookups)
+    - Distributed systems (consistent hashing for sharding)
+
+<br>
+<br>
+<br>
+
+### How hashing works?
 
 Hash Function:
 - A normal function that must follow these 3 rules:
@@ -19,8 +58,61 @@ Hash Collision:
 
 <br>
 <br>
+<br>
 
-**Encoding**
+### How hash collisions are handled?
+
+- There are two major strategies to handle hash collisions:
+    - Separate Chaining (Open hashing)
+    - Open Addressing (Closed hashing)
+
+<br>
+
+#### Separate Chaining
+
+- Also known as **Open hashing**.
+- It uses linked list to store multiple values in the same hash bucket.
+- When a hash collision happens, the current key is appended to the end of the linked list.
+- This increases the lookup time complexity to `O(k)`, where `k` is number of LL nodes for that bucket.
+- If the length of linked list passes a certain threshold, it can be converted to a BST or balanced trees.
+
+```
+basdhe: {1: 100}
+jaksbd: {2: 200}
+askdjn: 
+iuehrn: {4: 400} -> {8: 800} -> {3: 300}
+poeuan: {5: 500}
+```
+
+<br>
+<br>
+
+#### Open Addressing
+
+- Also known as **Closed hashing**.
+- Here, all data is stored in the hash table itself.
+- If a slot is taken, the table probes (searches) for the next free slot.
+- Common probing techniques:
+    - Linear probing: Check the next slot `i+1`, `i+2`, etc.
+    - Quadratic probing: Skip in increasing squares.
+    - Double hashing: Use a second hash function to decide probe step.
+- The performance of **Open Addressing** degrades quickly at high load factors (>70%).
+
+```
+basdhe: {1: 100}
+jaksbd: {2: 200}
+askdjn: 
+iuehrn: {4: 400}
+poeuan: {8: 800}
+ywuebs: {3: 300}
+cjsjao: {5: 500}   # shouled have been at 'poeuan'
+```
+
+<br>
+<br>
+<br>
+
+### Encoding
 
 Encoding:
 - Encoding transforms data into a different format using a known scheme, so that it can be safely stored or transmitted and then correctly **decoded back**.
@@ -37,8 +129,9 @@ Encoding:
 
 <br>
 <br>
+<br>
 
-**Encryption**
+### Encryption
 
 Encryption:
 - Encryption is the process of converting plain text into **cipher text** using a **key**, so that only authorised parties (with the correct key) can decrypt and access the original data.
@@ -57,29 +150,10 @@ Encryption:
 
 <br>
 <br>
+<br>
 
-**Hashing**
-
-Hashing:
-- Hashing is the process of converting data of any size into a **fixed-size string**.
-- The function used is called a **Hash function** and the output is called a **Hash**.
-- This process is non-reversible. It is a one-way conversion.
-- It is used to verify that the data has not been altered.
-- Use cases:
-    - Password storage (store hash, not actual password)
-    - Data integrity checks (checksums)
-    - Hash tables (in-memory key-value lookups)
-    - Distributed systems (consistent hashing for sharding)
+### 
 
 <br>
 <br>
 <br>
-<br>
-<br>
-
-- Popular hashing algorithms
-- Popular encryption algorithms
-- Popular encoding algorithms
-- checksum
-
-- consistent hashing
