@@ -13,6 +13,7 @@
 - [How hash collisions are handled?](#how-hash-collisions-are-handled)
 - [Encoding](#encoding)
 - [Encryption](#encryption)
+- [Consistent Hashing](#consistent-hashing)
 
 <br>
 <br>
@@ -147,6 +148,85 @@ Encryption:
 
 - A key is needed to reverse back to original data.
 - e.g. whats app message encryption.
+
+<br>
+<br>
+<br>
+
+### Consistent Hashing
+
+- It is a technique used in distributed systems.
+- It is used to evenly distribute data among a dynamic set of server.
+- Compared to normal hashing, it minimizes the data movement when servers are added or removed.
+- It is widely used in:
+    - Distributed caches
+    - Distributed databases
+    - Load balancers, etc.
+
+<br>
+
+#### Core problem
+
+- If we hash keys using simple hashing technique:
+```
+server_index = hash(key) % number_of_servers
+```
+- Then any change in the number of servers (add/remove) causes almost all keys to be remapped, which is very expensive.
+
+<br>
+
+#### How consistent hashing solves this problem
+
+Hash Ring:
+
+- It creates a virtual **hash ring**.
+- This rings contains numbers from `0` -> `2^31 - 1` -> `0`.
+
+---
+
+Server Placement:
+
+- Each server is evenly placed on this hash ring.
+- Example:
+    - A is places at position `0`.
+    - B is places at position `n/4`.
+    - C is places at position `n/2`.
+    - D is places at position `3n/4`.
+
+---
+
+Server Allocation:
+
+- For each incoming key, it is hashed and a number between `0` to `2^31 - 1` is generated.
+- This key is then placed on the hash ring matching that number.
+- The next server in the clockwise direction of this key will handle this request.
+
+---
+
+Adding a Server:
+
+- Suppose a new server `X` is added between servers `A` & `B`.
+- Let's say the position of this server on the hash ring is `p`.
+- Then the requests from `0` to `p` will be handled by server `X` and from `p+1` to `n/4` will be handled by server `B`.
+- **Note**: In this case, the data handled by other servers is not affected. Only data in range `0` to `p` is moved to the new server `X`. This is the advantage of using **Consistent hashing** over normal hashing.
+
+---
+
+Removing a Server:
+
+- Suppose we remove the server `B`.
+- In this scenario, the data handled by server `B` will now be moved to the next server in the clockwise direction, i.e. server `C`.
+- Again note that, data in servers `A` & `D` remain unaffected.
+
+<br>
+
+#### Virtual Nodes
+
+- Also known as VNodes.
+- To achieve even data distribution, multiple virtual nodes of each server are hashed onto the ring.
+- This reduces the risk of uneven data distribution as seen in the above example of **Removing a Server**.
+
+![Consistent hashing with virtual nodes](./consistent_hashing_vnodes.png)
 
 <br>
 <br>
