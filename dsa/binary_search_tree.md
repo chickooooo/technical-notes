@@ -100,6 +100,24 @@
 <br>
 <br>
 
+### Two sum on a BST
+
+- Problem: Given the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.
+- Link: https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+
+---
+
+- **Algorithm**: Inorder and reverse inorder traversal
+- Use a stack to iterate the tree using the **inorder** approach (ascending order).
+- Use another stack to iterate the tree using the **reverse-inorder** approach (descending order).
+- The top nodes in each stack represents the `start` and `end` nodes.
+- Use the standard **Two Sum** approach to find the required 2 nodes.
+- If the `start` and `end` pointers point to the same node, we have reached the end condition. 
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
