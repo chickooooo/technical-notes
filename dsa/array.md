@@ -365,6 +365,25 @@ last = [
 <br>
 <br>
 
+### Count covered buildings
+
+- Problem: You are given a positive integer n representing an n × n city grid, and a list buildings, where each element [x,y] represents the coordinates of a unique building. A building is considered covered if there is at least one other building directly to its left, right, above, and below. Your task is to return the number of covered buildings.
+- Link: https://leetcode.com/problems/count-covered-buildings/
+
+---
+
+- **Algorithm**: Min & max value
+- Iterate through the array.
+- Prepare two hashmaps `X` & `Y`. Each coordinate will hold the min and max value of the other coordinate.
+    - `X = {x: [y_min, y_max]}`
+    - `Y = {y: [x_min, x_max]}`
+- Iterate through the array again and check if that coordinate is surrounded.
+- **Optimization**: We are not iterating the complete matrix (`O(n^2)`), we are iterating only the array (`O(n)`).
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
