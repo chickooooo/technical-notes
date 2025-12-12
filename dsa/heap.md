@@ -93,6 +93,23 @@
 <br>
 <br>
 
+### Kth largest element in a Stream
+
+- Problem: Implement a KthLargest class that keeps track of the k-th highest test score in a continuously updated stream.
+    - `KthLargest(int k, int[] nums)`: initialize with k and an initial list of scores.
+    - `int add(int val)`: add a new score and return the current k-th highest score.
+    - Use a data structure that efficiently maintains the k largest elements.
+- Link: https://leetcode.com/problems/kth-largest-element-in-a-stream/
+
+---
+
+- **Algorithm**: Kth largest/smallest element
+- Same as **Kth largest element in an array**.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
