@@ -6,6 +6,43 @@
 <br>
 <br>
 
+## Algorithms:
+
+### Dijkstra's Algorithm:
+
+- It is used to find the shortest path from the `start` node to all other nodes of the graph.
+- It can be used on both directed and undirected graphs.
+- All the edges of the graph should have **non-negative weights**.
+
+<br>
+
+#### Core concepts
+
+- It uses **Greedy approach** to select the next node that will be visited.
+- The node with the lowest next distance is selected to visit.
+- It makes use of **Priority Queue (heap)** to get the next node with the lowest distance.
+
+<br>
+
+#### Algorithm
+
+- Create an array `shortest` and initialize distance of all the nodes to `INF`.
+- Create a priority queue that will hold `(distance, node)`.
+- Insert `(0, start)` in the PQ.
+- Pop the min item from the PQ.
+    - If the `distance` is less than `shortest[node]`:
+        - Update `shortest[node]` with `distance`.
+        - Add neighbours of `node` in the PQ.
+    -  If the `distance` is greater or equal to `shortest[node]`, skip that item.
+- Keep repeating above step until the PQ is empty.
+- Return the `shortest` array in the end.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Problems:
 
 <br>
@@ -98,6 +135,22 @@
     - `temp`: Will hold nodes in current recursive stack.
 - Iterate from `0` to `n-1` and perform DFS. Make use of `temp` array to check for cycles.
 - If a cycle is found, stop and return `False`. Otherwise return `True`.
+
+<br>
+<br>
+<br>
+
+### Network delay time
+
+- Problem: Given a directed, weighted graph with n nodes labeled 1 to n, where each edge (u, v, w) represents a signal travel time w from node u to node v, determine the minimum time required for a signal sent from node k to reach all nodes. If any node cannot be reached, return -1.
+- Link: https://leetcode.com/problems/network-delay-time/
+
+---
+
+- **Algorithm**: Dijkstra's Algorithm
+- Follow standard algorithm.
+- Use `count: int` to keep track of visited nodes.
+- Use `max_time: int` to keep track of max delay time.
 
 <br>
 <br>
