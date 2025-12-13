@@ -14,6 +14,9 @@
     - [Disadvantages](#disadvantages)
     - [Common session attacks](#common-session-attacks)
     - [Sticky Sessions](#sticky-sessions)
+- [Cookie](#cookie)
+    - [Types of cookies](#types-of-cookies)
+    - [Important cookie attributes](#important-cookie-attributes)
 
 <br>
 <br>
@@ -114,6 +117,65 @@ How it works?
 
 - A load balancer keeps track of which server handled the first request and routes future requests from that user to the same server.
 - Load balancer inserts a cookie like `SERVER_ID=server-3` in the response of the first request. The browser then sends it back on each request.
+
+<br>
+<br>
+<br>
+
+### Cookie
+
+- A cookie is a small piece of data stored in the client's browser.
+- It is automatically sent to the server with every HTTP request to the same domain.
+- Note that the frontend code does not need to manually attach cookies.
+- Cookies have a size limits, usually around 4 KB per cookie.
+
+<br>
+
+#### Types of cookies
+
+Session Cookies
+
+- Temporary cookies stored in memory and deleted when the browser closes.
+- Used for things like keeping you logged in during a session.
+
+Persistent Cookies
+
+- Stored on the user’s device for a specific period (set by the `Expires` or `Max-Age` attribute).
+- Used for remembering preferences, login info, or tracking behavior over time.
+
+<br>
+
+#### Important cookie attributes:
+
+`HttpOnly`
+
+- Prevents client-side scripts (like JavaScript) from accessing the cookie.
+- Helps protect against cross-site scripting (XSS) attacks that try to steal session cookies.
+
+`Secure`
+
+- Ensures the cookie is only sent over HTTPS connections.
+- Protects cookies from being intercepted over unencrypted (HTTP) networks.
+- Prevents Man-in-the-Middle (MITM) attacks.
+
+`SameSite`
+
+- Controls whether cookies are sent with cross-site requests.
+- Helps mitigate cross-site request forgery (CSRF) by limiting when cookies are included.
+- Valid values:
+    - `Strict`: The cookie is only sent for requests originating from the same site.
+    - `Lax`: The cookie is sent with same-site requests and some safe cross-site requests, like top-level navigation GET requests (e.g., following a link).
+    - `None`: The cookie is sent with all requests, including cross-site requests.
+
+`Expires`
+
+- Specifies the exact date and time when the cookie should expire.
+- After this date, the browser automatically deletes the cookie.
+
+`Max-Age`
+
+- Specifies the lifetime of the cookie in seconds from the moment it’s set.
+- Overrides Expires if both are present, controlling how long the cookie persists.
 
 <br>
 <br>
