@@ -156,6 +156,21 @@
 <br>
 <br>
 
+### Shortest path in binary matrix
+
+- Problem: Given an n × n binary matrix, find the length of the shortest path from the top-left cell (0,0) to the bottom-right cell (n−1,n−1) such that all visited cells contain 0 and movement is allowed in 8 directions (horizontal, vertical, and diagonal). If no such clear path exists, return −1.
+- Link: https://leetcode.com/problems/shortest-path-in-binary-matrix/
+
+---
+
+- **Algorithm**: Dijkstra's Algorithm
+- Standard Dijkstra's Algorithm just in 8 directions.
+- If the top-left or bottom-right cell is 1, return `-1` early on.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
