@@ -40,6 +40,24 @@
 <br>
 <br>
 <br>
+
+### Minimum spanning tree
+
+- A spanning tree is a tree with N nodes and N-1 edges.
+- Every node in a spanning tree is reachable from every other node. Graph with a single component.
+- A minimum spanning tree is a spanning tree whose sum of **edge weights** is minimum.
+
+---
+
+- This algorithm works only on **Undirected graphs**.
+- Edge weights of this graph can be negative, zero, or positive.
+- Algorithms include:
+    - Prim's Algorithm
+    - Kruskal's Algorithm
+
+<br>
+<br>
+<br>
 <br>
 <br>
 
