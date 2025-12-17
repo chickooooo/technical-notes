@@ -145,6 +145,24 @@
 <br>
 <br>
 
+### Maximum width of binary tree
+
+- Problem: Given a binary tree root, return its maximum width, defined as the largest number of nodes (including gaps) between the leftmost and rightmost non-null nodes at any level.
+- Link: https://leetcode.com/problems/maximum-width-of-binary-tree/
+
+---
+
+- **Algorithm**: Level order traversal + Node positions
+- Node positions always follow this rule (1-indexed):
+    - Left child position = parent position * 2
+    - Right child position = (parent position * 2) + 1
+- These positions are preserved even if there are missing nodes.
+- Perform **Level order traversal** and find the max level width using these positions.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
