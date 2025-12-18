@@ -311,6 +311,32 @@ Space optimised
 <br>
 <br>
 
+### Coin change
+
+- Problem: Given an array of coin denominations and a target amount, find the minimum number of coins needed to make that amount. If it’s not possible using any combination of the coins, return -1.
+- Link: https://leetcode.com/problems/coin-change/
+
+---
+
+- Assumption: `f(i, j)` represents the minimum number of coins required to make the amount `j`, picking coins from and after index `i`.
+- To find: `f(0, amount)`
+- Functional equation: `f(i, j) = min(f(i, j-A[i])+1, f(i+1, j))`
+- Range: `i ∈ [0, n-1]`, `j ∈ [0, amount]`
+- Base conditions:
+    - If `j < 0` or `i == n`, then answer is `INF`.
+    - If `j == 0`, then answer is 0.
+
+---
+
+- **Algorithm**: Pick or not pick
+- Solve with top-down, bottom-up and space optimization approach.
+- In the 3rd approach, use a single array `memo`, no need for `temp` array.
+- Iterate `j` from `coins[i]` to `amount+1`, keeping previous values unchanged.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
