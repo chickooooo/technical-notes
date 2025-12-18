@@ -722,6 +722,53 @@ for i in count_to_five():
 ```
 
 <br>
+
+#### Generator exhaustion
+
+- A generator can be consumed only once.
+- Once all values are yielded, it is **exhausted**.
+- Iterating over the same generator again will yield nothing.
+
+---
+
+- If we want to reuse the values, store the values using **list comprehension**.
+- We can also create a new generator by calling the function again `gen_2 = count_to_five()`.
+
+<br>
+
+#### StopIteration exception
+
+- When a generator is exhausted, it raises a `StopIteration` exception internally.
+- `for` loop uses this exception to stop the iteration.
+- Any value returned from the generator will get attached to this exception.
+
+<br>
+
+#### Chaining generators
+
+- Chaining generators refer to using one generator inside another generator.
+- This is done using `yield from` keyword.
+- Used to access the return value of first generator.
+
+```py
+def worker():
+    yield 1
+    yield 2
+    return "done"
+
+def manager():
+    result = yield from worker()
+    print(result)  # done
+```
+
+<br>
+
+#### Key points
+
+- Generators are memory efficient because they generate values on demand instead of storing them.
+- Generators are not inherently thread-safe.
+
+<br>
 <br>
 <br>
 
