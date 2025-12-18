@@ -189,6 +189,22 @@
 <br>
 <br>
 
+### Number of ways to arrive at destination
+
+- Problem: You are given a connected city with n intersections (0 to n−1) and bidirectional roads, each with a travel time. Starting from intersection 0, find how many different ways you can reach intersection n−1 using the shortest possible travel time.
+- Link: https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+
+---
+
+- **Algorithm**: Dijkstra's Algorithm
+- Use standard Dijkstra's Algorithm.
+- While traversing keep track of the parent node.
+- At each step, the count of shortest paths is current count + parent's shortest path count.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
