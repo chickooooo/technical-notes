@@ -139,7 +139,7 @@
 <br>
 <br>
 
-### Course Schedule
+### Course schedule
 
 - Problem: There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai. Return true if you can finish all courses. Otherwise, return false.
 - Link: https://leetcode.com/problems/course-schedule/
@@ -200,6 +200,25 @@
 - Use standard Dijkstra's Algorithm.
 - While traversing keep track of the parent node.
 - At each step, the count of shortest paths is current count + parent's shortest path count.
+
+<br>
+<br>
+<br>
+
+### Find eventual safe states
+
+- Problem: Given a directed graph, find all nodes from which every possible path eventually leads to a terminal node (a node with no outgoing edges). Return these safe nodes in ascending order.
+- Link: https://leetcode.com/problems/find-eventual-safe-states/
+
+---
+
+- **Algorithm**: Cycle detection in directed graph
+- Each node will have 3 states:
+    - `0`: not visited
+    - `1`: visited
+    - `2`: part of cycle
+- Perform DFS traversal and find the state of each node.
+- Return all the nodes that are not part of a cycle.
 
 <br>
 <br>
