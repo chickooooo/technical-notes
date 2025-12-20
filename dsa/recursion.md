@@ -130,6 +130,21 @@
 <br>
 <br>
 
+### Combination sum III
+
+- Problem: Find all unique combinations of k distinct numbers from 1 to 9 that add up to n. Each number can be used at most once, and combinations can be in any order.
+- Link: https://leetcode.com/problems/combination-sum-iii/
+
+---
+
+- **Algorithm**: `i` iterates over array
+- Similar approach as combination sum 1 & 2.
+- Use early stopping to avoid unnecessary recursion calls.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
