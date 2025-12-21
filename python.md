@@ -27,6 +27,7 @@
 - [Python Built-in Functions](#python-built-in-functions)
 - [Python Dunder Methods](#python-dunder-methods)
 - [Python Duck Typing](#python-duck-typing)
+- [String Interpolation](#string-interpolation)
 
 <br>
 <br>
@@ -1636,6 +1637,130 @@ make_it_quack(Person())  # I'm pretending to be a duck!
     - Flexibility: Code works with any object providing the right interface.
     - Fewer type checks: Encourages cleaner, more Pythonic code.
     - Supports polymorphism naturally.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### String Interpolation
+
+#### `.format()` method
+
+- This method uses curly braces `{}` as placeholders within a string.
+- It works by calling the `.format()` method on a string literal and pass the values as arguments.
+
+Advantages:
+
+- Supports positional and keyword arguments.
+- Can be used on predefined string variables
+
+Disadvantages:
+
+- Verbose and hard to read with many variables.
+- Slower than f-strings.
+
+```py
+template = "My name is {name}"
+output = template.format(name="John")
+
+print(type(template))  # <class 'str'>
+print(template)  # My name is {name}
+
+print(type(output))  # <class 'str'>
+print(output)  # My name is John
+```
+
+<br>
+<br>
+
+#### f-string
+
+- Also called formatted string.
+- It is defined as a string literal and prefixed with a `f`.
+- It allows to embed Python expressions directly inside the string.
+
+Advantages:
+
+- Evaluated at the runtime and has the fastest performance.
+- Most readable and concise syntax.
+
+Disadvantages:
+
+- Expressions are evaluated immediately. Cannot be stored for later use.
+- Potential security risk if used with direct user input.
+
+```py
+name = "John"
+output = f"My name is {name}"
+
+print(type(output))  # <class 'str'>
+print(output)  # My name is John
+```
+
+<br>
+<br>
+
+#### `string.Template`
+
+- It uses `$` as a placeholder within a string.
+- It creates a template, which can be later used to substitute place holders with actual values.
+
+Advantages:
+
+- Safest for user-provided strings.
+- It prevents arbitrary code execution.
+
+Disadvantages:
+
+- Does not support formatting or logic inside the string.
+- Slower than f-strings.
+
+```py
+from string import Template
+
+template = Template("My name is $name")
+output = template.substitute(name="John")
+
+print(type(template))  # <class 'string.Template'>
+print(template)  # <string.Template object at 0x77a062f8c830>
+
+print(type(output))  # <class 'str'>
+print(output)  # My name is John
+```
+
+<br>
+<br>
+
+#### t-string
+
+- Also called template string.
+- It is defined as a string literal and prefixed with a `t`.
+- A t-string returns a template object and not a string literal.
+- It stores the `string` parts and `value` parts of the template separately. This helps in preventing SQL injection and similar risks.
+
+Advantages:
+
+- Has security of `string.Template` and simplicity of f-string.
+- The string isn't fully built until it is ready for evaluation.
+
+Disadvantages:
+
+- More complex to understand and use.
+- Slower than f-strings for simple, one-off string concatenation.
+
+```py
+name = "John"
+template = t"My name is {name}"
+
+print(type(template))  # <class 'string.templatelib.Template'>
+print(template)  # <string.templatelib.Template object at 0x77a062f8c830>
+
+print(template.strings)  # ('My name is ', '')
+print(template.interpolations)  # (Interpolation('John', 'name', None, ''),)
+print(template.values)  # ('John',)
+```
 
 <br>
 <br>
