@@ -93,7 +93,7 @@
 <br>
 <br>
 
-### Kth largest element in a Stream
+### Kth largest element in a stream
 
 - Problem: Implement a KthLargest class that keeps track of the k-th highest test score in a continuously updated stream.
     - `KthLargest(int k, int[] nums)`: initialize with k and an initial list of scores.
@@ -105,6 +105,30 @@
 
 - **Algorithm**: Kth largest/smallest element
 - Same as **Kth largest element in an array**.
+
+<br>
+<br>
+<br>
+
+### Find median from data stream
+
+- Problem: Given a stream of integers, maintain the ability to find the median at any time. The median is the middle value of the sorted numbers if the count is odd, or the average of the two middle values if the count is even. After each new number is added to the data stream, return the current median
+- Link: https://leetcode.com/problems/find-median-from-data-stream/
+
+---
+
+- **Algorithm**: Min and max heap
+- Create 2 heaps, 1 min heap and 1 max heap.
+- Max heap will store the first half of the sorted numbers.
+- Min heap will store the second half of the sorted numbers.
+- Middle number can be found out using the first elements of these 2 heaps.
+
+--- 
+
+- **Follow up**: If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+- **Algorithm**: 100 frequency buckets
+- Maintain 100 buckets representing frequency of numbers from 1 to 100.
+- Keep track of total count of numbers `n` and at each step return the `(n//2)`th (middle) number.
 
 <br>
 <br>
