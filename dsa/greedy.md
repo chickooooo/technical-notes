@@ -42,6 +42,27 @@
 <br>
 <br>
 
+### Distribute candy
+
+- Problem: Given an integer array ratings representing children standing in a line, give candies such that:
+    - Every child gets at least one candy.
+    - A child with a higher rating than an adjacent child gets more candies.
+Return the minimum total number of candies required.
+- Link: https://leetcode.com/problems/candy/
+
+---
+
+- **Algorithm**: Left-right traversal + Right-left traversal
+- **Intuition**: Each child should have more candies than less priority children to the left and right.
+- Traverse from left to right, if current `priority` is greater than previous `priority`, increment candy `count`.
+- Do same from right to left.
+- For each index, take `max` of `left_count[i]` & `right_count[i]`.
+- Return the total candy count.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
