@@ -224,6 +224,22 @@
 <br>
 <br>
 
+### Number of enclaves
+
+- Problem: Given a binary grid where 1 is land and 0 is sea, count how many land cells are completely enclosed; meaning you cannot reach the grid boundary by moving up, down, left, or right through land cells.
+- Link: https://leetcode.com/problems/number-of-enclaves/
+
+---
+
+- **Algorithm**: DFS on grid boundary
+- Move along the boundary of the grid.
+- Mark all the lands and their cells connected to the boundary as `0`.
+- Now iterate over the grid and count all the `1` cells.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
