@@ -12,6 +12,10 @@
     - [How TCP works?](#how-tcp-works)
     - [Advantages](#advantages)
     - [Disadvantages](#disadvantages)
+- [UDP](#udp)
+    - [Key features](#key-features)
+    - [Advantages](#advantages-1)
+    - [Disadvantages](#disadvantages-1)
 
 <br>
 <br>
@@ -78,6 +82,56 @@ Connection Termination
 - Acknowledgements and state management adds extra overhead.
 - A single lost packet can delay all following packets.
 - Not ideal for real-time applications.
+
+<br>
+<br>
+<br>
+
+### UDP
+
+- UDP stands for **User Datagram Protocol**.
+- It is a connectionless, lightweight, transport layer protocol.
+- It provides speed, low latency and minimal overhead during data transfer.
+- Unlike TCP, it does not guarantee delivery, ordering, or duplication protection.
+- Common usecases: Video/audio streaming (twitch), online gaming, live broadcasting, etc.
+
+<br>
+
+#### Key features
+
+- No connection setup
+    - There is no handshake (unlike TCP's 3-way handshake).
+    - A sender can start sending data immediately.
+- Datagram-based communication
+    - Each message is sent as an independent packet (datagram).
+    - Datagrams may arrive out of order, duplicated, or not at all.
+- Minimal headers: UDP header is only 8 byte and contains:
+    - Source port, Destination port
+    - Length and Checksum
+- Best-effort delivery
+    - UDP relies on the IP layer for delivery.
+    - No acknowledgments, retransmissions, or congestion control.
+- Application responsibility
+    - If reliability, ordering, or retries are needed, the application itself must implement them.
+- Broadcast support
+    - Can send one packet to multiple recipients.
+
+<br>
+
+#### Advantages
+
+- It has lower latency than TCP, making it ideal for real-time applications.
+- It is lightweight and fast due to small headers and less system resource requirements.
+- Supports broadcasting and multicasting. Datagrams can be sent to multiple recipients at a time.
+- Ideal for real-time applications. Lost packets does not need to be retransmitted.
+
+<br>
+
+#### Disadvantages
+
+- No reliability: Packets can be lost, out-of-order, or corrupted.
+- No Congestion Control: Can overwhelm the recipient network if not carefully managed.
+- More Work for the Application: Application need to handle missing packets, ordering & retransmission.
 
 <br>
 <br>

@@ -136,7 +136,12 @@ UserService depends on a DatabaseAbstract, not a specific DB.
 
 - These patterns deal with how objects interact and communicate with each other.
 - Some common behavioural design patterns are:
-    - a
+    - Observer
+    - Strategy
+    - Command
+    - Template Method
+    - State
+    - Chain of Responsibility
 
 <br>
 <br>
@@ -508,7 +513,7 @@ print(car1)  # Modified clone
 - `Car` is our product.
 - `prototype_car` is the prototype object. New objects will be cloned from this object.
 - `car1` is the new object created via cloning `prototype_car`.
-- After creating `car1`, we can change modify it's properties without affecting the prototype.
+- After creating `car1`, we can modify it's properties without affecting the prototype.
 
 <br>
 <br>
