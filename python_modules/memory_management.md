@@ -9,6 +9,7 @@
 ## Index
 
 - [Stack & Heap](#stack--heap)
+- [Reference counting](#reference-counting)
 
 <br>
 <br>
@@ -77,6 +78,87 @@ z = add(x, y)
 - Variables are references, not containers.
 - Stack frames are destroyed after function returns.
 - Heap objects live as long as their reference count is greater than 0.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Reference counting
+
+- Reference counting is a memory management technique used by Python.
+- Each Python object keeps track of how many references are pointing to it.
+- This count is called the **reference count**.
+- When the reference count hits `0`, the object is immediately deallocated (removed from memory).
+
+<br>
+<br>
+
+### Why it is needed?
+
+- Atomatic memory deallocation: No need for the programmer to manually free memory.
+- Prevent memory leak: Objects no longer in use are cleaned up immediately.
+- Improve performance: Memory is freed as soon as objects are no longer needed.
+- Enable deterministic cleanup:
+    - Destructors `__del__` run as soon as reference count reaches zero.
+    - **Caution**:
+        - In cyclic references, reference counts never become zero.
+        - Such objects are handled by the garbage collector.
+        - Here `__del__` execution is unreliable and not deterministic.
+
+<br>
+<br>
+
+### How it works?
+
+- Every Python object internally stores a reference counter.
+- Reference counter increases when:
+    - An object is assigned to a variable.
+    - An object is passed as an argument to a function.
+    - An object is stored in a container (list, dict, tuple, etc.).
+- Reference counter increases when:
+    - A variable referencing the object goes out of scope.
+    - A reference is explicitly deleted using `del`.
+
+<br>
+
+```py
+a = [1, 2, 3]   # reference count = 1
+b = a           # reference count = 2
+c = a           # reference count = 3
+
+del b           # reference count = 2
+del c           # reference count = 1
+del a           # reference count = 0 -> object is deallocated
+```
+
+<br>
+<br>
+
+### Limitations
+
+- Reference counting cannot handle circular references.
+
+```py
+a = []
+b = []
+a.append(b)
+b.append(a)
+```
+
+- In this case, reference count never reaches zero.
+- Such references are handled by Python's **Garbage Collector**.
+
+<br>
+<br>
+
+### Key points
+
+- Python primarily uses reference counting for memory management.
+- Objects are freed immediately when reference count reaches zero.
+- Reference counting cannot handle circular references. 
+- Hence, Python uses garbage collector for circular references.
 
 <br>
 <br>
