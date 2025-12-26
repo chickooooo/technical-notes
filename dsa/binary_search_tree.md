@@ -107,12 +107,28 @@
 
 ---
 
-- **Algorithm**: Inorder and reverse inorder traversal
+- **Algorithm**: Inorder and reverse inorder traversal (using stack)
 - Use a stack to iterate the tree using the **inorder** approach (ascending order).
 - Use another stack to iterate the tree using the **reverse-inorder** approach (descending order).
 - The top nodes in each stack represents the `start` and `end` nodes.
 - Use the standard **Two Sum** approach to find the required 2 nodes.
 - If the `start` and `end` pointers point to the same node, we have reached the end condition. 
+
+<br>
+<br>
+<br>
+
+### BST iterator
+
+- Problem: Design an iterator for a binary search tree that traverses the nodes in in-order sequence.
+- Link: https://leetcode.com/problems/binary-search-tree-iterator/
+
+---
+
+- **Algorithm**: Inorder traversal using stack
+- Use a stack to store current node and it's left subtree.
+- If `len(stack) > 0`, next element is present. Next element is the top element of the stack.
+- Pop the top element, insert left subtree of it's right child in the stack and return popped value.
 
 <br>
 <br>
