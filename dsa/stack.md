@@ -254,6 +254,22 @@ Why modulo (10^9 + 7) ?
 <br>
 <br>
 
+### Sliding window maximum
+
+- Problem: Given an integer array nums and a window size k, slide the window from left to right and return the maximum value in each window position.
+- Link: https://leetcode.com/problems/sliding-window-maximum/
+
+---
+
+- **Algorithm**: Monotonic deque
+- If the entering element is greater than previous elements of the window, then those elements would never be window maximum.
+- Therefore, when adding a new element, the behaviour is similar to decreasing monotonic stack.
+- When removing an element, the behaviour is similar to a queue.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
