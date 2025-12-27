@@ -10,6 +10,7 @@
 
 - [Stack & Heap](#stack--heap)
 - [Reference counting](#reference-counting)
+- [Garbage collection](#garbage-collection)
 
 <br>
 <br>
@@ -159,6 +160,91 @@ b.append(a)
 - Objects are freed immediately when reference count reaches zero.
 - Reference counting cannot handle circular references. 
 - Hence, Python uses garbage collector for circular references.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Garbage collection
+
+- Garbage collection is an automatic memory management mechanism in Python.
+- It works alongside reference counting, not as a replacement.
+- Python's garbage collector is responsible for finding and freeing unreachable objects, especially those involved in **circular references**.
+
+<br>
+<br>
+
+### Why garbage collector is needed?
+
+- Objects involved in circular references, are not cleaned by reference counting.
+- This can lead to **Memory leak** if not handled.
+- Garbage collector detects such objects and other objects that are no longer reachable and cleans them up.
+
+<br>
+<br>
+
+### How it works?
+
+- Python uses a **Generational garbage collection** strategy.
+- Objects are divided into three generations:
+    - Generation 0: Newly created objects.
+    - Generation 1: Objects that survived one GC cycle.
+    - Generation 2: Long-lived objects.
+
+---
+
+- When the number of allocations exceeds a threshold:
+    - GC runs on Generation 0.
+    - Unreachable objects are removed.
+    - Surviving objects are promoted to Generation 1.
+- Higher generations are collected **less frequently**.
+- **Note**: Most objects die young. 
+
+<br>
+<br>
+
+### How does GC detect garbage?
+
+- Python uses **Reachability analysis** for garbage collection process.
+- Objects reachable from **roots** are considered alive.
+- Roots include:
+    - Local variables
+    - Global variables
+    - Stack references
+- Objects not reachable from any root are considered **garbage** and are collected.
+- Cyclic objects that are unreachable are also collected.
+
+<br>
+<br>
+
+### When goes GC run?
+
+- GC runs automatically when generation thresholds are exceeded.
+- Generation `i` threshold = Objects allocated in gen `i` - Objects deallocated in gen `i`.
+- Garbage collection can be triggered manually using `gc.collect()`.
+
+<br>
+
+```py
+import gc
+
+gc.get_threshold()  # (700, 10, 10)
+
+gc.collect()        # Force garbage collection
+gc.disable()        # Disable GC
+gc.enable()         # Enable GC
+```
+
+<br>
+<br>
+
+### Key points
+
+- Python uses reference counting as the primary memory management technique.
+- Garbage collection is used to handle unreachable objects and circular references.
+- Reference counting does immediate deletion; garbage collection runs periodically.
 
 <br>
 <br>
