@@ -337,6 +337,22 @@ Space optimised
 <br>
 <br>
 
+### Target sum
+
+- Problem: Given an array of integers, count how many ways you can assign + or - to each number so that the resulting expression equals the target value.
+- Link: https://leetcode.com/problems/target-sum/
+
+---
+
+- Standard DP problem. Follow standard steps.
+- Functional equation, top-down, bottom-up, space optimization.
+- Here, `j` ranges from `[-total, total]`. Adjust this range to `[0, 2*total]`.
+- Make this adjustment to the `target` and the return value as well.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
