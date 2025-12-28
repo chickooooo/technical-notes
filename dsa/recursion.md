@@ -141,6 +141,16 @@
 - Similar approach as combination sum 1 & 2.
 - Use early stopping to avoid unnecessary recursion calls.
 
+### Letter combinations of a phone number
+
+- Problem: Given a string of digits 2-9, return all possible letter combinations the digits could represent using a telephone keypad mapping. Return in any order.
+- Link: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+---
+
+- **Algorithm**: `i` iterates over array
+- Standard algorithm. No special handling needed.
+
 <br>
 <br>
 <br>
