@@ -28,6 +28,7 @@
 - [Python Dunder Methods](#python-dunder-methods)
 - [Python Duck Typing](#python-duck-typing)
 - [String Interpolation](#string-interpolation)
+- [`match-case` Statement](#match-case-statement)
 
 <br>
 <br>
@@ -1761,6 +1762,165 @@ print(template.strings)  # ('My name is ', '')
 print(template.interpolations)  # (Interpolation('John', 'name', None, ''),)
 print(template.values)  # ('John',)
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### `match-case` Statement
+
+- `match-case` statement is Python's version of a `switch` statement.
+- It is more powerful than `switch` statement.
+- It supports **structural pattern matching**, meaning it can match not only values but also data structures and patterns.
+- Introduced in Python 3.10 
+
+<br>
+<br>
+
+#### Types of matching
+
+Literal Matching
+
+- Matches exact values (like switch-case).
+
+```py
+match status:
+    case 200:
+        print("Success")
+    case 404:
+        print("Not Found")
+    case _:  # default case
+        print("Unknown")
+```
+
+<br>
+
+OR Pattern (`|`)
+
+- Matches multiple values in one case.
+
+```py
+match day:
+    case "Sat" | "Sun":
+        print("Weekend")
+    case _:
+        print("Weekday")
+```
+
+<br>
+
+Variable Capture
+
+- Captures the matched value into a variable.
+
+```py
+match value:
+    case 5:
+        print("five")
+    case x:
+        print(f"Value is {x}")
+```
+
+<br>
+
+Guarded Matching (`if` condition)
+
+- Adds an extra condition using `if`.
+
+```py
+match number:
+    case x if x > 0:
+        print("Positive")
+    case x if x < 0:
+        print("Negative")
+    case _:
+        print("Zero")
+```
+
+<br>
+
+Sequence Matching (List / Tuple)
+
+- Matches structure of sequences.
+
+```py
+match data:
+    case [a, b]:
+        print("Two elements")
+    case [a, b, c]:
+        print("Three elements")
+```
+
+<br>
+
+Wildcard Pattern (`_`)
+
+- Matches anything, but doesn’t capture it.
+- Equivalent to `else`.
+
+```py
+case _:
+    print("Default case")
+```
+
+<br>
+
+Nested Pattern Matching
+
+- Matches complex nested structures.
+
+```py
+match point:
+    case (0, 0):
+        print("Origin")
+    case (x, 0):
+        print("X-axis")
+    case (0, y):
+        print("Y-axis")
+```
+
+<br>
+
+Dictionary Mapping Pattern
+
+- Matches dictionary keys and values.
+- Subset matching.
+
+```py
+match response:
+    case {"status": 200, "data": data}:
+        print("Success")
+    case {"status": 404}:
+        print("Not Found")
+```
+
+<br>
+
+Class Pattern (Object Matching)
+
+- Matches objects based on attributes.
+
+```py
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+match p:
+    case Point(x=0, y=0):
+        print("Origin")
+```
+
+<br>
+<br>
+
+#### Key points
+
+- Patterns are checked from top to bottom.
+- No fall-through behavior like C++, only first matching block runs.
+- `_` should always be the last case.
 
 <br>
 <br>
