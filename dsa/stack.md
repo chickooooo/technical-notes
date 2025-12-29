@@ -230,7 +230,7 @@ Why modulo (10^9 + 7) ?
 <br>
 <br>
 
-### Implement Stack using Queues
+### Implement stack using queues
 
 - Problem: Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
 - Link: https://leetcode.com/problems/implement-stack-using-queues/
@@ -265,6 +265,23 @@ Why modulo (10^9 + 7) ?
 - If the entering element is greater than previous elements of the window, then those elements would never be window maximum.
 - Therefore, when adding a new element, the behaviour is similar to decreasing monotonic stack.
 - When removing an element, the behaviour is similar to a queue.
+
+<br>
+<br>
+<br>
+
+### Maximum frequency stack
+
+- Problem: Design a stack-like data structure that supports pushing integers and popping the element with the highest frequency; when multiple elements share the same highest frequency, the one most recently pushed (closest to the top) should be removed and returned.
+- Link: https://leetcode.com/problems/maximum-frequency-stack/
+
+---
+
+- **Algorithm**: Two data structures
+- One hashmap will hold elements at each frequency level, in order of insertion: `{freq: [element]}`.
+- One hashmap will hold the element and its latest frequency: `{element: freq}`.
+- Also use an integer to keep track of max frequency: `int`.
+- Use these 3 data structures to achieve `O(1)` TC for push and pop operations.
 
 <br>
 <br>
