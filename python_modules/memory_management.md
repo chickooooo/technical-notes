@@ -11,6 +11,7 @@
 - [Stack & Heap](#stack--heap)
 - [Reference counting](#reference-counting)
 - [Garbage collection](#garbage-collection)
+- [`pymalloc`](#pymalloc)
 
 <br>
 <br>
@@ -245,6 +246,75 @@ gc.enable()         # Enable GC
 - Python uses reference counting as the primary memory management technique.
 - Garbage collection is used to handle unreachable objects and circular references.
 - Reference counting does immediate deletion; garbage collection runs periodically.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## `pymalloc`
+
+- `pymalloc` is Python's specialised memory allocator for small objects.
+- It works on top of system's memory allocator (`malloc`).
+- It is used only with **CPython**.
+
+<br>
+<br>
+
+### Why it is needed?
+
+- If Python made OS calls for every object creation (`malloc`) and deletion (`free`), it will degrade the application performance.
+- Pymalloc solves this by getting a block of memory from the OS and reusing it for small objects.
+- It handles memory allocation for objects with size <= 512 bytes.
+- For objects with size > 512 bytes, memory allocation is handled by the system's `malloc`.
+- Most Python objects fall under 512 byte, so `pymalloc` is heavily used.
+
+<br>
+<br>
+
+### How it works?
+
+Pymalloc uses hierarchical memory pool system:
+
+```
+Arena -> Pool -> Block
+```
+
+- **Arena**:
+    - Obtains large chunks of memory (~256 kB) from the OS.
+- **Pool**: 
+    - Fixed-size region inside an arena (~4 KB).
+    - Each pool serves objects of one size class (8, 16, 32 bytes).
+- **Block**:
+    - Small fixed-size units inside the pool.
+    - Given directly to Python objects.
+    - Sizes are multiples of 8 bytes.
+
+---
+
+Allocation
+
+- Requested size is mapped to the nearest size class.
+- A free block is taken from the appropriate pool.
+- If needed, new pools or arenas are created.
+
+---
+
+Deallocation
+
+- Freed blocks are returned to their pool.
+- Freed arenas are returned to the OS.
+- Memory is reused for future allocations.
+
+<br>
+<br>
+
+### Key Points
+
+- `pymalloc` is not a garbage collector. It works alongside RC & GC.
+- RC & GC tells which memory to free, `pymalloc` handles the deallocation.
+- Memory blocks are reused and may not be returned to the OS immediately.
 
 <br>
 <br>
