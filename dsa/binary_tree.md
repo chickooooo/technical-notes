@@ -163,6 +163,28 @@
 <br>
 <br>
 
+### Morris inorder traversal
+
+- Problem: Given a binary tree. Find the inorder traversal of the tree without using recursion or extra stack space.
+- Link: https://www.geeksforgeeks.org/problems/inorder-traversal-iterative/1
+
+---
+
+- **Algorithm**: Morris traversal
+- This algorithm uses threads / temporary links that point back to the parent node.
+- The binary tree is distorted while traversing down and is put back while going up.
+
+---
+
+- If the left node exists, find the rightmost node of the left node.
+    - If rightmost node is `None`, add current node there. Go left.
+    - If current node is already there, remove it. Print and go right.
+- If the left node does not exist, print curent node and go to right node.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
