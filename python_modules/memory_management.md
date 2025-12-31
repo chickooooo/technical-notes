@@ -12,6 +12,7 @@
 - [Reference counting](#reference-counting)
 - [Garbage collection](#garbage-collection)
 - [`pymalloc`](#pymalloc)
+- [Memory leak](#memory-leak)
 
 <br>
 <br>
@@ -315,6 +316,60 @@ Deallocation
 - `pymalloc` is not a garbage collector. It works alongside RC & GC.
 - RC & GC tells which memory to free, `pymalloc` handles the deallocation.
 - Memory blocks are reused and may not be returned to the OS immediately.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Memory leak
+
+- A memory leak in Python occurs when a program keeps allocating memory but **fails to release** it even when it is no longer needed.
+- This causes the program's memory usage to grow over time.
+- Impact of memory leak:
+    - RAM usage keeps on increasing.
+    - Degradation in program's performance.
+    - Program may crash dues to **Out of Memory** error.
+    - Long running services like API servers are most affected.
+
+<br>
+<br>
+
+### Common causes
+
+1. Unintentional references
+    - Objects are not freed because references still exists.
+
+2. Global variables & Singletons
+    - Objects stored in globals live for the entire program lifetime.
+
+3. Reference cycles with `__del__`
+    - GC can handle cycles, but not cycles involving `__del__`.
+    - Objects involved in cycles with `__del__` may never be collected.
+
+4. Closures holding large objects
+    - Closure capture variables and keep them alive.
+    - These variables stay in memory as long as the reference exist.
+
+5. Caching without limits
+    - If we are caching data without limit or eviction policy, it stays in memory forever.
+
+6. C extensions / native libraries
+    - Python GC cannot manage memory allocated in C.
+    - Example: numpy, scipy, etc.
+
+<br>
+<br>
+
+### Preventions
+
+- Remove unused references manually if needed.
+- Avoid globals wherever possible.
+- Avoid using `__del__` method if that object can be in a reference cycle.
+- Use a context manager if we need cleanup logic.
+- Avoid closures wherever possible.
+- Always add limit and TTL for cached data.
 
 <br>
 <br>
