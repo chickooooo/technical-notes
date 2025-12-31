@@ -12,7 +12,7 @@
 <br>
 <br>
 
-### Jump Game
+### Jump game
 
 - Problem: You’re given an integer array nums where each element represents the maximum jump length from that position. Starting at index 0, determine whether you can reach the last index. Return true if you can, otherwise false.
 - Link: https://leetcode.com/problems/jump-game/
@@ -58,6 +58,23 @@ Return the minimum total number of candies required.
 - Do same from right to left.
 - For each index, take `max` of `left_count[i]` & `right_count[i]`.
 - Return the total candy count.
+
+<br>
+<br>
+<br>
+
+### Jump game 2
+
+- Problem: You are given a 0-indexed integer array nums, where each element represents the maximum number of steps you can jump forward from that index. Starting at index 0, you can move to any reachable index within the allowed jump range. The goal is to determine the minimum number of jumps needed to reach the last index (n - 1).
+- Link: https://leetcode.com/problems/jump-game-ii/
+
+---
+
+- **Algorithm**: Monotonic stack
+- Iterate from the back of the array.
+- Maintain a strictly increasing monotonic stack: `(dist, index)`.
+- If the current distance is lesser, we don't need more distance elements ahead of current element.
+- After iteration, return the distance of the topmost item in the stack.
 
 <br>
 <br>
