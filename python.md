@@ -29,6 +29,7 @@
 - [Python Duck Typing](#python-duck-typing)
 - [String Interpolation](#string-interpolation)
 - [`match-case` Statement](#match-case-statement)
+- [Python `__slots__`](#python-__slots__)
 
 <br>
 <br>
@@ -1921,6 +1922,77 @@ match p:
 - Patterns are checked from top to bottom.
 - No fall-through behavior like C++, only first matching block runs.
 - `_` should always be the last case.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Python `__slots__`
+
+- `__slots__` is a class-level attribute in Python.
+- It allows us to explicitly declare which attributes a class instance is allowed to have.
+- Normally, Python stores instance attributes in `__dict__` attribute.
+- When we use `__slots__`, Python removes this `__dict__` attribute and stores instance attributes in a memory-efficient structure.
+
+<br>
+
+```py
+class User:
+    __slots__ = ("name", "age")
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+u = User("Alice", 25)
+print(hasattr(u, "__dict__"))  # False
+
+# AttributeError: 'User' object has no attribute 'email'
+u.email = "a@example.com"
+```
+
+<br>
+<br>
+
+#### Advantages
+
+- Objects using `__slots__` consume less memory. Noticeable with thousands of instances.
+- Attribute access is slightly faster as no dictionary lookup is needed.
+- Cleaner and explicit class definition.
+
+<br>
+<br>
+
+#### Limitations
+
+- Removes `__dict__` attribute. This can cause issue at places where `__dict__` is used.
+- Cannot add new attributes other than mentioned in `__slots__`.
+- Slots are not automatically inherited. They need to be defined again in the child class.
+- Not worth it for small objects.
+
+<br>
+<br>
+
+#### Key Features
+
+- Attributes are stored in a fixed, more memory-efficient structure.
+- Slots does not affect property decorator.
+
+```py
+# Slots impact on inheritance
+
+class Base:
+    __slots__ = ("a",)
+
+class Child(Base):
+    __slots__ = ("b",)
+
+c = Child()
+c.a = 1
+c.b = 2
+```
 
 <br>
 <br>
