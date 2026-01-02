@@ -30,6 +30,7 @@
 - [String Interpolation](#string-interpolation)
 - [`match-case` Statement](#match-case-statement)
 - [Python `__slots__`](#python-__slots__)
+- [Python Descriptors](#python-descriptors)
 
 <br>
 <br>
@@ -1993,6 +1994,170 @@ c = Child()
 c.a = 1
 c.b = 2
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Python Descriptors
+
+- Descriptors are Python objects that control attribute access (get, set, delete) in other objects.
+- A Python object is called a descriptor if it defines one or more of these methods:
+    - `__get__(self, instance, owner)`
+    - `__set__(self, instance, value)`
+    - `__delete__(self, instance)` (not `__del__`)
+- Descriptors are the core mechanism behind properties, methods, static and class methods.
+
+<br>
+<br>
+
+#### Working
+
+- Descriptors work via attribute lookup rules.
+- When we do `obj.attribute`, Python first check if that attribute has `__get__`, `__set__` or `__delete__` methods implemented.
+- If any of these methods is present, descriptor protocol is invoked.
+- If none of these methods exist, Python does normal attribute lookup using `__dict__`.
+
+---
+
+Preference order
+
+1. Data descriptors: Attributes that have `__get__` + (`__set__` or `__delete__`) methods implemented.
+2. Instance attributes: Normal instance attributes.
+3. Non-data descriptors: Attributes that have only `__get__` method implemented.
+4. Class attributes: Normal class attributes.
+
+<br>
+<br>
+
+#### Data descriptors
+
+- Data descriptors are descriptors that implement `__get__` and (`__set__` or `__delete`) methods.
+- They have highest preference in attribute lookup.
+
+```py
+class Positive:
+    def __set_name__(self, owner, name):
+        self.private_name = "_" + name
+
+    def __get__(self, instance, owner):
+        return getattr(instance, self.private_name, 0)
+
+    def __set__(self, instance, value):
+        if value <= 0:
+            raise ValueError("Value must be positive")
+        setattr(instance, self.private_name, value)
+
+    def __delete__(self, instance):
+        raise AttributeError("Cannot delete this attribute")
+
+class Product:
+    price = Positive()
+
+
+p = Product()
+p.price = 50          # __set__
+print(p.price)        # __get__
+
+del p.price           # __delete__ -> error
+```
+
+<br>
+<br>
+
+#### Non-data descriptors
+
+- Non-data descriptors are descriptors that implement only the `__get__` method.
+- They have lowest preference (3rd) in attribute lookup.
+
+```py
+class FullName:
+    def __get__(self, instance, owner):
+        return f"{instance.first} {instance.last}"
+
+class User:
+    full_name = FullName()   # non-data descriptor
+
+    def __init__(self, first, last):
+        self.first = first
+        self.last = last
+
+
+u = User("John", "Doe")
+print(u.full_name)          # John Doe
+
+u.full_name = "Override"
+print(u.full_name)          # Override (instance attribute wins)
+```
+
+<br>
+<br>
+
+#### Instance and owner
+
+- `instance` is the object accessing the attribute.
+- `owner` is the class where the descriptor is defined.
+
+<br>
+
+```py
+class MyDescriptor:
+    def __get__(self, instance, owner):
+        print("instance:", instance)
+        print("owner:", owner)
+        return "value"
+
+class MyClass:
+    attr = MyDescriptor()
+
+
+MyClass.attr
+# instance: None
+# owner: <class '__main__.MyClass'>
+
+MyClass().attr
+# instance: <__main__.MyClass object at 0x77b247e5ba30>
+# owner: <class '__main__.MyClass'>
+```
+
+<br>
+<br>
+
+#### Advantages
+
+- Code Reusability: Write logic once, reuse across classes.
+- Code Abstraction: Internal implementations are abstracted from the user, providing a clean API.
+- Centralized Control: Access rules and validation logic lives in one place. 
+
+<br>
+<br>
+
+#### Limitations
+
+- Complexity: Attribute lookups are hard to follow and debug.
+- Overkill for simple cases: `@property` is usually enough for most cases.
+- Limited awareness: Many developers don't know descriptors well.
+
+<br>
+<br>
+
+#### Usecases
+
+- Reusable attribute get and set logic.
+- Attributes value validation before setting.
+- Computing attributes before getting.
+- Adding caching to attributes.
+
+<br>
+<br>
+
+#### Key points
+
+- Descriptors are heavily used in Django ORM fields, SQLAlchemy, etc.
+- `@property` decorator is a built-in descriptor.
+- Python internally uses descriptors for instance and class methods.
 
 <br>
 <br>
