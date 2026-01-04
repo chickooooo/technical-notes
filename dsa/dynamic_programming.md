@@ -353,6 +353,26 @@ Space optimised
 <br>
 <br>
 
+### Longest common subsequence
+
+- Problem: Given two strings text1 and text2, return the length of their longest common subsequence (characters in the same order, not necessarily consecutive). Return 0 if none exists.
+- Link: https://leetcode.com/problems/longest-common-subsequence/
+
+---
+
+- Assumption: `f(i, j)` represents the LCS starting from `ith` element in text1 and `jth` element in text2.
+- To find: `f(0, 0)`
+- Functional equation:
+    - If `text1[i] == text2[j]`: `f(i, j) = f(i+1, j+1) + 1`
+    - Else `f(i, j) = max(f(i+1, j), f(i, j+1))`
+- Range: `i ∈ [0, m-1]`, `j ∈ [0, n-1]`
+- Base conditions:
+    - If `i == m` or `j == n`, then answer is `0`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
