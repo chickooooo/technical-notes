@@ -185,6 +185,21 @@
 <br>
 <br>
 
+### Right side view of binary tree
+
+- Problem: Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+- Link: https://leetcode.com/problems/binary-tree-right-side-view/
+
+---
+
+- **Algorithm**: Preorder traversal
+- Use an array to store the latest node value at each level.
+- After preorder traversal, values at each level will be of right most nodes.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
