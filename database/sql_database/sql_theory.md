@@ -12,6 +12,7 @@
 - [SQL datatypes](#sql-datatypes)
 - [SQL relationships](#sql-relationships)
 - [Referential integrity](#referential-integrity)
+- [SQL keys](#sql-keys)
 
 <br>
 <br>
@@ -149,6 +150,104 @@
 - It ensures that relationships between records are valid and there are no orphan records.
 - Orphan record means a reference pointing to a non-existing row.
 - Referential integrity is enforced through `FOREIGN KEY` constraint.
+
+<br>
+<br>
+<br>
+<br>
+
+## SQL keys
+
+- Keys in SQL are constraints used to uniquely identify rows in a table.
+- They are also used to establish and enforce relationships between tables.
+- Keys help maintain data integrity and improve query performance through indexing.
+
+<br>
+<br>
+
+### Unique key
+
+- Ensures all values in a column are unique.
+- `NULL` values are allowed (usually one).
+- Used to prevent duplicate data.
+- Example: `email` in users table.
+
+<br>
+<br>
+
+### Primary key
+
+- Uniquely identifies each record in a table.
+- Cannot be `NULL`.
+- Only one primary key per table.
+- Example: `student_id` in students table.
+
+<br>
+<br>
+
+### Candidate key
+
+- A column (or a minimal set of columns) that can become a primary key.
+- Uniquely identifies records in a table.
+- A table can have multiple candidate keys.
+- Example: `passport_number`, `email` in users table.
+
+<br>
+<br>
+
+### Alternate key
+
+- A candidate key not chosen as the primary key.
+- Example: If `student_id` is primary, `email` becomes an alternate key.
+
+<br>
+<br>
+
+### Composite (Compound) key
+
+- A key made using two or more columns together.
+- Used when a single column is not enough to ensure uniqueness.
+- Example: `(order_id, product_id)`
+
+<br>
+<br>
+
+### Super key
+
+- Any combination of columns that uniquely identifies a row.
+- May include extra columns.
+- All candidate keys are super keys, but not all super keys are candidate keys.
+
+<br>
+<br>
+
+### Natural key
+
+- A key derived from real-world data.
+- Has some business meaning.
+- Example: `admission_id`, `email`, etc.
+- Can change over time (less stable).
+
+<br>
+<br>
+
+### Surrogate key
+
+- An artificially created key.
+- Has no business meaning.
+- Usually auto-incremented.
+- Example: `id`, `UUID`, etc.
+- More stable and commonly used.
+
+<br>
+<br>
+
+### Foreign key
+
+- A column that references the primary key of another table.
+- Maintains **referential integrity**.
+- Can be `NULL`, depending on requirements.
+- Example: `student_id` in enrollments table referencing `id` in students table.
 
 <br>
 <br>
