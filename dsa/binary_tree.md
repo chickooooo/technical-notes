@@ -185,6 +185,22 @@
 <br>
 <br>
 
+### Morris preorder traversal
+
+- Problem: Given a Binary tree. Find the preorder traversal of the tree without using recursion. Try solving this with O(1) auxiliary space.
+- Link: https://www.geeksforgeeks.org/problems/preorder-traversal-iterative/1
+
+---
+
+- **Algorithm**: Morris traversal
+- Use same algorithm as Morris inorder traversal.
+- Just adjust when nodes are printed and how the current pointer moves.
+- Core working of temporary links stays the same.
+
+<br>
+<br>
+<br>
+
 ### Right side view of binary tree
 
 - Problem: Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
