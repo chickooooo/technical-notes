@@ -10,6 +10,8 @@
 
 - [What is a SQL database?](#what-is-a-sql-database)
 - [SQL datatypes](#sql-datatypes)
+- [SQL relationships](#sql-relationships)
+- [Referential integrity](#referential-integrity)
 
 <br>
 <br>
@@ -94,6 +96,59 @@
 - `JSON`: Stores JSON data as text.
 - `JSONB`: Stores JSON in binary format. Allows indexing and faster querying.
 - `XML`: Stores XML-formatted data.
+
+<br>
+<br>
+<br>
+<br>
+
+## SQL relationships
+
+- A relationship in SQL defines how records of one table are related to records of another table.
+- There are 3 main types of SQL relations:
+    - one-to-one relation
+    - one-to-many relation
+    - many-to-many relation
+
+<br>
+<br>
+
+### One-to-one relation
+
+- One record in Table A is related to one and only one record in Table B.
+- Used for splitting large tables for modularity.
+- Example: Each user has one unique passport.
+
+<br>
+<br>
+
+### One-to-many relation
+
+- One record in Table A can relate to many records in Table B.
+- Example: One customer can place many orders.
+
+<br>
+<br>
+
+### Many-to-many relation
+
+- Multiple records in Table A can relate to multiple records in Table B.
+- An intermediate table is required to map this relationship.
+- Example: Students can enroll in many classes, and each class has many students.
+
+<br>
+<br>
+<br>
+<br>
+
+## Referential integrity
+
+- Referential integrity means that a foreign key in one table must either:
+    - Match a primary key in another table
+    - OR be `NULL`
+- It ensures that relationships between records are valid and there are no orphan records.
+- Orphan record means a reference pointing to a non-existing row.
+- Referential integrity is enforced through `FOREIGN KEY` constraint.
 
 <br>
 <br>
