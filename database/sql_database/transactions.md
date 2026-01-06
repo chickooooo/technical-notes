@@ -11,6 +11,7 @@
 - [SQL Transaction](#sql-transaction)
 - [ACID properties](#acid-properties)
 - [Transaction rollback](#transaction-rollback)
+- [Transaction savepoint](#transaction-savepoint)
 
 <br>
 <br>
@@ -115,6 +116,40 @@ INSERT INTO users (id, email) VALUES (1, 'b@test.com'); -- Duplicate PK
 
 - When a transaction runs, the database keeps undo logs.
 - On rollback, it uses these logs to reverse the changes.
+
+<br>
+<br>
+<br>
+
+## Transaction savepoint
+
+- A savepoint is a named point inside a transaction that allows us to roll back part of the transaction, instead of rolling back the entire transaction.
+- It works as a checkpoint within a transaction.
+
+<br>
+
+```sql
+BEGIN TRANSACTION;
+
+-- Operation 1
+SAVEPOINT op_1_savepoint;
+
+-- Something goes wrong here
+ROLLBACK TO op_1_savepoint;
+
+COMMIT;
+```
+
+<br>
+<br>
+
+### Key points
+
+- Savepoints allow partial rollback of a transaction.
+- They can be used only inside a transaction.
+- Rolling back to a savepoint:
+    - Preserves changes done before that savepoint.
+    - Removes changes done after that savepoint.
 
 <br>
 <br>
