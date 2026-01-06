@@ -16,6 +16,8 @@
 - [Sync vs Async endpoints in FastAPI](#sync-vs-async-endpoints-in-fastapi)
 - [Dependency injection](#dependency-injection)
 - [Dependency override](#dependency-override)
+- [FastAPI Middlewares](#fastapi-middlewares)
+- [How to enable CORS in FastAPI?](#how-to-enable-cors-in-fastapi)
 
 <br>
 <br>
@@ -239,6 +241,130 @@ app = FastAPI()
 
 app.dependency_overrides[get_db] = get_test_db
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## FastAPI Middlewares
+
+- A middleware is a block of code that sits between client's request and response.
+- This block of code is executed for every request.
+- When a request is received, the middlewares are executed from top to bottom.
+- And for a response, they are executed from bottom to top.
+
+<br>
+
+```
+Request  -> MiddlewareA -> MiddlewareB -> Route     # request
+Response <- MiddlewareA <- MiddlewareB <- Route     # response
+```
+
+<br>
+<br>
+
+### Implementation
+
+- FastAPI uses Starlette middleware under the hood.
+- A middleware must implement `dispatch(request, call_next)`:
+    - `request`: Incoming request.
+    - `call_next(request)`: Passes request to next middleware / route.
+    - Returns a `response`.
+
+```py
+# Function based middleware
+
+from fastapi import FastAPI, Request
+
+app = FastAPI()
+
+@app.middleware("http")
+async def custom_middleware(request: Request, call_next):
+    print("Before request")
+    
+    response = await call_next(request)
+    
+    print("After request")
+    return response
+```
+
+```py
+# Class based middleware
+
+from starlette.middleware.base import BaseHTTPMiddleware
+
+class MyMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        return response
+
+app.add_middleware(MyMiddleware)
+```
+
+<br>
+<br>
+
+### Usecases
+
+- Authentication & Authorization
+- Logging requests & responses
+- Request timing / performance metrics
+- Modifying request or response headers
+- CORS handling
+
+<br>
+<br>
+
+### Key points
+
+- Middlewares run in the order they are added.
+- Middlewares can modify incoming request as well as outgoing response.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## How to enable CORS in FastAPI?
+
+- CORS stands for Cross Origin Resource Sharing.
+- It controls which origins (domains / ports) can access our APIs.
+- It is required when:
+    - Frontend and backend are on different origins.
+    - We want to allow other origins as well.
+
+<br>
+<br>
+
+### Enabling CORS
+
+- FastAPI provides built-in `CORSMiddleware` to allow CORS.
+
+<br>
+
+```py
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
+```
+
+- `allow_origins`: Which origins to allow.
+- `allow_methods`: Which HTTP methods to allow (`GET`, `PUT`, etc.).
+- `allow_headers`: Which request headers to allow.
+- `allow_credentials`: Should allow cookies and auth headers.
+- `"*"` indicates allow all.
 
 <br>
 <br>
