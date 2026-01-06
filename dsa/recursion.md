@@ -155,6 +155,22 @@
 <br>
 <br>
 
+### Word search
+
+- Problem: Given an m × n character grid and a word, determine if the word can be formed by sequentially adjacent (horizontal or vertical) cells without reusing any cell.
+- Link: https://leetcode.com/problems/word-search/
+
+---
+
+- **Algorithm**: Backtracking on grid
+- Iterate over the grid and the word simultaneously.
+- If current grid element matches with current letter of the word, then try to match the next letter of the word in adjacent grid cells.
+- Keep on doing this until complete word is matched.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
