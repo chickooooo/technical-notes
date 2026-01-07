@@ -332,9 +332,26 @@ Note:
 <br>
 <br>
 
+### Find peak element II
+
+- Problem: Given a 0-indexed m × n matrix mat where no two adjacent cells are equal, a peak element is a cell that is strictly greater than its top, bottom, left, and right neighbors. Find and return the indices `[i, j]` of any peak element.
+- Link: https://leetcode.com/problems/find-a-peak-element-ii/
+
+---
+
+- **Algorithm**: Peak element
+- Perform binary search across rows.
+- Perform linear search on the middle row and find the largest element.
+- If this element is greater than top and bottom element, return its position.
+- If top element is greater, we eliminate the bottom search space and vice versa.
+- Linear search acts as a partition line between search spaces.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
 <br>
 <br>
-
