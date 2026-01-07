@@ -13,6 +13,9 @@
 - [SQL relationships](#sql-relationships)
 - [Referential integrity](#referential-integrity)
 - [SQL keys](#sql-keys)
+- [Database views](#database-views)
+- [Non-materialised view](#non-materialised-view)
+- [Materialised view](#materialised-view)
 
 <br>
 <br>
@@ -248,6 +251,137 @@
 - Maintains **referential integrity**.
 - Can be `NULL`, depending on requirements.
 - Example: `student_id` in enrollments table referencing `id` in students table.
+
+<br>
+<br>
+<br>
+<br>
+
+## Database views
+
+- A database view is just a saved named SQL query.
+- There are 2 types of database views:
+    - Non-materialised view (does not store data)
+    - Materialised view (stores data)
+
+<br>
+<br>
+<br>
+<br>
+
+## Non-materialised view
+
+- A non-materialised view is just a saved named SQL query.
+- It is does not stores data separately.
+- Each time it is queried, it executes the underlying `SELECT` statement.
+
+<br>
+
+```sql
+CREATE VIEW view_name AS
+    SELECT column1, column2
+    FROM table_name
+    WHERE condition;
+```
+
+<br>
+<br>
+
+### Advantages
+
+- When queried, always responds with up-to-date data.
+- No additional storage required.
+- Lightweight and simple.
+
+<br>
+<br>
+
+### Disadvantages
+
+- Complex joins are performed everytime it is queried.
+- No performance gain over normal queries.
+- Cannot be indexed.
+
+<br>
+<br>
+
+### Usecases
+
+- Restricting access to sensitive data. Only required data is made visible through the view.
+- Simplifying complex quries and providing a single source of usage with optimised implementation.
+
+<br>
+<br>
+<br>
+<br>
+
+## Materialised view
+
+- A materialized view stores the query result physically on the disk.
+- It basically caches the query result.
+
+---
+
+- This cached result is not refreshed automatically when the underlying data changes.
+- A refresh technique needs to be specified.
+- Provides eventual consistency.
+- Can support writes and updates for simple queries without joins.
+
+<br>
+
+```sql
+CREATE MATERIALIZED VIEW view_name AS
+    SELECT column1, column2
+    FROM table_name
+    WHERE condition;
+```
+
+<br>
+<br>
+
+### Advantages
+
+- Improved performance: No complex joins are executed in realtime. Stored data is used.
+- Columns of a materialised view can be indexed for faster queries.
+
+<br>
+<br>
+
+### Disadvantages
+
+- Extra space is used to store cached results.
+- Data is not up-to-date until next refresh cycle.
+- Refreshing data adds more complexity.
+- Not ideal for write heavy workloads.
+
+<br>
+<br>
+
+### Refresh strategies
+
+- Full refresh:
+    - Recomputes the entire materialized view from scratch.
+    - Expensive for large datasets.
+- Incremental refresh:
+    - Updates only changed data since the last refresh.
+    - Much faster than full refresh.
+    - More complex and requires change tracking.
+- Scheduled refresh:
+    - Refresh runs at fixed intervals (cron-like).
+    - Data is stale between runs.
+    - Ideal for reporting dashboard views.
+- On-demand refresh:
+    - Refresh occurs only when explicitly triggered.
+    - Ideal for pipeline driven operations.
+
+<br>
+<br>
+
+### Usecases
+
+- Analytics & reporting dashbaords.
+- For read heavy systems with less frequent writes.
+- When eventual consistency is acceptable.
 
 <br>
 <br>
