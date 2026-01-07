@@ -216,6 +216,22 @@
 <br>
 <br>
 
+### Maximum product of splitted binary tree
+
+- Problem: Given the root of a binary tree, split the binary tree into two subtrees by removing one edge such that the product of the sums of the subtrees is maximized. Return the maximum product of the sums of the two subtrees.
+- Link: https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/
+
+---
+
+- **Algorithm**: Return subtree sum at each node
+- At each node, we can either cutoff the left edge or right edge.
+- The left node will give the sum of left subtree and similarly right node.
+- Calculate maximum product and return it.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
