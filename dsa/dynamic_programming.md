@@ -373,6 +373,35 @@ Space optimised
 <br>
 <br>
 
+### Max dot product of two subsequences
+
+- Problem: Given two arrays nums1 and nums2. Return the maximum dot product between non-empty subsequences of nums1 and nums2 with the same length.
+- Link: https://leetcode.com/problems/max-dot-product-of-two-subsequences/
+
+---
+
+- Approach is similar to **Longest common subsequence**.
+- It just has 1 more condition handling in the functional equation.
+- We will add previous product to the sum only if it is greater than 0.
+
+---
+
+- Assumption: `f(i, j)` represents max dot product starting from index `i` in nums1 and index `j` in nums2, going right.
+- To find: `f(0, 0)`
+- Functional equation:
+    - `f(i, j) = max(A, B, C)`
+    - If `f(i+1, j+1) > 0`, `A = (N1[i] * N2[j]) + f(i+1, j+1)`.
+    - Else `A = N1[i] * N2[j]`.
+    - `B = f(i+1, j)`
+    - `C = f(i, j+1)`
+- Range: `i ∈ [0, m-1]`, `j ∈ [0, n-1]`
+- Base conditions:
+    - If `i == m` or `j == n`, then answer is `0`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
