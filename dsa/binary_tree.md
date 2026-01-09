@@ -232,6 +232,24 @@
 <br>
 <br>
 
+### Subtree containing deepest nodes
+
+- Problem: Given the root of a binary tree, return the smallest subtree such that it contains all the deepest nodes in the original tree.
+- Link: https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/
+
+---
+
+- **Algorithm**: Pass depth down, compute LCA while going up
+- Perform postorder traversal of the binary tree.
+- While traversing, keep track of the `depth` while going down the tree.
+- At each node, check if left and right depth is same and `>= max_depth`.
+- If so, update `max_depth` and `lca_node` with the current node.
+- At the end of postorder traversal, `lca_node` will be the required node.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
