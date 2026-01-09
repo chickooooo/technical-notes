@@ -12,6 +12,7 @@
 - [ACID properties](#acid-properties)
 - [Transaction rollback](#transaction-rollback)
 - [Transaction savepoint](#transaction-savepoint)
+- [Isolation levels](#isolation-levels)
 
 <br>
 <br>
@@ -150,6 +151,160 @@ COMMIT;
 - Rolling back to a savepoint:
     - Preserves changes done before that savepoint.
     - Removes changes done after that savepoint.
+
+<br>
+<br>
+<br>
+
+## Isolation levels
+
+- Isolation levels define how and when the changes made by one transaction become visible to other transactions.
+- Depending upon the isolation level selected, it has impact on following things:
+    - Concurrency
+    - Data consistency
+    - Database Performance
+
+<br>
+<br>
+
+### Why isolation levels are needed?
+
+- When transactions run concurrently, the following problems can happen.
+- Isolation levels decide which of these problems are allowed.
+
+#### Dirty Read
+
+- Reading uncommitted data from another transaction.
+
+Example
+
+- Transaction A updates salary from `5000` to `8000` but does not commit yet.
+- Transaction B reads salary as `8000`.
+- Transaction A rolls back.
+- Transaction B read wrong (dirty) data.
+
+<br>
+
+#### Non-Repeatable Read
+
+- Reading the same row twice and getting different values.
+
+Example
+
+- Transaction A reads salary as `5000`.
+- Transaction B updates salary to `7000` and commits.
+- Transaction A reads salary again as `7000`.
+
+<br>
+
+#### Phantom Read
+
+- Re-running a query returns extra or missing rows.
+
+Example
+
+- Transaction A runs: `SELECT * FROM employees WHERE dept = 'HR'`. Gets 5 rows.
+- Transaction B inserts a new HR employee and commits.
+- Transaction A runs the same query again. Gets 6 rows.
+- A new **phantom row** appeared.
+
+<br>
+<br>
+
+### Isolation levels (lowest to highest isolation)
+
+#### READ UNCOMMITTED
+
+- A transaction can read data that has not been committed yet by another transaction.
+- No locking or minimal locking.
+
+Example
+
+- Transaction A updates salary but doesn't commit yet.
+- Transaction B reads that updated salary resulting in a dirty read.
+
+Features
+
+- Allows dirty reads.
+- Allows non-repeatable reads.
+- Allows phantom reads.
+
+---
+
+- Low consistency, high performance. 
+- Rarely used.
+
+<br>
+
+#### READ COMMITTED
+
+- A transaction can read only committed data.
+
+Example
+
+- Transaction A reads salary = 5000.
+- Transaction B updates salary to 6000 but does not commit yet.
+- Transaction A reads again, sees 5000.
+
+Features
+
+- Does not allow dirty reads.
+- Allows non-repeatable reads.
+- Allows phantom reads.
+- Good balance of consistency and performance.
+- Default in PostgreSQL, Oracle, SQL Server.
+
+<br>
+
+#### REPEATABLE READ
+
+- Once a row is read, it cannot be changed by other transactions until the current transaction finishes.
+- Reading same row always returns same data.
+- It uses row level read locks which blocks writing but allows other transactions to read that row.
+
+Example
+
+- Transaction A reads salary = 5000.
+- Transaction B reads salary = 5000.
+- Transaction B tries to update, but is blocked.
+- Transaction A reads again and gets 5000.
+
+Features
+
+- Prevents dirty reads.
+- Prevents non-repeatable reads.
+- Allows phantom reads.
+- Used when consistent reads are important.
+- Default in MySQL, InnoDB.
+
+<br>
+
+#### SERIALIZABLE
+
+- Transactions run as if they are executed one after another.
+- Uses strict locking.
+
+Example
+
+- If one transaction is reading a range of rows, no other transaction can insert or update rows in that range.
+
+Features
+
+- Prevents dirty reads.
+- Prevents non-repeatable reads.
+- Prevents phantom reads.
+- Maximum data consistency but slowest performance.
+- Used in financial systems.
+
+<br>
+<br>
+
+### Key points
+
+- Isolation level controls visibility of data between transactions.
+- Higher isolation means better consistency but lower performance.
+- `READ COMMITTED` is most commonly used.
+- `SERIALIZABLE` is safest but slowest.
 
 <br>
 <br>
