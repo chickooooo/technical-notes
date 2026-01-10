@@ -402,6 +402,34 @@ Space optimised
 <br>
 <br>
 
+### Minimum ASCII delete sum
+
+- Problem: Given two strings s1 and s2, return the lowest ASCII sum of deleted characters to make two strings equal.
+- Link: https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/
+
+---
+
+- Approach is similar to **Longest common subsequence**.
+- Calculate postfix ASCII sum of s1 & s2 for `O(1)` lookup for `sum(s1[i:])`.
+- Rest of the algorithm is identical to LCS with minor tweaks.
+
+---
+
+- Assumption: `f(i, j)` represents the minimum delete sum starting from `ith` index in s1 and `jth` index in s2.
+- To find: `f(0, 0)`
+- Functional equation:
+    - If `s1[i] == s2[j]`: `f(i, j) = f(i+1, j+1)`
+    - Else `f(i, j) = min(s1[i] + f(i+1, j), s2[j] + f(i, j+1))`
+- Range: `i ∈ [0, m-1]`, `j ∈ [0, n-1]`
+- Base conditions:
+    - If `i == m and j == n`, then answer is `0`,
+    - Else if `i == m`, then answer is `sum(s2[j:])`.
+    - Else if `j == n`, then answer is `sum(s1[i:])`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
