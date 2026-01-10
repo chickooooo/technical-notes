@@ -80,6 +80,24 @@ Return the minimum total number of candies required.
 <br>
 <br>
 
+### Maximum matrix sum
+
+- Problem: You are given an n × n integer matrix. You may perform an operation any number of times where you choose two adjacent cells (sharing a side) and multiply both values by −1. Return that maximum possible matrix sum after all operations.
+- Link: https://leetcode.com/problems/maximum-matrix-sum/
+
+---
+
+- **Algorithm**: Simple traversal
+- If we try out various scenarios, we can observe that a pair of negative numbers can always be made positive.
+- That means, even number of negative numbers will always become positive.
+- If the matrix has odd number of negative numbers, at last only 1 negative number will be left.
+- To maximize matrix sum, we can shift the last negative sign to the smallest num in the matrix.
+- So, the problem simplifies to finding matrix sum, negative count and smallest absolute value.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
