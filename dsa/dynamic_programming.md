@@ -430,6 +430,34 @@ Space optimised
 <br>
 <br>
 
+### Maximal square
+
+- Problem: Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+- Link: https://leetcode.com/problems/maximal-square/
+
+---
+
+- Intuition? Minimize the problem size. See how we can solve the base case, then 1 level above that case and so on. This will build up the intuition.
+- This problem is slightly different than other DP problems.
+- Other problems will give the optimal value after end of recursion/iteration.
+- In the problem, we have to keep track of optimal value while iterating.
+
+
+---
+
+- Assumption: `f(i, j)` represents the max square side having top-left corner at `(i, j)`.
+- To find: `max(f(i, j)) ^ 2`
+- Functional equation:
+    - If `A[i][j] == 0`: `f(i, j) = 0`
+    - Else `f(i, j) = min(f(i+1, j+1), f(i, j+1), f(i+1, j)) + 1`
+- Range: `i ∈ [0, m-1]`, `j ∈ [0, n-1]`
+- Base conditions:
+    - If `i == m` or `j == n`, then answer is `0`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
