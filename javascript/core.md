@@ -11,6 +11,7 @@
 - [Declaring variables](#declaring-variables)
 - [Hoisting](#hoisting)
 - [Temporal Dead Zone](#temporal-dead-zone)
+- [Scope](#scope)
 
 <br>
 <br>
@@ -139,6 +140,7 @@ x.a = 10;
 <br>
 <br>
 <br>
+<br>
 
 ## Hoisting
 
@@ -171,6 +173,7 @@ var x = 10;
 <br>
 <br>
 <br>
+<br>
 
 ## Temporal Dead Zone
 
@@ -178,6 +181,199 @@ var x = 10;
 - During this period trying to access the variable results in a `ReferenceError`.
 - This is done to avoid access to hoisted variables that are not yet initialised in the code.
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Scope
+
+- In JavaScript, scope defines where a variable or a function is accessible.
+- There are 3 main types of scope:
+    - Global
+    - Function
+    - Block
+
+<br>
+<br>
+
+### Lexical scope
+
+- JavaScript uses lexical scoping, which means scope is determined at write-time, not run-time.
+- In simple words, A variables's scope is defined by where it is written in the source code and not by where it is called from.
+
+```js
+function outer() {
+  const x = 10;
+
+  function inner() {
+    console.log(x);  // 10
+  }
+
+  inner();
+}
+
+outer();
+```
+
+- Here, `inner` can access `x` because `x` exists in the lexical environment where `inner` is defined.
+
+<br>
+<br>
+
+### Global scope
+
+- Anything declared outside of a function or a block lives in the global scope.
+- Global variables declared using `var` behaves differently than `let` or `const`.
+- `var` creates a property on the global object (`window` in browsers, `global` in Node.js).
+- `let` and `const` do not attach themselves to the global object.
+
+```js
+var x = 10;
+let y = 20;
+
+console.log(window.x); // 10
+console.log(window.y); // undefined
+```
+
+<br>
+<br>
+
+### Function scope
+
+- Variables declared inside a function are scoped to that function. They cannot be accessed outside the function.
+- Variables declared using `var` are function-scoped.
+
+```js
+function test() {
+  var a = 10;
+  let b = 20;
+  const c = 30;
+}
+
+console.log(a, b, c); // ReferenceError
+```
+
+<br>
+<br>
+
+### Block scope
+
+- Variables declared inside a block (`{}`) are scoped to that block. They cannot be accessed outside the block.
+- Variables declared using `let` and `const` are block-scoped.
+
+```js
+if (true) {
+  var a = 1;
+  let b = 2;
+}
+
+console.log(a); // 1
+console.log(b); // ReferenceError
+```
+
+<br>
+<br>
+
+### Scope chain & Variable resolution
+
+- When JavaScript tries to resolve a variable, it follows the **scope chain**.
+- Scope chain defines a chain of scopes. JS tries to find the variable in the first scope, if not present, it moves on to the next scope in the chain.
+- Here's how the lookup process looks like:
+    - Check the current scope.
+    - If not found, move to the parent scope.
+    - Continue until the global scope.
+    - Throw a `ReferenceError` if not found.
+
+```js
+const a = 10;
+
+function foo() {
+  const b = 20;
+
+  function bar() {
+    const c = 30;
+    console.log(a, b, c);  // 10 20 30
+  }
+  bar();
+}
+foo();
+```
+
+<br>
+<br>
+
+### Scope vs Execution context
+
+- Scope is static and is determined at parse time.
+- Execution context is dynamic and created at runtime when code executes.
+
+```js
+function foo() {
+  console.log(x);  // ReferenceError: x is not defined
+}
+
+function bar() {
+  const x = 10;
+  foo();
+}
+
+bar();
+```
+
+- When `bar()` is called, even though `x` is defined, trying to access `x` in `foo()` will throw `ReferenceError` because it is not present in the scope.
+- JS will search for `x` in `foo()` -> `global scope`. Not in `bar()`.
+
+<br>
+<br>
+
+### Scope and loops
+
+```js
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1000);
+}
+
+// 3
+// 3
+// 3
+```
+
+- `var` is function-scoped, All callbacks share the same `i`.
+
+```js
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1000);
+}
+
+// 0
+// 1
+// 2
+```
+
+- Using `let`, each iteration gets its own block-scoped `i`.
+
+<br>
+<br>
+
+### Relationship between Scope, Hoisting & TDZ
+
+- Scope defines where a variable exists.
+- Hoisting defines when it becomes available.
+- TDZ defines when it can be accessed safely.
+
+<br>
+<br>
+
+### Key points
+
+- JavaScript uses lexical scoping (write-time), not dynamic scoping (run-time).
+- `var` is function-scoped, while `let` and `const` are block-scoped.
+- Global `var` attaches to the global object; `let` and `const` do not.
+- Variable resolution is done using scope chain.
+
+<br>
 <br>
 <br>
 <br>
