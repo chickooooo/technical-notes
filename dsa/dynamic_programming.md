@@ -458,6 +458,26 @@ Space optimised
 <br>
 <br>
 
+### Minimum insertion to make palindrome
+
+- Problem: Given a string s. In one step you can insert any character at any index of the string. Return the minimum number of steps to make s palindrome.
+- Link: https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+
+---
+
+- Assumption: `f(i, j)` represents the minimum insertions for string starting from `ith` index and ending at `jth` index.
+- To find: `f(0, n-1)`
+- Functional equation:
+    - If `s[i] == s[j]`: `f(i, j) = f(i+1, j-1)`
+    - Else `f(i, j) = min(f(i+1, j), f(i, j-1)) + 1`
+- Range: `i ∈ [0, n-1]`, `j ∈ [n-1, 0]`
+- Base conditions:
+    - If `i >= j`, then answer is `0`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
