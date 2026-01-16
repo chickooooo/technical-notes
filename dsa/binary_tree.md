@@ -250,6 +250,22 @@
 <br>
 <br>
 
+### All nodes at distance k
+
+- Problem: Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.
+- Link: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+
+---
+
+- **Algorithm**: Graph BFS
+- First convert the tree into a graph by creating a `{node: parent}` hashmap.
+- Then perform BFS from the start node and find all the nodes at distance `k`.
+- While performing BFS, keep track of previous node and ignore it to avoid cycles.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
