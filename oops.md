@@ -1,3 +1,11 @@
+# Object Oriented Programming
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Index
 - [4 Pillars of OOPS](#4-pillars-of-oops)
 - [Access modifiers](#access-modifiers)
@@ -11,7 +19,10 @@
 - [Method Resolution Order](#method-resolution-order)
 - [Types of inheritance](#types-of-inheritance)
 - [Diamond Problem](#diamond-problem)
+- [Inheritance vs Composition](#inheritance-vs-composition)
 
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -430,8 +441,84 @@ print(D.mro())
 <br>
 <br>
 
-### More
+### Inheritance vs Composition
 
-- Common dunder methods
-- What are metaclasses in Python and when would you use them? 
-- What is duck typing in Python? 
+#### Inheritance
+
+- In inheritance, a child class inherits the attributes and methods of the parent class.
+- This is "**is-a**" type of relationship. Example, a `Dog` is a `Animal`.
+- Here, the parent class defines the behaviour and the child class can implements or extends it.
+- Pros: Promotes code reuse and support polymorphism.
+- Cons: Tight coupling; changes made in parent class can affect child class.
+
+<br>
+
+```py
+class Animal:
+    def speak(self):
+        pass
+
+class Dog(Animal):
+    def speak(self):
+        return "Bark"
+```
+
+<br>
+<br>
+
+#### Composition
+
+- In composition, a class contains another class as an attribute.
+- This is "**has-a**" type of relationship. Example, a `Car` has a `Engine`.
+- Here, the behaviour is delegated to the contained class.
+- Pros: Loose coupling, more flexible, easier to change or extend.
+- Cons: Slightly more boilerplate code.
+
+<br>
+
+```py
+class Engine:
+    def start(self):
+        return "Engine started"
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()
+
+    def drive(self):
+        return self.engine.start()
+```
+
+<br>
+<br>
+
+#### When to choose which?
+
+- Use inheritance when:
+    - There is a clear is-a relationship.
+    - We want polymorphism across related types.
+- Use composition when:
+    - You want flexibility and reusability.
+    - Behavior may change at runtime.
+
+<br>
+<br>
+
+#### Pythonic principle
+
+```
+Favor composition over inheritance.
+```
+
+- In Python, composition is generally preferred unless inheritance is clearly justified.
+- This aligns with Python's design philosophy: Explicit is better than implicit.
+
+<br>
+<br>
+<br>
+
+### 
+
+<br>
+<br>
+<br>
