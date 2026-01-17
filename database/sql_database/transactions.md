@@ -13,6 +13,7 @@
 - [Transaction rollback](#transaction-rollback)
 - [Transaction savepoint](#transaction-savepoint)
 - [Isolation levels](#isolation-levels)
+- [Locking](#locking)
 
 <br>
 <br>
@@ -231,7 +232,7 @@ Features
 
 ---
 
-- Low consistency, high performance. 
+- Low consistency, high performance.
 - Rarely used.
 
 <br>
@@ -305,6 +306,126 @@ Features
 - Higher isolation means better consistency but lower performance.
 - `READ COMMITTED` is most commonly used.
 - `SERIALIZABLE` is safest but slowest.
+
+<br>
+<br>
+<br>
+<br>
+
+## Locking
+
+- Locking is a concurrency control mechanism used by databases to ensure data **consistency** and **isolation**.
+- It is particularly useful when multiple transactions want to access the same data at the same time.
+- A lock restricts how other transactions can read or write a data item (row, page, table, etc.) while one transaction is using it.
+
+<br>
+<br>
+
+### Why locking is needed?
+
+- Databases support concurrent transactions and without locking, this might lead to data anomalies.
+- Common problems without locking:
+    - Dirty reads: Transaction B reads data written by Transaction A that hasn't committed yet.
+    - Lost updates: Two transactions update the same row, and one overwrites the other.
+    - Non repeatable reads: A row read twice returns different values because another transaction modified it.
+    - Phantom reads: New rows appear between two identical queries in the same transaction.
+- Locking helps maintain ACID properties, especially Consistency and Isolation. 
+
+<br>
+<br>
+
+### Types of locking
+
+Based on access control
+
+Shared Lock (Read lock):
+
+- A shared lock is acquired when a transaction wants to read data but does not intend to modify it.
+- Multiple transactions can hold shared locks on the same data at a time.
+- However, while a shared lock is held, no transaction can acquire an exclusive (write) lock on that data.
+- This prevents another transaction from modifying the data while it is being read.
+
+<br>
+
+Exclusive Lock (Write lock):
+
+- An exclusive lock is acquired when a transaction wants to modify data, such as inserting, updating, or deleting rows.
+- While an exclusive lock is held, no other transaction can read or write the data.
+- This ensures that changes happen in a controlled and isolated manner.
+
+<br>
+
+---
+
+<br>
+
+Based on granularity
+
+Row level lock
+
+- Only the rows that are being accessed are locked.
+- High concurrency. Many transactions can work simultaneously on different rows.
+- High overhead. Database has to manage many locks.
+- PostgreSQL, MySQL primarily use row-level locking for updates.
+
+<br>
+
+Page level lock
+
+- A page is a fix sized block of data containing multiple rows.
+- Page level locking reduces the number of locks the database must manage.
+- It also reduces concurrency because multiple rows are locked together, even if only one row is actually needed.
+- Some database engines use page level locks internally when row level locking becomes too expensive.
+
+<br>
+
+Table level lock
+
+- A table level lock locks the entire table.
+- Table level locks are commonly used during schema migrations, data imports, etc.
+- When consistency is more important than concurrency.
+
+<br>
+
+Database level lock
+
+- A database level lock restricts access to the entire database.
+- It is typically used for full backups & restores where allowing concurrent access could lead to inconsistent state.
+
+<br>
+
+---
+
+<br>
+
+Pessimistic Locking
+
+- Pessimistic locking is a strategy where the database assumes that conflicts are likely.
+- Therefore, it locks the data as soon as it is read or accessed.
+- It provides strong consistency but can reduce concurrency.
+- Pessimistic locking is commonly used for financial transactions.
+
+<br>
+
+Optimistic Locking
+
+- Optimistic locking assumes that conflicts are rare.
+- When a transaction tries to update the data, it checks whether the data has changed since it was last read, usually using a version number or a timestamp.
+- If the data has changed, the update fails and must be retried.
+- This approach is suitable for high-read, low write systems.
+
+<br>
+<br>
+
+### Deadlock
+
+- A deadlock can happen when 2 transactions are waiting for each other to remove it's lock.
+- In this scenario, database will detect the deadlock and kill one of the transaction.
+
+```
+T1 locks Row A -> waits for Row B
+T2 locks Row B -> waits for Row A
+```
 
 <br>
 <br>
