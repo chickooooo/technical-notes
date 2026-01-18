@@ -29,7 +29,23 @@
 <br>
 <br>
 
-###
+### Largest magic square
+
+- Problem: Given an m x n grid of integers, find the largest possible size k such that a k by k subgrid is a magic square, where all rows, columns, and both diagonals have the same sum. The numbers do not need to be distinct.
+- Link: https://leetcode.com/problems/largest-magic-square/
+
+---
+
+- **Algorithm**: Prefix sum
+- Create multiple prefix sum grids: row-wise, column-wise, diagonal-wise and anti-diagonal-wise.
+- Now iterate through the main grid and find the largest magic square.
+- Also implement early stopping wherever possible.
+
+<br>
+<br>
+<br>
+
+### 
 
 <br>
 <br>
