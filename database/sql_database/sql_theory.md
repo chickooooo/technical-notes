@@ -16,6 +16,7 @@
 - [Database views](#database-views)
 - [Non-materialised view](#non-materialised-view)
 - [Materialised view](#materialised-view)
+- [Data normalization](#data-normalization)
 
 <br>
 <br>
@@ -382,6 +383,130 @@ CREATE MATERIALIZED VIEW view_name AS
 - Analytics & reporting dashbaords.
 - For read heavy systems with less frequent writes.
 - When eventual consistency is acceptable.
+
+<br>
+<br>
+<br>
+<br>
+
+## Data normalization
+
+- It is the process of reducing data redundancy and improve data integrity.
+- It involves dividing the entities into two or more tables and defining relationship between these tables.
+
+<br>
+
+Advantages
+
+- Eliminates Data Redundancy: No duplicate data across tables.
+- Improves Data Integrity: Consistent and accurate data.
+- Eliminates Update Anomalies: Only 1 record needs to be updated.
+
+<br>
+
+Disadvantages
+
+- Complex Queries: Need to use joins to query data together.
+- Low Performance: Using heavy joins induces performance overhead.
+- Not ideal for ready-heavy system.
+
+<br>
+<br>
+
+### Various normal forms
+
+First normal form (1NF)
+
+- Each record in a table should be uniquely identifiable.
+- Each value in a column should be indivisible.
+
+<br>
+
+Violates 1NF 
+
+| employee_id | name  | address              |
+| ----------- | ----- | -------------------- |
+| 1           | Alex  | Baker street, London |
+| 2           | Brian | Townhall, Wales      |
+
+<br>
+
+Follows 1NF
+
+| employee_id | name  | street_name  | city   |
+| ----------- | ----- | ------------ | ------ |
+| 1           | Alex  | Baker street | London |
+| 2           | Brian | Townhall     | Wales  |
+
+<br>
+
+---
+
+<br>
+
+Second normal form (2NF)
+
+- Table must be in 1NF.
+- Applicable only in case of composite primary keys.
+- Each non-key column in the table should dependent on the whole primary key.
+- In other words, there should be no Partial Dependencies in the table.
+
+Partial Dependency
+
+- Table's primary key should be made up of two or more columns.
+- If any non-primary key column depends only on a part of primary key, then we have partial dependency.
+
+<br>
+
+Violates 2NF 
+
+| student_id | subject_id | marks | teacher |
+| ---------- | ---------- | ----- | ------- |
+| 1          | 101        | 60    | Ana     |
+| 2          | 101        | 80    | Jasmine |
+
+- Primary key is (student_id, subject_id).
+- `teacher` column depends only on `subject_id` and not `student_id`.
+- `teacher` column should be move to `subject` table.
+
+<br>
+
+---
+
+<br>
+
+Third normal form (3NF)
+
+- Table must be in 2NF.
+- It should not have Transitive Dependency.
+
+Transitive Dependency.
+
+- When a non-primary key column depends on another non-primary key column.
+
+<br>
+
+Violates 3NF 
+
+| student_id | subject_id | marks | exam_type | total_marks |
+| ---------- | ---------- | ----- | --------- | ----------- |
+| 1          | 101        | 60    | Written   | 80          | 
+| 2          | 101        | 18    | Oral      | 20          |
+
+- Primary key is (student_id, subject_id).
+- `exam_type` column depends on complete primary key.
+- `total_marks` column depends only on `exam_type`.
+- We should create a separate table for exam entity (exam_type, total_marks, exam_duration, etc.)
+
+<br>
+
+---
+
+<br>
+
+- Boyce-Codd Normal Form (BCNF)
+- Fourth normal form (4NF)
+- Fifth normal form (5NF)
 
 <br>
 <br>
