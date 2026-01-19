@@ -45,6 +45,23 @@
 <br>
 <br>
 
+### Max square with sum <= threshold
+
+- Problem: Given a m x n matrix mat and an integer threshold, return the maximum side-length of a square with a sum less than or equal to threshold or return 0 if there is no such square.
+- Link: https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/
+
+---
+
+- **Algorithm**: Prefix sum of a matrix
+- Calculate prefix sum of the matrix (row + column wise): `mat[i][j] += t + l - tl`.
+- Now iterate over the matrix and find the max square with given condition.
+- Sum of a square can be found using: `square_sum = total - t - l + tl`.
+- Optimization: Once a square with side `s` is found, from the next iteration, try to find a square with side `s+1`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
