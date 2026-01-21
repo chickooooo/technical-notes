@@ -52,6 +52,25 @@ If no such value exists, set `ans[i] = -1`.
 <br>
 <br>
 
+### Construct minimum bitwise array II
+
+- Problem: Given an array nums of n prime numbers, build an array ans of length n such that for each index i:
+    - `ans[i] OR (ans[i] + 1) = nums[i]`
+    - `ans[i] is as small as possible`
+If no such value exists, set `ans[i] = -1`.
+- Link: https://leetcode.com/problems/construct-the-minimum-bitwise-array-ii/
+
+---
+
+- **Algorithm**: Flip a bit
+- Same approach as problem 1, but using bit manipulation instead of for-loop.
+- Finding `jth` unset bit: `num & (1 << j) == 0`.
+- Unsetting `(j-1)th` bit: `num ^ (1 << (j - 1))`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
