@@ -9,6 +9,7 @@
 ## Index
 
 - [Types of index](#types-of-index)
+- [Slow queries](#slow-queries)
 
 <br>
 <br>
@@ -231,5 +232,120 @@ Usecases
 
 - Full text search in documents or articles.
 
+<br>
+<br>
+<br>
+<br>
+
+### Slow queries
+
+#### Identification
+
+pg_stat_statements
+
+- Start with enabling and checking `pg_stat_statements`.
+- It tracks query execution time, number of calls and rows processed.
+- It will help us track the queries that:
+     - Take the most time
+     - Are executed frequently
+     - Have high average latency
+
+```
++------------------------------------------------------+-------+------------------+-----------------+-------+
+| query                                                | calls | total_exec_time | mean_exec_time | rows  |
++------------------------------------------------------+-------+------------------+-----------------+-------+
+| SELECT * FROM orders WHERE user_id = $1              | 12000 | 950000.23       | 79.17          | 12000 |
+| SELECT count(*) FROM events WHERE created_at > $1    |  3000 | 420000.55       | 140.02         | 3000  |
+| SELECT u.id, u.name FROM users u JOIN orders o ...   |   800 | 210000.10       | 262.50         |  800  |
++------------------------------------------------------+-------+------------------+-----------------+-------+
+```
+
+<br>
+
+---
+
+<br>
+
+log_min_duration_statement
+
+- Configure `log_min_duration_statement` with a threshold time (e.g. 500ms, 1s).
+- This will log all queries that exceed the threshold.
+
+<br>
+
+---
+
+<br>
+
+EXPLAIN and EXPLAIN ANALYZE
+
+- Once we have identified slow queries, we can analyze them using `EXPLAIN ANALYZE`.
+- This will give:
+     - The actual execution plan.
+     - Time spent at each step.
+     - Whether indexes are used.
+     - Whether there are sequential scans, nested loops, or hash joins
+- It will help us identify the exact step responsible for low performance.
+
+```
+Nested Loop  (cost=0.85..245.67 rows=1 width=64) (actual time=0.112..512.483 rows=1 loops=1)
+  ->  Seq Scan on users  (cost=0.00..120.00 rows=1 width=32) (actual time=0.045..410.217 rows=1 loops=1)
+        Filter: (email = 'john@example.com')
+        Rows Removed by Filter: 99999
+  ->  Index Scan using orders_user_id_idx on orders  (cost=0.85..125.67 rows=10 width=32) (actual time=0.080..1.950 rows=3 loops=1)
+        Index Cond: (user_id = users.id)
+Planning Time: 0.345 ms
+Execution Time: 512.612 ms
+```
+
+<br>
+<br>
+
+#### Optimization
+
+Adding index
+
+- This is the first and most straight forward optimization technique.
+- Make sure proper index is added on columns used frequently in `WHERE`, `JOIN` and `ORDER BY` clause.
+- Use composite index when multiple columns are frequently filtered together.
+- Use partial indexes when only a subset of rows is queried.
+
+<br>
+
+---
+
+<br>
+
+Rewriting queries
+
+- Sometimes the query itself is inefficient.
+- In such cases, we can rewrite the query using these improvements:
+     - Replacing `SELECT *` with only the required columns.
+     - Do filtering early on to reduce data processing.
+     - Removing unnecessary joins.
+     - Avoiding subqueries when a `JOIN` is better.
+     - Breaking large queries into smaller, more efficient steps.
+
+<br>
+
+---
+
+<br>
+
+Caching
+
+- If a query is still expensive but frequently requested, then consider:
+     - Application-level caching (Redis, in-memory cache).
+     - Materialized views for storing complex aggregations and refreshing periodically.
+
+<br>
+<br>
+<br>
+<br>
+
+### 
+
+<br>
+<br>
 <br>
 <br>
