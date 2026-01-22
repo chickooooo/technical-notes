@@ -9,6 +9,7 @@
 - [useReducer Hook](#usereducer-hook)
 - [useState vs useReducer Hook](#usestate-vs-usereducer-hook)
 - [Context API](#context-api)
+- [useEffect Hook](#useeffect-hook)
 
 <br>
 <br>
@@ -309,56 +310,94 @@ const App = () => (
 <br>
 <br>
 
+### useEffect Hook
+
+- It allows functional components to perform side effects.
+- A **side effect** is an operation that does something outside the component's render process. Example:
+  - Fetching data from an API
+  - Interacting with browser APIs like localStorage
+  - Setting up subscriptions or timers
+- useEffect provides a safe and controlled place to run side effects **after rendering**.
+
+<br>
+
+Syntax
+
+```jsx
+useEffect(() => {
+  // Side effect code here
+
+  return () => {
+    // Cleanup code (optional)
+  };
+}, [dependencies]);
+```
+
+- The first argument is a function containing the side effect.
+- The second argument is a dependency array that controls when the effect runs.
+- The cleanup function runs before the effect re-runs or when the component unmounts.
+
+<br>
+
+useEffect Running
+
+- If dependency array is not provided, useEffect will run on every render. (Avoid this).
+- If empty array is provided (`[]`), useEffect will run only once on component mount.
+- If array is not empty, useEffect will run every time any of the dependency changes.
+
+<br>
+
+Example
+
+```jsx
+import { useEffect, useState } from "react";
+
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    // fetch and update users once
+    fetch("https://api.example.com/users")
+      .then(response => response.json())
+      .then(data => setUsers(data));
+  }, []);
+
+  return (
+    <ul>
+      {users.map(user => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+<br>
+
+Cleanup
+
+- Cleanup function helps prevent memory leaks.
+
+```jsx
+useEffect(() => {
+  // start timer
+  const timer = setInterval(() => {
+    console.log("Running...");
+  }, 1000);
+
+  return () => {
+    // cleanup timer
+    clearInterval(timer);
+  };
+}, []);
+```
+
+<br>
+<br>
+<br>
+
 ### 
 
-- What is React?
-- Why use React?
-- React vs Angular
-- What is JSX?
-- React.createElement()
-
-- What are props in React?
-- What is prop drilling and how can you avoid it?
-- What are keys in React and why are they important?
-- Class Component vs Functional Component
-- controlled vs uncontrolled components
-- What are higher-order components (HOC)?
-- What are synthetic events in React?
-
-- What are side effects?
-- useEffect hook
-- useLayoutEffect
-- useEffect vs useLayoutEffect
-
-- useRef hook
-- usePortal hook
-- useMemo hook
-- useCallback hook
-- useMemo vs useCallback
-
-- What are hooks in React?
-- How to create custom
-
-- What is lifting state up in React?
-
-- redux
-- react redux toolkit
-- What are middleware in Redux?
-- Redux vs Context API
-
-- What are React Router and its main components?
-- Protected routes
-- Role based access control (RBAC)
-
-- virtual dom
-- diffing algorithm
-- reconcilliation
-- react fibre
-- What are render props in React?
-- concurrent rendering
-- suspense
-
-- How do you optimize performance in a React app?
-
-- What is Next.js and how is it different from React?
-- What is server-side rendering (SSR) in React?
+<br>
+<br>
+<br>
