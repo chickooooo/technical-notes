@@ -10,6 +10,7 @@
 - [useState vs useReducer Hook](#usestate-vs-usereducer-hook)
 - [Context API](#context-api)
 - [useEffect Hook](#useeffect-hook)
+- [Props and prop drilling](#props-and-prop-drilling)
 
 <br>
 <br>
@@ -392,6 +393,82 @@ useEffect(() => {
 }, []);
 ```
 
+<br>
+<br>
+<br>
+<br>
+
+### Props and prop drilling
+
+#### What are props?
+
+- Props is short form for properties.
+- They allow to pass data from parent component to child component in React.
+- The parent component can send values, functions or objects to the child component.
+
+<br>
+
+Key Points
+
+- Props are read-only in nature, they cannot be modified.
+- They make components reusable, modular and maintainable.
+
+<br>
+
+```jsx
+function Button(props) {
+  return <button>{props.label}</button>;
+}
+
+function App() {
+  return (
+    <>
+      <Button label="Login" />
+      <Button label="Signup" />
+    </>
+  );
+}
+```
+
+<br>
+<br>
+
+#### What is prop drilling?
+
+- Prop drilling is a situation where props are passed through multiple levels of components, even though some intermediate components do not need the data.
+- This makes the code hard to read and debug.
+- Intermediate components have to receive and pass on the props, which adds unnecessary overhead.
+
+<br>
+
+```jsx
+function App() {
+  return <Parent user="John" />;  // data origin
+}
+
+function Parent(props) {
+  return <Child user={props.user} />;
+}
+
+function Child(props) {
+  return <GrandChild user={props.user} />;
+}
+
+function GrandChild(props) {
+  return <h1>Hello, {props.user}</h1>;  // data usage
+}
+```
+
+<br>
+<br>
+
+#### How to avoid prop drilling?
+
+- Use Context API to share data globally without passing props manually at every level.
+- Use state management libraries like Redux & Zustand, to manage global state for large applications.
+- Restructure component tree to keep the concerned components as close as possible.
+
+<br>
 <br>
 <br>
 <br>
