@@ -12,6 +12,7 @@
 - [Hoisting](#hoisting)
 - [Temporal Dead Zone](#temporal-dead-zone)
 - [Scope](#scope)
+- [Currying](#currying)
 
 <br>
 <br>
@@ -379,8 +380,46 @@ for (let i = 0; i < 3; i++) {
 <br>
 <br>
 
+## Currying
+
+- Currying is a functional programming technique where a function that takes multiple arguments is transformed into a sequence of functions, each taking a single argument.
+- This allows better code reuse and composable functions.
+- Currying is highly used in functional libraries like Redux.
+
+<br>
+
+```js
+// normal function
+function multiplyNormal(multiplier, num) {
+  return multiplier * num;
+}
+
+// curried function
+function multiplyCurried(multiplier) {
+  return function (num) {
+    return multiplier * num;
+  };
+}
+
+// code reuse
+const multiplyBy10 = multiplyCurried(10);
+const multiplyBy50 = multiplyCurried(50);
+
+// usecase
+multiplyBy10(3); // 30
+multiplyBy50(3); // 150
+multiplyCurried(100)(3); // 300
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## 
 
+<br>
 <br>
 <br>
 <br>
