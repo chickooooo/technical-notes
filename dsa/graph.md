@@ -82,6 +82,13 @@
 - Here, `count` represents the no. of provinces.
 - Each time we start from an unvisited node, we are visiting a new province.
 
+---
+
+- **Algorithm**: Disjoint set
+- Use standard **UnionByRank** or **UnionBySize** algorithm and connect each node to its respective component.
+- Then, traverse the `parent` array and count all the nodes that are parent of themself (root nodes).
+- Each component will have 1 root node and hence no. of roots = no. of provinces.
+
 <br>
 <br>
 <br>
