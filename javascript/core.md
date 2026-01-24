@@ -13,6 +13,7 @@
 - [Temporal Dead Zone](#temporal-dead-zone)
 - [Scope](#scope)
 - [Currying](#currying)
+- [Async-Await](#async-await)
 
 <br>
 <br>
@@ -409,6 +410,89 @@ const multiplyBy50 = multiplyCurried(50);
 multiplyBy10(3); // 30
 multiplyBy50(3); // 150
 multiplyCurried(100)(3); // 300
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Async-Await
+
+- Async-await is a syntax in JavaScript that allows us to write asynchronous code in a synchronous looking manner.
+- It is built on top of Promises and makes asynchronous code easier to read, write, and maintain.
+
+<br>
+<br>
+
+### `async`
+
+- The `async` keyword is used before a function.
+- An `async` function always returns a Promise.
+- If we return a value, JavaScript automatically wraps it in a resolved Promise.
+
+<br>
+
+```js
+async function getData() {
+  return "Hello";
+}
+
+getData().then(result => console.log(result));
+
+// Output:
+// Hello
+```
+
+<br>
+<br>
+
+### `await`
+
+- The `await` keyword can be used inside an async function only.
+- It pauses the execution of the function until the Promise is resolved or rejected.
+- It returns the resolved value of the Promise.
+
+<br>
+
+```js
+function fetchData() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve("Data received");
+    }, 2000);
+  });
+}
+
+async function showData() {
+  const result = await fetchData();
+  console.log(result);
+}
+
+showData(); // Data received
+```
+
+<br>
+<br>
+
+### Error handling
+
+- We handle errors in async-await using `try-catch` blocks.
+- If an error is raised, rest of the `try` block code is skipped and the error is caught in the `catch` block.
+
+```js
+async function getUser() {
+  try {
+    const response = await fetch("https://wrong-url.com");
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log("Error occurred:", error);
+  }
+}
+
+getUser(); // Error occurred: TypeError: fetch failed
 ```
 
 <br>
