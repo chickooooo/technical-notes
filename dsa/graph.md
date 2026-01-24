@@ -247,6 +247,23 @@
 <br>
 <br>
 
+### Operations to make network connected
+
+- Problem: Given n computers and a list of existing connections, where you can remove a cable and reconnect it between any two disconnected computers, find the minimum number of operations needed to connect all computers. Return -1 if it's impossible.
+- Link: https://leetcode.com/problems/number-of-operations-to-make-network-connected/
+
+---
+
+- **Algorithm**: Disjoint set
+- Note: To connect `n` nodes in a graph, we require atleast `n-1` edges.
+- If number of connection is less than `n-1`, return `-1`. Else we have enough connections to connect all the computers.
+- Suppose the graph has `m` components, then we need to move `m-1` connections to connect all components.
+- Use Disjoint Set or DFS traversal to find the number of components `m` and return `m-1`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
