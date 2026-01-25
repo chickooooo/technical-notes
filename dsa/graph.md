@@ -264,6 +264,24 @@
 <br>
 <br>
 
+### Accounts merge
+
+- Problem: You are given a list of accounts where each account contains a name followed by emails. Accounts with any common email belong to the same person (names may repeat but only identical names can be merged). Merge such accounts and return each as [name, sorted unique emails]. The order of accounts does not matter.
+- Link: https://leetcode.com/problems/accounts-merge/
+
+---
+
+- **Algorithm**: Disjoint set
+- Concepts: Disjoint set union + hashmap + sorting (Implementation heavy)
+- Group together all the emails with the same name: `{name: [[emails]]}`.
+- Iterate over email groups (`List[List[str]]`) and use Disjoint set algorithm to merge groups containing common email. To merge 2 groups, attach current group's index to previous group's index.
+- Prepare new groups of emails pointing to the same parent, while keeping each group sorted using `bisect.insort()`.
+- Attach name to each group and return the final list.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
