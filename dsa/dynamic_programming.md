@@ -474,6 +474,20 @@ Space optimised
 - Base conditions:
     - If `i >= j`, then answer is `0`.
 
+### Minimum falling path sum
+
+- Problem: Given an n × n integer matrix, find the minimum sum of a falling path from the top row to the bottom. From each cell, you may move to the cell directly below or diagonally down-left or down-right in the next row.
+- Link: https://leetcode.com/problems/minimum-falling-path-sum/
+
+---
+
+- Assumption: `f(i, j)` represents the minimum sum of falling path starting from `(i, j)th` index in the grid. 
+- To find: `min(f(0, j))`
+- Functional equation: `f(i, j) = min(f(i+1, j), f(i+1, j-1), f(i+1, j+1)) + A[i][j]`
+- Range: `i ∈ [n-2, 0]`, `j ∈ [n-1, 0]`
+- Base conditions:
+    - If `j < 0` or `j == n`, then answer is `INF`.
+
 <br>
 <br>
 <br>
