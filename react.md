@@ -11,6 +11,7 @@
 - [Context API](#context-api)
 - [useEffect Hook](#useeffect-hook)
 - [Props and prop drilling](#props-and-prop-drilling)
+- [useRef Hook](#useref-hook)
 
 <br>
 <br>
@@ -473,8 +474,51 @@ function GrandChild(props) {
 <br>
 <br>
 
+### useRef Hook
+
+- `useRef` is a React Hook that lets us create a **mutable reference** that persists across renders.
+- Whenever the value of this reference changes, the UI **is not** re-rendered.
+- `useRef` is commonly used to:
+  - Persist data between renders that doesn't affect the UI.
+  - Access or manipulate a DOM element directly.
+  - Store and update a value without triggering re-renders
+
+<br>
+
+```jsx
+import { useRef } from "react";
+
+function InputFocus() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={focusInput}>Focus</button>
+    </>
+  );
+}
+```
+
+<br>
+
+#### Key points
+
+- `useRef` works with mutable values while `useState` works with immutable values.
+- Common usecases: store timers & intervals, access DOM elements, etc.
+
+<br>
+<br>
+<br>
+<br>
+
 ### 
 
+<br>
 <br>
 <br>
 <br>
