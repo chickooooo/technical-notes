@@ -492,6 +492,28 @@ Space optimised
 <br>
 <br>
 
+### Distinct subsequences
+
+- Problem: Given two strings s and t, return the number of distinct subsequences of s which equals t.
+- Link: https://leetcode.com/problems/distinct-subsequences/
+
+---
+
+- Assumption: `f(i, j)` represents the no. of distinct subsequences starting from `ith` index of `s` and `jth` index of `t`.
+- To find: `f(0, 0)`
+- Functional equation:
+    - If `s[i] == t[j]`, then `f(i, j) = f(i+1, j+1) + f(i+1, j)`
+    - Else `f(i, j) = f(i+1, j)`
+- Range: `i ∈ [0, m-1]`, `j ∈ [0, n-1]`
+- Base conditions:
+    - If `i == m & j == n` then answer is `1`.
+    - If `i == m` then answer is `0`.
+    - If `j == n` then answer is `1`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
