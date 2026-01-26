@@ -282,6 +282,24 @@
 <br>
 <br>
 
+### Making a large island
+
+- Problem: You are given an n x n binary matrix grid. You are allowed to change at most one 0 to be 1. Return the size of the largest island in grid after applying this operation. An island is a 4-directionally connected group of 1s.
+- Link: https://leetcode.com/problems/making-a-large-island/
+
+---
+
+- **Algorithm**: DFS
+- Iterate through the grid and mark all the cells of an island with a common number (`-1`, `-2`, etc.). This will help us distinguish one island from the other.
+- Use a `hashmap` to keep record of number of cells of an island.
+- Iterate the grid again and for each `0` cell, find the neighbouring islands of that cell. If this cell is converted to `1`, all the neighbouring islands will be connected. Store the maximum size of the combined islands.
+- If atleast 1 zero is present, return max of `max_combined_size` or `max_single_size + 1`.
+- Otherwise return `n * n`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
