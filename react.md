@@ -12,6 +12,7 @@
 - [useEffect Hook](#useeffect-hook)
 - [Props and prop drilling](#props-and-prop-drilling)
 - [useRef Hook](#useref-hook)
+- [Controlled & Uncontrolled components](#controlled--uncontrolled-components)
 
 <br>
 <br>
@@ -510,6 +511,92 @@ function InputFocus() {
 
 - `useRef` works with mutable values while `useState` works with immutable values.
 - Common usecases: store timers & intervals, access DOM elements, etc.
+
+<br>
+<br>
+<br>
+<br>
+
+### Controlled & Uncontrolled components
+
+- In React, controlled and uncontrolled components describe two different ways of handling form data.
+- The key difference is who owns and controls the state of the form element: React or DOM.
+
+<br>
+<br>
+
+#### Controlled component
+
+- A controlled component is a form element whose value is fully controlled by React.
+- `useState` is commonly used to manage the elements state.
+
+<br>
+
+```jsx
+import { useState } from "react";
+
+function ControlledInput() {
+  const [name, setName] = useState("");
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={name}
+        onChange={handleChange}
+      />
+      <p>Your name is: {name}</p>
+    </div>
+  );
+}
+```
+
+- Typing in the input, calls `handleChange` which updates the state via `setName`.
+- The value of the input is always equal to `name`.
+- Ideal when we want to validate input in real time.
+
+<br>
+<br>
+
+#### Uncontrolled component
+
+- An uncontrolled component is a form element that manages its own state internally in the DOM.
+- React does not track the input value on every change.
+- `useRef` is commonly used to access the element's state.
+
+<br>
+
+```jsx
+import { useRef } from "react";
+
+function UncontrolledInput() {
+  const nameRef = useRef(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Your name is: ${nameRef.current.value}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" ref={nameRef} />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+- The input manages its own value inside the DOM.
+- React only reads the value when the form is submitted.
+- Ideal for simple forms and performance.
+
+<br>
+
+- React suggests using Controlled components over uncontrolled components.
 
 <br>
 <br>
