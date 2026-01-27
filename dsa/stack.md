@@ -287,6 +287,30 @@ Why modulo (10^9 + 7) ?
 <br>
 <br>
 
+### Minimum remove to make valid parentheses
+
+- Problem: Given a string s of `(` , `)` and lowercase English characters. Your task is to remove the minimum number of parentheses (in any positions) so that the resulting parentheses string is valid and return any valid string.
+- Link: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+
+---
+
+- **Algorithm**: Valid parentheses
+- Use stack to keep track of valid parentheses.
+- After iteration is complete, the stack will contain invalid parentheses.
+- Remove these parentheses from the string and return the updated string.
+
+---
+
+- **Algorithm**: `O(1)` space complexity.
+- Iterate from left to right and remove invalid `)` from the string. Use a counter to keep track of depth.
+- Then iterate from right to left and remove invalid `(` from the string.
+- At last, return the updated string.
+- Note: In order to remove characters in-place, we need to convert the string into a list of characters.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
