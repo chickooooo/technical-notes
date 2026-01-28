@@ -192,6 +192,29 @@ o1 -> e1 -> o2 -> e2
 <br>
 <br>
 
+### Starting point of linked list cycle
+
+- Problem: Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+- Link: https://leetcode.com/problems/linked-list-cycle-ii/
+
+---
+
+- **Algorithm**: Slow fast pointer
+- Start with `slow` pointer pointing to the head and fast pointer pointing to `head.next`.
+- Move `slow` pointer by 1 step and `fast` pointer by 2 steps.
+- If `fast` reaches the end, there is no loop. Otherwise, eventually `slow` will be equal to `fast`.
+- Now, create 2 new pointers `new_start = slow.next` and `start = head`.
+- Move these 2 pointers together by 1 step until they meet. The node they meet on is the starting node of the cycle.
+
+---
+
+- **Approach 2**: Use a `set` to keep track of visited nodes.
+- Return the first duplicate node.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
