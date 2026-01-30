@@ -514,6 +514,34 @@ Space optimised
 <br>
 <br>
 
+### Buy sell stock with cooldown
+
+- Problem: Given daily stock prices, find the maximum profit with unlimited transactions, allowing only one stock at a time and requiring a one-day cooldown after each sale.
+- Link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+
+---
+
+- Assumption: `f(i, j)` represents the max profit starting at index `i` and have bought a stock at index `j`. If no stock bought previously then `j = -1`.
+- To find: `f(0, -1)`
+- Functional equation:
+    - If `j == -1`, then `f(i, j) = max(f(i+1, i), f(i+1, -1))`
+    - Else `f(i, j) = max(f(i+2, -1) + A[i] - A[j], f(i+1, j))`
+- Range: `i ∈ [n-1, 0]`, `j ∈ [i-1, -1]`
+- Base conditions:
+    - If `i >= n` then answer is `0`.
+
+---
+
+- Note: Make adjustments to `j` range, to handle `-1`.
+
+---
+
+`O(n)` time complexity solution possible.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
