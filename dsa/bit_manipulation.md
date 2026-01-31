@@ -6,6 +6,71 @@
 <br>
 <br>
 
+## Concepts:
+
+### Check if `ith` bit is set.
+
+- If `num & (1 << i) == 0`, then `ith` bit is not set.
+- If the value is non-zero, then it is set.
+
+```
+num = 22
+i = 4
+
+   010110   <-  22
+&  010000   <-  1 << 4
+
+   010000   non zero -> set
+```
+
+<br>
+<br>
+<br>
+
+### Check if number is even or odd
+
+- If `num & 1 == 1`, then the number is odd.
+- If `num & 1 == 0`, then the number is even.
+
+```
+num = 22
+
+   010110   <-  22
+&  000001   <-   1
+
+   000000   zero -> even
+```
+
+<br>
+<br>
+<br>
+
+### Set/Unset `ith` bit
+
+- To set/unset `ith` bit, do XOR of `num` and `(1 << i)`.
+
+```
+num = 22
+i = 3
+
+   010110   <-  22
+^  001000   <-  1 << 3
+
+   011110   num with ith bit set
+```
+
+<br>
+<br>
+<br>
+
+### 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Problems:
 
 <br>
