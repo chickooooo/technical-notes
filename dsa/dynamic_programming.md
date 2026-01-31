@@ -533,6 +533,7 @@ Space optimised
 ---
 
 - Note: Make adjustments to `j` range, to handle `-1`.
+- Or, use a separate `hashmap` to store values for `j = -1`. This improves readability of the solution.
 
 ---
 
