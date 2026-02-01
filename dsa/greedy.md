@@ -76,6 +76,22 @@ Return the minimum total number of candies required.
 - If the current distance is lesser, we don't need more distance elements ahead of current element.
 - After iteration, return the distance of the topmost item in the stack.
 
+---
+
+- **Algorithm**: Greedy / BFS
+- Perform BFS on a 1D array. At each level, find out the elements in the next level.
+- The min number of jumps is equal to the number of levels we need to cross to reach `n-1`th element.
+- At each level, find the max index that can be reached from the elements of that level.
+- This max index will be the right boundary of the next level.
+
+<br>
+
+```
+0 1 2 3 4 5
+2 1 1 2 3 4
+_ ___ _ ___
+```
+
 <br>
 <br>
 <br>
