@@ -84,6 +84,23 @@ num = 22
 <br>
 <br>
 
+### Set rightmost unset bit
+
+- `n | (n+1)` sets the rightmost unset bit of `n`.
+
+```
+num = 27
+
+   010011   <-  19
+|  010100   <-  20
+
+   010111   num with rightmost unset bit set
+```
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
