@@ -301,6 +301,23 @@
 <br>
 <br>
 
+### Flatten binary tree to linked List
+
+- Problem: Given the root of a binary tree, modify it in place to flatten the tree into a linked list. The linked list should follow pre-order traversal, using only right child pointers, with all left child pointers set to null.
+- Link: https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
+
+---
+
+- **Algorithm**: Morris traversal (similar approach)
+- If the left child exists, attach right child of `node` to the rightmost node in the left subtree (preorder successor).
+- Then move left child of `node` to it's right and set the left pointer to `None`.
+- Go to the next child in the linked list (`node.right`).
+- Keep doing so, until we reach the end of the linked list.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
