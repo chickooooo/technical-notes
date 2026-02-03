@@ -134,6 +134,22 @@
 <br>
 <br>
 
+### Insert node in BST
+
+- Problem: Given the root of a BST and a value not already in the tree, insert the value while maintaining BST properties and return the root.
+- Link: https://leetcode.com/problems/insert-into-a-binary-search-tree/
+
+---
+
+- **Algorithm**: Left or right
+- If the given value is less than current node, go to the left. If it is greater, go to the right.
+- If reached the end (`None`), create a new node with the `val` and return it.
+- While coming up, attach the returned value with left or right node respectively and return the current node.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
