@@ -9,13 +9,8 @@
 ## Index
 
 - [TCP](#tcp)
-    - [How TCP works?](#how-tcp-works)
-    - [Advantages](#advantages)
-    - [Disadvantages](#disadvantages)
 - [UDP](#udp)
-    - [Key features](#key-features)
-    - [Advantages](#advantages-1)
-    - [Disadvantages](#disadvantages-1)
+- [HTTP/1 vs HTTP/2 vs HTTP/3](#http1-vs-http2-vs-http3)
 
 <br>
 <br>
@@ -132,6 +127,19 @@ Connection Termination
 - No reliability: Packets can be lost, out-of-order, or corrupted.
 - No Congestion Control: Can overwhelm the recipient network if not carefully managed.
 - More Work for the Application: Application need to handle missing packets, ordering & retransmission.
+
+<br>
+<br>
+<br>
+
+### HTTP/1 vs HTTP/2 vs HTTP/3
+
+#### HTTP/1
+
+- HTTP/1 uses plain text communication between the client and server, which is easy to read but inefficient.
+- HTTP/1 creates a new TCP connection per request, which increases latency because of repeated handshakes. Also, it limits concurrency as a browser can only open around 6-8 connections for each server.
+- HTTP/1.1 introduced persistent (keep-alive) connections which allows multiple requests to be sent through the same TCP connection. This introduced a new challenge of "Head of the line blocking". One slow request slows down all the other subsequent request as these requests are processed sequentially.
+- Not recommended. Upgrade to HTTP/2.
 
 <br>
 <br>
