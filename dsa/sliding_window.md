@@ -104,7 +104,9 @@ Use Cases:
 <br>
 
 ### Subarrays containing k odd numbers
+
 - Problem: Given an array of integers nums and an integer k. Return the number of continuous subarrays that contains k odd numbers.
+- Link: https://leetcode.com/problems/count-number-of-nice-subarrays/
 
 ---
 - **Algorithm**: Simplify the given problem to a simpler problem. Fixed size sliding window.
@@ -253,12 +255,26 @@ Algorithm to count subarrays with k distinct integers.
 <br>
 <br>
 
+### Minimum window substring
+
+- Problem: Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+- Link: https://leetcode.com/problems/minimum-window-substring/
+
+---
+
+- **Algorithm**: Character frequency + Missing count
+- Create a `hashmap` that will keep track of frequency of characters in the window.
+- Create a `count` variable that will indicate the count of required characters missing from the window.
+- Populate the `hashmap` & `count` using string `t`. Missing characters will always have positive frequency.
+- Use these 2 variables to expand and shrink the window and find the minimum length.
+- **Note**: A `hash_array` holding uppercase & lowercase alphabets will have length `58`, starting from `65`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
 <br>
 <br>
-<br>
-<br>
-
-- Problem: subarray sum greater than k
