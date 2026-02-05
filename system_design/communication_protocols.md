@@ -138,8 +138,28 @@ Connection Termination
 
 - HTTP/1 uses plain text communication between the client and server, which is easy to read but inefficient.
 - HTTP/1 creates a new TCP connection per request, which increases latency because of repeated handshakes. Also, it limits concurrency as a browser can only open around 6-8 connections for each server.
-- HTTP/1.1 introduced persistent (keep-alive) connections which allows multiple requests to be sent through the same TCP connection. This introduced a new challenge of "Head of the line blocking". One slow request slows down all the other subsequent request as these requests are processed sequentially.
+- HTTP/1.1 introduced persistent (keep-alive) connections which allows multiple requests to be sent through the same TCP connection. This introduced a new challenge of "Head of the line blocking". One slow request slows down all the other subsequent requests as these requests are processed sequentially.
 - Not recommended. Upgrade to HTTP/2.
+
+<br>
+
+#### HTTP/2
+
+- HTTP/2 uses binary representation for client - server communication. Which is more efficient for parsing and transmission.
+- HTTP/2 supports **multiplexing**, allowing multiple requests and responses to be sent over a single TCP connection without waiting for each other. This eliminates the head-of-line blocking issue of HTTP/1.
+- HTTP/2 uses HPACK (a compression algorithm) to reduce the size of HTTP headers, which saves bandwidth and reduce latency.
+- HTTP/2 supports **server push**, which allows servers to send resources (like CSS, JS files) to the client proactively before the client even requests them, based on previous requests (HTML files). This can speed up page loads, but should be used cautiously.
+- Recommended for all websites because most modern browsers support HTTP/2.
+
+<br>
+
+#### HTTP/3
+
+- HTTP/3 is built on top of QUIC protocol, which uses UDP instead of TCP for communication. Similar to HTTP/2, communication happens using binary data.
+- HTTP/3 uses more efficient handshake process which establishes connection faster and reduces latency. QUIC allows for **0-RTT** (zero round-trip time) connection establishment, meaning clients can begin sending data before the handshake is fully complete.
+- QUIC natively encrypts traffic, making HTTP/3 more secure by default compared to previous versions that require additional SSL/TLS layers.
+- Due to faster handshake, 0-RTT and low latency, HTTP/3 is more efficient for real-time applications like data streaming, video conference, online gaming, etc.
+- Not widely used, but adoption is growing.
 
 <br>
 <br>
