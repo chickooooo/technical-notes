@@ -150,6 +150,24 @@
 <br>
 <br>
 
+### Delete node in BST
+
+- Problem: Delete a node with a given key from a Binary Search Tree (BST) and return the updated root. The process involves first searching for the node, and if found, removing it while maintaining BST properties.
+- Link: https://leetcode.com/problems/delete-node-in-a-bst/
+
+---
+
+- **Algorithm**: Inorder successor + Reattach left/right
+- Go to left or right node until we find the node to delete.
+- If the target is a leaf node, return `None`.
+- If the target does not have a right child, replace the target with its left child. Replacement can be done by updating the target's value and left & right child.
+- If the target has right node, replace it with its inorder successor. Handle 2-3 cases that may occur in this scenario.
+- While going up, reattach the left or right node and return the current node.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
