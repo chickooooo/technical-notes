@@ -10,6 +10,7 @@
 
 - [TCP](#tcp)
 - [UDP](#udp)
+- [QUIC](#quic)
 - [HTTP/1 vs HTTP/2 vs HTTP/3](#http1-vs-http2-vs-http3)
 
 <br>
@@ -127,6 +128,38 @@ Connection Termination
 - No reliability: Packets can be lost, out-of-order, or corrupted.
 - No Congestion Control: Can overwhelm the recipient network if not carefully managed.
 - More Work for the Application: Application need to handle missing packets, ordering & retransmission.
+
+<br>
+<br>
+<br>
+
+### QUIC
+
+- QUIC stands for Quick UDP Internet Connection.
+- It is a connection-oriented, secure transport protocol that runs over UDP.
+- Instead of relying on TCP for reliability and TLS for security, QUIC implements both itself in user space.
+- HTTP/3 uses QUIC as its transport layer.
+
+<br>
+
+#### Key features & advantages
+
+- Runs over UDP: Uses UDP as a base, but adds reliability, ordering and congestion control.
+- Built-in Security: QUIC has TLS 1.3 encryption integrated into the protocol.
+- Fast Connection Establishment: 1-RTT handshake for new connections. 0-RTT for repeat connections (client can send data immediately).
+- Allows stream multiplexing without head-of-line blocking.
+- Connection Migration:
+    - Connections are identified by a Connection ID, not IP + port.
+    - If IP changes (e.g., Wi-Fi to mobile data switch), the connection can continue. This is huge for mobile users.
+
+<br>
+
+#### Disadvantages
+
+- Some firewalls, NATs, and proxies block or throttle UDP. Can cause fallback to TCP.
+- More complex than TCP: reliability, security & congestion control all are handled in one protocol.
+- User-space implementation and encryption increase CPU usage.
+- 0-RTT data can be replayed by attackers. Requires careful application-level handling.
 
 <br>
 <br>
