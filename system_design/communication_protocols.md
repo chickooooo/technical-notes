@@ -12,6 +12,7 @@
 - [UDP](#udp)
 - [QUIC](#quic)
 - [HTTP/1 vs HTTP/2 vs HTTP/3](#http1-vs-http2-vs-http3)
+- [Polling (short & long)](#polling-short--long)
 
 <br>
 <br>
@@ -82,6 +83,7 @@ Connection Termination
 <br>
 <br>
 <br>
+<br>
 
 ### UDP
 
@@ -132,6 +134,7 @@ Connection Termination
 <br>
 <br>
 <br>
+<br>
 
 ### QUIC
 
@@ -161,6 +164,7 @@ Connection Termination
 - User-space implementation and encryption increase CPU usage.
 - 0-RTT data can be replayed by attackers. Requires careful application-level handling.
 
+<br>
 <br>
 <br>
 <br>
@@ -197,9 +201,96 @@ Connection Termination
 <br>
 <br>
 <br>
+<br>
+
+### Polling (short & long)
+
+- In polling, a client repeatedly sends requests to the server at regular intervals to fetch data.
+- Here, the client is responsible for initiating the request.
+- The server responds with the current state, regardless of whether anything has changed since the last request.
+- There are two types of polling: short and long.
+
+<br>
+<br>
+
+#### Short polling
+
+- In short polling, the client sends requests to the server at a fixed, frequent interval (e.g. every 5 seconds).
+- The server responds immediately with whatever data it currently has, even if there are no new updates.
+
+---
+
+Key characteristics:
+
+- Requests are sent on a fixed schedule.
+- Responses are immediate.
+- Many responses may contain no new data.
+- Easy to implement and debug.
+
+---
+
+Drawbacks:
+
+- Wastes bandwidth and server resources when updates are rare.
+- Does not provide true real-time behavior.
+- Can cause thundering-herd effects if many clients poll at the same time.
+
+---
+
+Use short polling when:
+
+- Near-real-time updates are not required.
+- The number of clients is relatively small.
+- Simplicity is more important than efficiency.
+
+<br>
+<br>
+
+#### Long polling
+
+- In long polling, the client initiates the request and the server holds the request open until new data becomes available or a timeout occurs.
+- Once the server responds, the client immediately sends a new request to wait for the next update.
+
+---
+
+Key characteristics:
+
+- Requests stay open for a longer duration.
+- The server responds only when data is available or a timeout is reached.
+- Behavior approximates real-time updates.
+- Fewer empty responses compared to short polling.
+
+---
+
+Drawbacks:
+
+- More complex server and client side logic.
+- Each connection costs server rousources. Not ideal for infrequent updates.
+
+---
+
+Use long polling when:
+
+- Clients need near-real-time updates.
+- WebSockets or SSE are not available or not feasible.
+
+<br>
+<br>
+
+#### When to prefer polling over SSE & Websockets
+
+- If the environment does not supports long-lived connections (SSE & websockets).
+- If the frequency of updates is rare.
+- If the number of clients is relatively low and a simple solution is required.
+
+<br>
+<br>
+<br>
+<br>
 
 ### 
 
+<br>
 <br>
 <br>
 <br>
