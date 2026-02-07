@@ -114,6 +114,23 @@ _ ___ _ ___
 <br>
 <br>
 
+### Merge triplets to form target triplet
+
+- Problem: You're given a list of integer triplets and a target triplet. You can repeatedly pick two different triplets and replace one of them with the element-wise maximum of the two. Determine whether it's possible to end up with the target triplet as one of the triplets.
+- Link: https://leetcode.com/problems/merge-triplets-to-form-target-triplet/
+
+---
+
+- **Algorithm**: Greedy selection
+- Iterate through the triplets array. If any of the triplet element is greater than it's corresponding target value, we ignore that triplet.
+- If all triplet values are lower than target values, find element-wise max and store it in `current` triplet.
+- At each step, check if `current` is same as `target`. If yes, return `True`.
+- If reached the end of iteration, return `False`.
+
+<br>
+<br>
+<br>
+
 ### 
 
 <br>
