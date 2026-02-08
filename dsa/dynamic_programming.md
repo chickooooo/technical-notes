@@ -474,6 +474,10 @@ Space optimised
 - Base conditions:
     - If `i >= j`, then answer is `0`.
 
+<br>
+<br>
+<br>
+
 ### Minimum falling path sum
 
 - Problem: Given an n × n integer matrix, find the minimum sum of a falling path from the top row to the bottom. From each cell, you may move to the cell directly below or diagonally down-left or down-right in the next row.
@@ -538,6 +542,24 @@ Space optimised
 ---
 
 `O(n)` time complexity solution possible.
+
+<br>
+<br>
+<br>
+
+### Matrix chain multiplication
+
+- Problem: Given an array `arr[]` where the ith matrix has dimensions (`arr[i−1]` × `arr[i]`), find the minimum number of scalar multiplications needed to multiply the sequence of matrices.
+- Link: https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1
+
+---
+
+- Assumption: `f(i, j)` represents the minimum no. of multiplications to multiply all the matrices starting from index `i` till index `j`.
+- To find: `f(0, n-2)`
+- Functional equation: `f(i, j) = min( f(i, k) + f(k+1, j) + A[i] * A[k+1] * A[j+1] )`
+- Range: `i ∈ [0, n-2]`, `j ∈ [0, n-2]`, `k ∈ [i, j-1]`
+- Base conditions:
+    - If `i == j` then answer is `0`.
 
 <br>
 <br>
