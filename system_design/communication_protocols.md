@@ -13,6 +13,7 @@
 - [QUIC](#quic)
 - [HTTP/1 vs HTTP/2 vs HTTP/3](#http1-vs-http2-vs-http3)
 - [Polling (short & long)](#polling-short--long)
+- [Server sent events (SSE)](#server-sent-events-sse)
 
 <br>
 <br>
@@ -282,6 +283,65 @@ Use long polling when:
 - If the environment does not supports long-lived connections (SSE & websockets).
 - If the frequency of updates is rare.
 - If the number of clients is relatively low and a simple solution is required.
+
+<br>
+<br>
+<br>
+<br>
+
+### Server sent events (SSE)
+
+- Server sent events are used to push real-time updates from a server to the client **over HTTP**.
+- The client opens a long-lived HTTP connection to the server. The server then continuously stream events to the client as they occur.
+- This is unidirectional communication, data flows from the server to the client.
+
+<br>
+
+#### How SSE works
+
+- The client sends a normal HTTP request to the server using the `EventSource` API.
+- The server responds with a special content type: `text/event-stream`. This keeps the connection open, instead of closing after the response.
+- The server sends data to the client in a simple text-based event format whenever new information is available.
+- The client receives and processes these events in real time.
+- After end of the stream, the server asks the client to close the connection by sending `event: end`.
+- The client can then close the connection by calling `eventSource.close()`.
+- If the connection is dropped midway or server tries to close it, the browser automatically attempts to reconnect.
+
+<br>
+
+#### Key Features
+
+- Events: Data is sent as events and each event includes `{ eventId, eventName, payload }`.
+- Text based communication: SSE transfers data in text format using Base64 encoding.
+- Unidirectional communication: Data flows only from server to the client.
+- Event ordering: Messages are received in the order they are sent.
+- Automatic reconnection: Browsers automatically reconnect if the connection is lost.
+
+<br>
+
+#### Drawbacks
+
+- One-way communication only: The client cannot push data back to the server over the same connection.
+- Text-only data: Binary data must be encoded (e.g. using Base64), increasing overhead.
+- Complex implementation: Server needs to handle reconnections and event playbacks carefully.
+
+<br>
+
+#### When to use vs when not to use
+
+Use SSE when
+
+- The server needs to push updates to clients in real time.
+- The data being sent is text-based.
+- Simple implementation over HTTP is preferred instead of web socket protocol.
+
+---
+
+Don't use SSE when
+
+- The application requires bidirectional communication.
+- Binary data is heavily used.
+- Extremely high concurrency is expected without specialized infrastructure.
 
 <br>
 <br>
