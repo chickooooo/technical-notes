@@ -134,7 +134,23 @@
 <br>
 <br>
 
-###
+### Count and say
+
+- Problem: The count-and-say sequence starts with "1". Each next term is formed by run-length encoding the previous term (counting consecutive digits and saying the count followed by the digit). Given a positive integer n, return the n-th term of the count-and-say sequence.
+- Link: https://leetcode.com/problems/count-and-say/
+
+---
+
+- **Algorithm**: Count of consecutive same elements
+- Start with `running_str = "1"` and iteratively loop till `n` is greater than 1.
+- At each step, find the count of consecutive same elements and add `"{count}{num}"` to the `temp` string.
+- After the loop, update `running_str` with `temp`. Return `running_str` at the end.
+
+<br>
+<br>
+<br>
+
+### 
 
 <br>
 <br>
