@@ -8,12 +8,150 @@
 
 ## Index
 
+- [Datatypes](#datatypes)
 - [Declaring variables](#declaring-variables)
 - [Hoisting](#hoisting)
 - [Temporal Dead Zone](#temporal-dead-zone)
 - [Scope](#scope)
 - [Currying](#currying)
 - [Async-Await](#async-await)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Datatypes
+
+- JavaScript has 8 fundamental data types.
+- These are divided into primitive and non-primitive (reference) types.
+
+<br>
+
+### Number
+
+- The `number` type represents both integer and floating-point values.
+- JS does not have separate types for integers and decimals; both are number.
+
+```js
+let age = 25;
+let price = 99.99;
+```
+
+<br>
+
+### BigInt
+
+- `BigInt` is used to represent integers larger than the safe limit for regular numbers
+(> 2⁵³ − 1 or < −(2⁵³ − 1)).
+- A BigInt is created by appending n to the end of a number.
+- BigInt allows safe calculations with very large integers.
+
+```js
+let bigNumber = 12345678901234567890n;
+```
+
+<br>
+
+### String
+
+- A string represents textual data. It can be written using single quotes, double quotes, or backticks.
+- Strings are immutable (they cannot be changed directly).
+
+```js
+let name = "Alice";
+let city = 'London';
+```
+
+<br>
+
+### Boolean
+
+- A boolean represents logical values: `true` or `false`.
+- Booleans are commonly used in conditions and comparisons.
+
+```js
+let isLoggedIn = true;
+let hasPermission = false;
+```
+
+<br>
+
+### Null
+
+- `null` represents the intentional absence of a value. It is assigned explicitly.
+- It means 'no value' or 'empty'.
+
+```js
+let selectedUser = null;
+```
+
+<br>
+
+### Undefined
+
+- `undefined` means a variable has been declared but not assigned a value.
+- It indicates that a value does not exist yet.
+
+```js
+let score;
+console.log(score); // undefined
+```
+
+<br>
+
+### Symbol
+
+- A `symbol` is a unique and immutable value, often used as object property keys.
+- Each symbol is unique, even if created with the same description.
+
+```js
+let id = Symbol("id");
+```
+
+<br>
+
+### Object
+
+- An `object` is a collection of related data stored as key-value pairs.
+- **Note**: Arrays also fall under the `object` type.
+
+```js
+let person = {
+  name: "John",
+  age: 30
+};
+
+let arr = [1, 2, 3];
+console.log(typeof arr); // "object"
+```
+
+<br>
+<br>
+
+### Primitive datatypes
+
+- First 7 datatypes are primitive in nature.
+- They are immutable and are stored by value.
+- They generally hold a single value.
+
+```js
+let a = 10;
+let b = a;
+b = 20;
+
+console.log(a); // 10 (original value unchanged)
+```
+
+<br>
+
+### Non-primitive datatypes
+
+- Also known as **reference types**.
+- `object` is the only non-primitive datatype.
+- They are mutable and are stored by reference.
+- They can hold multiple values.
 
 <br>
 <br>
