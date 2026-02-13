@@ -11,6 +11,7 @@
 - [What is caching?](#what-is-caching)
 - [Types of cache](#types-of-cache)
 - [Caching strategies](#caching-strategies)
+- [Cache eviction policies](#cache-eviction-policies)
 
 <br>
 <br>
@@ -162,6 +163,49 @@ This strategy is ideal when:
 
 - Write operations are frequent but reads are infrequent.
 - We want to avoid polluting the cache with rarely accessed data.
+
+<br>
+<br>
+<br>
+<br>
+
+### Cache eviction policies
+
+- When a cache becomes full, it must decide which existing item to remove to make space for a new one.
+- This process is known as cache eviction. Following are some of the commonly used cache eviction policies:
+
+<br>
+
+#### Least recently used (LRU)
+
+- LRU removes the item that has not been accessed for the longest time.
+- It assumes that if something hasn't been used recently, it is less likely to be used soon.
+- This policy is simple to implement and most commonly used.
+
+<br>
+
+#### Least frequently used (LFU)
+
+- LFU removes the item that has been accessed the fewest number of times.
+- It assumes that items accessed more frequently in the past will continue to be important.
+- This policy is ideal when we have popular items in the system.
+
+<br>
+
+#### First in first out (FIFO)
+
+- FIFO removes the oldest inserted item, regardless of usage.
+- It does not consider recency or frequency.
+- Ideal when cache freshness is more important than usage pattern.
+
+<br>
+
+#### Time to live (TTL)
+
+- Items expire automatically after a fixed time.
+- TTL is often combined with LRU or LFU.
+- Ideal when cache freshness and usage pattern are equally important.
+- This policy is commonly used for API response and DB queries.
 
 <br>
 <br>
