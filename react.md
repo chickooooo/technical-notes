@@ -14,6 +14,7 @@
 - [useRef Hook](#useref-hook)
 - [Controlled & Uncontrolled components](#controlled--uncontrolled-components)
 - [Virtual DOM](#virtual-dom)
+- [Reconciliation & Diffing algorithm](#reconciliation--diffing-algorithm)
 
 <br>
 <br>
@@ -660,6 +661,44 @@ function Counter() {
 - Virtual DOM make the updates very fast and efficient.
 - Component re-rendering does not mean actual DOM re-rendering.
 - It only affects the virtual DOM and then the necessary changes are updated in the real DOM.
+
+<br>
+<br>
+<br>
+<br>
+
+### Reconciliation & Diffing algorithm
+
+#### Reconciliation
+
+- When a state change happens in React, it:
+  - Creates a new Virtual DOM tree.
+  - Compares it with the previous Virtual DOM tree.
+  - Calculates the minimum number of changes needed.
+  - Updates only those specific parts in the real DOM.
+- This comparison and update process is called reconciliation.
+- The goal of reconciliation is performance optimization by minimizing direct DOM manipulation.
+
+<br>
+<br>
+
+#### Diffing algorithm
+
+- It is the algorithm that compares old VDOM with the new VDOM and efficiently find the changes to be implemented in the real DOM.
+- It is based on two main assumptions:
+
+<br>
+
+**Elements of different types will produce different trees**
+
+- If two elements have different types, React removes the old element (and subtree) and creates a new one.
+- If they are of the same type, React updates only the changed attributes.
+
+<br>
+
+**`key` prop helps React identify which list items have changed**
+
+- When dealing with lists, React uses the `key` prop to track items and avoid unnecessary re-renders.
 
 <br>
 <br>
