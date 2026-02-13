@@ -13,6 +13,7 @@
 - [Props and prop drilling](#props-and-prop-drilling)
 - [useRef Hook](#useref-hook)
 - [Controlled & Uncontrolled components](#controlled--uncontrolled-components)
+- [Virtual DOM](#virtual-dom)
 
 <br>
 <br>
@@ -597,6 +598,68 @@ function UncontrolledInput() {
 <br>
 
 - React suggests using Controlled components over uncontrolled components.
+
+<br>
+<br>
+<br>
+<br>
+
+### Virtual DOM
+
+- Virtual DOM is a lightweight copy of the real browser DOM kept in memory.
+- Instead of directly manipulating the real DOM every time, React first updates this virtual representation and then efficiently updates only the necessary parts of the real DOM.
+
+<br>
+<br>
+
+#### Why it is needed?
+
+- Directly updating the real DOM is slow. Layout calculations and repainting take time.
+- Frequent direct updates can reduce performance.
+
+<br>
+<br>
+
+#### How it works?
+
+- React maintains a virtual DOM in-memory based on the components structure.
+- When state or props change, React creates a **new Virtual DOM tree**.
+- React then compares the new Virtual DOM with the previous Virtual DOM.
+- It calculates the smallest number of changes needed and updates only those specific elements in the real DOM.
+
+<br>
+<br>
+
+#### Example
+
+```jsx
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+- When the button is clicked, `setCount` updates the state.
+- React then re-renders (not repaints) the current component and all the child components.
+- It then creates a new virtual DOM and compares it with the old one. Here, only the text inside `<h1>` has changed from "Count: 0" to "Count: 1".
+- React identifies this change and updates only that specific text node in the real DOM instead of reloading the entire `<div>` or page.
+
+<br>
+<br>
+
+#### Key points
+
+- Virtual DOM make the updates very fast and efficient.
+- Component re-rendering does not mean actual DOM re-rendering.
+- It only affects the virtual DOM and then the necessary changes are updated in the real DOM.
 
 <br>
 <br>
