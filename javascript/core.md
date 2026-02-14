@@ -9,6 +9,7 @@
 ## Index
 
 - [Datatypes](#datatypes)
+- [Operators](#operators)
 - [Declaring variables](#declaring-variables)
 - [Hoisting](#hoisting)
 - [Temporal Dead Zone](#temporal-dead-zone)
@@ -152,6 +153,90 @@ console.log(a); // 10 (original value unchanged)
 - `object` is the only non-primitive datatype.
 - They are mutable and are stored by reference.
 - They can hold multiple values.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Operators
+
+### Arithmetic operators
+
+- Used to perform basic mathematical operations.
+
+<br>
+
+| Operator | Description         | Example | Result |
+| -------- | ------------------- | ------- | ------ |
+| `+`      | Addition            | `5 + 2` | `7`    |
+| `-`      | Subtraction         | `5 - 2` | `3`    |
+| `*`      | Multiplication      | `5 * 2` | `10`   |
+| `/`      | Division            | `5 / 2` | `2.5`  |
+| `%`      | Modulus (remainder) | `5 % 2` | `1`    |
+
+<br>
+<br>
+
+### Assignment operators
+
+- Used to update variable values.
+
+<br>
+
+| Operator | Meaning             | Example  | Equivalent To |
+| -------- | ------------------- | -------- | ------------- |
+| `+=`     | Add and assign      | `x += 5` | `x = x + 5`   |
+| `-=`     | Subtract and assign | `x -= 5` | `x = x - 5`   |
+| `*=`     | Multiply and assign | `x *= 5` | `x = x * 5`   |
+| `/=`     | Divide and assign   | `x /= 5` | `x = x / 5`   |
+
+<br>
+<br>
+
+### Increment and decrement
+
+- Used to increase or decrease a value by 1.
+
+<br>
+
+| Operator | Description    |
+| -------- | -------------- |
+| `++`     | Increment by 1 |
+| `--`     | Decrement by 1 |
+
+<br>
+
+```js
+let count = 5;
+
+count++; // 6
+count--; // 5
+```
+
+```js
+let x = 5;
+
+console.log(++x); // 6 (increments first, then prints)
+console.log(x++); // 6 (prints first, then increments)
+console.log(x);   // 7
+```
+
+<br>
+<br>
+
+### `typeof` operator
+
+- Used to check the data type of a value.
+
+```js
+typeof 42;          // "number"
+typeof "Hello";     // "string"
+typeof true;        // "boolean"
+typeof undefined;   // "undefined"
+typeof null;        // "object" (known JavaScript quirk)
+```
 
 <br>
 <br>
