@@ -12,6 +12,8 @@
 - [Types of cache](#types-of-cache)
 - [Caching strategies](#caching-strategies)
 - [Cache eviction policies](#cache-eviction-policies)
+- [Cache stampede](#cache-stampede)
+- [Hot key problem](#hot-key-problem)
 
 <br>
 <br>
@@ -54,7 +56,7 @@
 
 #### Server cache
 
-- Here, the data is stored on the application server itself.
+- Here, the data is stored on the application server itself. Also known as **In-process cache**.
 - It is the fastest form of caching as it avoids making any external network calls.
 - Ideal when we want low latency and want to avoid frequent external calls.
 - Example: caching lookup table / configs, etc.
@@ -206,6 +208,73 @@ This strategy is ideal when:
 - TTL is often combined with LRU or LFU.
 - Ideal when cache freshness and usage pattern are equally important.
 - This policy is commonly used for API response and DB queries.
+
+<br>
+<br>
+<br>
+<br>
+
+### Cache stampede
+
+- A Cache stampede happens when a popular cache entry expires and many requests simultaneously try to get the same data from the database.
+- This suddenly overloads the database and can take down the DB.
+- This problem is also referred to as the **Thundering Herd Problem**
+
+<br>
+<br>
+
+#### Mitigation strategies
+
+**Cache locking**
+
+- This strategy allows only one request to rebuild the cache, while others wait.
+- When the first request arrives, it acquires a lock for that key and goes to the database to get the data.
+- In the meantime, other requests wait for the lock to be released.
+- When the first request comes back with the data, it saves it in the cache and releases the lock.
+- All the waiting requests now read the data from the cache, avoiding database hits.
+
+<br>
+
+**Proactive refresh**
+
+- This strategy proactively refreshed the cache data just before it expires.
+- Here, new data is fetched from the database and updated in the cache.
+- In this scenario, ideally the cache never expires.
+
+<br>
+<br>
+<br>
+<br>
+
+### Hot key problem
+
+- Hot key problem occurs in a distributed caching system.
+- When one specific cache key receives extremely high traffic, we say that is a hot key.
+- A hot key receives majority of the traffic thus overloading that server. While other server have very less usage.
+
+<br>
+<br>
+
+#### Mitigation strategies
+
+**Replicate hot key**
+
+- Instead of storing the hot key on only one server, replicate it across multiple servers using **key splitting**.
+- The application randomly chooses one of the copies when reading.
+
+```
+product:iphone15:1
+product:iphone15:2
+product:iphone15:3
+```
+
+<br>
+
+**Add a local (in-process) cache**
+
+- Along with the main cache, also cache the hot key on application severs.
+- This local cache is fast (no network call) and reduces pressure on the distributed cache.
+- Companies like Netflix use layered caching approaches like this.
 
 <br>
 <br>
