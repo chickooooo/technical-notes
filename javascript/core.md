@@ -10,6 +10,7 @@
 
 - [Datatypes](#datatypes)
 - [Operators](#operators)
+- [Conditional statements](#conditional-statements)
 - [Declaring variables](#declaring-variables)
 - [Hoisting](#hoisting)
 - [Temporal Dead Zone](#temporal-dead-zone)
@@ -236,6 +237,135 @@ typeof "Hello";     // "string"
 typeof true;        // "boolean"
 typeof undefined;   // "undefined"
 typeof null;        // "object" (known JavaScript quirk)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Conditional statements
+
+### `if`, `else if`, `else`
+
+- Used to execute code based on conditions.
+
+```js
+let age = 18;
+
+if (age > 18) {
+  console.log("Adult");
+} else if (age === 18) {
+  console.log("Just became adult");
+} else {
+  console.log("Minor");
+}
+```
+
+<br>
+<br>
+
+### Comparison operators
+
+- Used to compare values.
+- Always prefer `===` instead of `==` to avoid type coercion issues.
+
+| Operator | Meaning                     |
+| -------- | --------------------------- |
+| `>`      | Greater than                |
+| `>=`     | Greater than or equal       |
+| `<`      | Less than                   |
+| `<=`     | Less than or equal          |
+| `===`    | Strict equal (value + type) |
+| `!==`    | Strict not equal            |
+
+<br>
+<br>
+
+### Logical operators
+
+- Used to combine conditions.
+
+| Operator | Meaning                     |
+| -------- | --------------------------- |
+| `&&`     | AND (both must be true)     |
+| `ll`     | OR (at least one true)      |
+| `!`      | NOT (reverse boolean value) |
+
+
+<br>
+<br>
+
+### Truthy and falsy values
+
+- In JS, values are automatically converted to `true` or `false` in conditions.
+- Falsy values: `false`, `0`, `""`, `null`, `undefined`, `NaN`.
+- All other values are truthy. 
+
+<br>
+<br>
+
+### Short circuit evaluation
+
+- OR (`||`) always returns the first truthy value.
+- If both are falsy, returns the second value.
+
+```js
+let username = "";
+let defaultName = username || "Stranger";
+
+console.log(defaultName); // "Stranger"
+```
+
+<br>
+
+- AND (`&&`) always returns the first falsy value.
+- If both are truthy, returns the second value.
+- Second expression is evaluated only if first is truthy.
+
+```js
+let isLoggedIn = true;
+isLoggedIn && console.log("Welcome!");
+
+// Welcome!
+```
+
+<br>
+<br>
+
+### Ternary operator
+
+- Short form of `if-else`.
+
+```js
+let age = 20;
+
+let message = age >= 18 ? "Adult" : "Minor";
+console.log(message);  // Adult
+```
+
+<br>
+<br>
+
+### Switch statement
+
+- Used when checking multiple possible values of the same variable.
+- `break` is important to prevent fall-through.
+
+```js
+let day = 2;
+
+switch (day) {
+  case 1:
+    console.log("Monday");
+    break;
+  case 2:
+    console.log("Tuesday");
+    break;
+  default:
+    console.log("Invalid day");
+}
 ```
 
 <br>
