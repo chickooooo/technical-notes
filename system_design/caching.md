@@ -14,6 +14,7 @@
 - [Cache eviction policies](#cache-eviction-policies)
 - [Cache stampede](#cache-stampede)
 - [Hot key problem](#hot-key-problem)
+- [Cache warm up](#cache-warm-up)
 
 <br>
 <br>
@@ -275,6 +276,17 @@ product:iphone15:3
 - Along with the main cache, also cache the hot key on application severs.
 - This local cache is fast (no network call) and reduces pressure on the distributed cache.
 - Companies like Netflix use layered caching approaches like this.
+
+<br>
+<br>
+<br>
+<br>
+
+### Cache warm up
+
+- Cache warm up is the process of preloading data into cache before real traffic hits the system.
+- This reduces the sudden database load just after a cold start.
+- This is done by populating most frequently used data in the cache.
 
 <br>
 <br>
