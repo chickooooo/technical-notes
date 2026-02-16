@@ -14,6 +14,7 @@
 - [HTTP/1 vs HTTP/2 vs HTTP/3](#http1-vs-http2-vs-http3)
 - [Polling (short & long)](#polling-short--long)
 - [Server sent events (SSE)](#server-sent-events-sse)
+- [Websocket](#websocket)
 
 <br>
 <br>
@@ -342,6 +343,76 @@ Don't use SSE when
 - The application requires bidirectional communication.
 - Binary data is heavily used.
 - Extremely high concurrency is expected without specialized infrastructure.
+
+<br>
+<br>
+<br>
+<br>
+
+### Websocket
+
+- Websocket allows two-way (full-duplex), persistent communication between a client and a server.
+- This communication happens over a single TCP connection.
+
+<br>
+
+#### How websockets work?
+
+- Websocket communication start with a normal HTTP request.
+- The client sends a special request to upgrade the connection to **websocket**.
+
+```
+GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+```
+
+- The server then upgrades the connection and responds with **101 Switching Protocols**.
+
+```
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+```
+
+- Note that: The handshake uses HTTP, but after that the communication is no longer HTTP.
+- After a persistent TCP connection is established, both client and server can start sending messages.
+- Messages are sent in lightweight frames (very low overhead compared to HTTP).
+
+<br>
+
+#### Key features
+
+- Persistent connection: The communication happens over a single persistent TCP connection.
+- Full duplex communication: Both client and server can send data anytime.
+- Low latency: No repeated HTTP headers. No repeated TCP handshakes.
+
+<br>
+
+#### Drawbacks
+
+- More complex infrastructure: Dedicated websocket servers might be required at scale. Load balancing and connection management is complex.
+- Resource usage: Open connections increase memory and file descriptors usage.
+- Firewall / Proxy issue: Some firewalls and proxies block websocket connection.
+
+<br>
+
+#### When to use vs when not to use
+
+Use websockets when
+
+- We need real-time bidirectional communication.
+- Low latency is important.
+- Frequent updates are required.
+
+---
+
+Don't use websockets when
+
+- Updates are infrequent. Polling will do the job.
+- Bidirectional communication is required, but not realtime.
+- We don't want additional complexity for simple usecase.
 
 <br>
 <br>
