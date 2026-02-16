@@ -11,6 +11,7 @@
 - [Datatypes](#datatypes)
 - [Operators](#operators)
 - [Conditional statements](#conditional-statements)
+- [Functions](#functions)
 - [Declaring variables](#declaring-variables)
 - [Hoisting](#hoisting)
 - [Temporal Dead Zone](#temporal-dead-zone)
@@ -366,6 +367,154 @@ switch (day) {
   default:
     console.log("Invalid day");
 }
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Functions
+
+### Function declaration & hoisting
+
+- Hoisting allows a function declared with `function` to be called before it is defined in the code.
+
+```js
+greet(); // Hello!
+
+function greet() {
+  console.log("Hello!");
+}
+```
+
+<br>
+<br>
+
+### Helper function
+
+- A helper function is a function called inside another function to perform a sub-task.
+
+```js
+function formatName(name) {
+  return name.toUpperCase();
+}
+
+function greetUser(name) {
+  const formatted = formatName(name); // helper function
+  console.log(`Hello, ${formatted}`);
+}
+
+greetUser("Alice"); // Hello, ALICE
+```
+
+<br>
+<br>
+
+### Function expression
+
+- A function expression assigns a function to a variable.
+- Function expressions are not hoisted like function declarations.
+
+```js
+const greet = function() {
+  console.log("Hello!");
+};
+
+greet(); // Hello!
+```
+
+<br>
+<br>
+
+### Anonymous function
+
+- An anonymous function is a function without a name.
+- It is often used inside expressions or callbacks.
+
+```js
+setTimeout(function() {
+  console.log("Done!");
+}, 1000);
+```
+
+<br>
+<br>
+
+### Arrow function
+
+- An arrow function is a shorter syntax for writing functions.
+- Arrow functions are also not hoisted.
+
+```js
+const greet = () => {
+  console.log("Hello!");
+};
+
+greet(); // Hello!
+```
+
+<br>
+<br>
+
+### First class Objects
+
+- In JavaScript, functions are first class objects.
+- They can be:
+  - Stored in variables
+  - Passed as arguments
+  - Returned from other functions
+  - Have properties and methods
+
+```js
+function sayHello() {
+  console.log("Hello");
+}
+
+const fn = sayHello; // stored in variable
+fn(); // called
+```
+
+<br>
+<br>
+
+### Higher order function (HOF)
+
+- A higher order function is a function that:
+  - Takes a function as a parameter, OR
+  - Returns a function, OR
+  - Both
+
+```js
+function greet(name) {
+  return `Hello, ${name}`;
+}
+
+function processUserInput(callback) {
+  const name = "Alice";
+  console.log(callback(name));
+}
+
+processUserInput(greet); // Hello, Alice
+```
+
+<br>
+<br>
+
+### Callback function
+
+- A callback function is a function passed as an argument to another function.
+
+```js
+function fetchData(callback) {
+  console.log("Fetching data...");
+  callback();
+}
+
+fetchData(function() {
+  console.log("Data received!");
+});
 ```
 
 <br>
